@@ -36,28 +36,19 @@ namespace POSINV
 
         private void btnAddCategory_Click(object sender, EventArgs e)
         {
-            //create Category Object And Store To DB
-            CategoryModel category = new CategoryModel();
+            categoryName = textName.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(textName.Text))
-            {
-                //problem
+            if (categoryName.Length == 0)
+            {   //problem
                 MessageBox.Show("Category Name can not be empty");
                 return;
             }
-            else
-            {
-                category.CategoryName = textName.Text;
-            }
 
             //Add This To DB
-            SQLiteDataAccess.SaveCategory(category);
-            this.categoryName = category.CategoryName;
+            SQLiteDataAccess.SaveCategory(categoryName);
 
             this.DialogResult = DialogResult.OK;
             this.Close();
-
         }
-    
     }
 }

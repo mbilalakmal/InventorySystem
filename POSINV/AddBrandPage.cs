@@ -36,28 +36,19 @@ namespace POSINV
 
         private void btnAddBrand_Click(object sender, EventArgs e)
         {
-            //create Brand Object And Store To DB
-            BrandModel brand = new BrandModel();
+            brandName = textName.Text.Trim();
 
-            if ( string.IsNullOrWhiteSpace(textName.Text))
-            {
-                //problem
+            if ( brandName.Length == 0 )
+            {   //problem
                 MessageBox.Show("Brand Name can not be empty");
                 return;
             }
-            else
-            {
-                brand.BrandName = textName.Text;
-            }
 
             //Add This To DB
-            SQLiteDataAccess.SaveBrand(brand);
-            this.brandName = brand.BrandName;
+            SQLiteDataAccess.SaveBrand(brandName);
 
             this.DialogResult = DialogResult.OK;
             this.Close();
-
         }
-        
     }
 }

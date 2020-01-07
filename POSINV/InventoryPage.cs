@@ -19,6 +19,7 @@ namespace POSINV
         List<CategoryModel> categories = new List<CategoryModel>();
 
         List<ProductModel> products = new List<ProductModel>();
+        private readonly object product;
 
         public InventoryPage()
         {
@@ -61,18 +62,21 @@ namespace POSINV
             brands = SQLiteDataAccess.LoadBrands();
 
             //display brands in combo box
-            WireUpBrandList();
+            WireUpBrandComboBox();
 
             //display brands in datagridview
             WireUpBrandDataGridView();
         }
 
-        private void WireUpBrandList()
+        private void WireUpBrandComboBox()
         {
             comboBrand.DataSource = null;
+            comboBrand.Refresh();
+
             comboBrand.ValueMember = "brandId";
             comboBrand.DisplayMember = "brandName";
             comboBrand.DataSource = brands;
+            //comboBrand.Refresh();
         }
 
         private void WireUpBrandDataGridView()
@@ -86,13 +90,13 @@ namespace POSINV
             categories = SQLiteDataAccess.LoadCategories();
 
             //display categories in combo box
-            WireUpCategoryList();
+            WireUpCategoryComboBox();
 
             //display categories in datagridview
             WireUpCategoryDataGridView();
         }
 
-        private void WireUpCategoryList()
+        private void WireUpCategoryComboBox()
         {
             comboCategory.DataSource = null;
             comboCategory.ValueMember = "categoryId";
@@ -257,8 +261,8 @@ namespace POSINV
             //Reset Inputs
             resetProductInputs();
 
-            //reload Product Data Grid View
-            LoadProductList();
+            //reload Product Data Grid View     --CHANGE WITH list insertion and rewireing
+            LoadProductList();                //--NOT NEEDED
         }
 
         private void btnAddBrand_Click(object sender, EventArgs e)
@@ -392,9 +396,8 @@ namespace POSINV
                 
                 brands.Remove(brand);
 
-                WireUpBrandList();
-                WireUpBrandDataGridView();
-
+                LoadBrandList();
+                
                 //remove deleted from products and rewire
                 products.RemoveAll(
                     product => product.BrandName == brand.BrandName
@@ -417,12 +420,13 @@ namespace POSINV
                 SQLiteDataAccess.DeleteCategory( category.CategoryId );
 
                 LoadCategoryList();
-                LoadProductList();
 
                 //remove deleted from products and rewire
                 products.RemoveAll(
                     product => product.CategoryName == category.CategoryName
                 );
+
+                WireUpProductDataGridView();
             }
 
         }
@@ -439,21 +443,34 @@ namespace POSINV
 
         private void btnUpdateCategory_Click(object sender, EventArgs e)
         {
-            /*
+            CategoryModel category = (CategoryModel)dataGridViewCategory.CurrentRow.DataBoundItem;
 
-            //open new form with filled values
-            using (var form = new AddBrandPage())
+            string oldCategoryName = category.CategoryName;
+
+            using ( var form = new UpdateCategoryPage(category) )
             {
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    //reload list to include this brand
-                    LoadBrandList();
-                    comboBrand.Text = form.brandName;
+                    //reload list to include this category
+                    LoadCategoryList();
+
+                    //change in products datagrid
+                    foreach(ProductModel  product in products)
+                    {
+                        if( product.CategoryName.Equals(oldCategoryName))
+                        {
+                            product.CategoryName = category.CategoryName;
+                        }
+                    }
+
+                    //wireup datagrid
+                    WireUpProductDataGridView();
 
                 }
             }
-            */
+
+            
 
         }
     }

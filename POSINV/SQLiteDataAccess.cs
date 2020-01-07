@@ -95,25 +95,23 @@ namespace POSINV
             }
         }
 
-        public static void SaveCategory(CategoryModel category)
+        public static void SaveCategory(string categoryName)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                string sql = "INSERT OR IGNORE INTO CATEGORY (CATEGORYNAME" +
-                    ") VALUES (@CategoryName);";
+                string sql = @"INSERT OR IGNORE INTO CATEGORY (CATEGORYNAME) VALUES (@name)";
 
-                cnn.Execute(sql, category);
+                cnn.Execute(sql, new { name = categoryName });
             }
         }
 
-        public static void SaveBrand(BrandModel brand)
+        public static void SaveBrand(string brandName)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                string sql = "INSERT OR IGNORE INTO BRAND (BRANDNAME" +
-                    ") VALUES (@BrandName);";
+                string sql = @"INSERT OR IGNORE INTO BRAND (BRANDNAME) VALUES (@name)";
 
-                cnn.Execute(sql, brand);
+                cnn.Execute(sql, new { name = brandName });
             }
         }
 
@@ -159,6 +157,15 @@ namespace POSINV
             {
                 string sql = @"DELETE FROM CATEGORY WHERE CATEGORYID = @search";
                 cnn.Execute(sql, new { search = categoryId });
+            }
+        }
+
+        public static void UpdateCategory(int categoryId, string categoryName)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string sql = @"UPDATE OR IGNORE CATEGORY SET CATEGORYNAME = @name WHERE CATEGORYID = @id";
+                cnn.Execute(sql, new { name = categoryName, id = categoryId });
             }
         }
 
