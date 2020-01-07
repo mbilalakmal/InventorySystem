@@ -133,6 +133,35 @@ namespace POSINV
             }
         }
 
+        public static void DeleteProduct(int productId)
+        {
+            //delete where productId = ..
+
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()) ){
+                string sql = @"DELETE FROM PRODUCT WHERE PRODUCTID = @search";
+                cnn.Execute(sql, new { search = productId });
+            }
+
+        }
+
+        public static void DeleteBrand(int brandId)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string sql = @"DELETE FROM BRAND WHERE BRANDID = @search";
+                cnn.Execute(sql, new { search = brandId });
+            }
+        }
+
+        public static void DeleteCategory(int categoryId)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string sql = @"DELETE FROM CATEGORY WHERE CATEGORYID = @search";
+                cnn.Execute(sql, new { search = categoryId });
+            }
+        }
+
         private static string LoadConnectionString(string id = "Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;

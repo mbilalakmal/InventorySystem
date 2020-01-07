@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InventoryPage));
             this.mtcInventory = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPageAddProduct = new System.Windows.Forms.TabPage();
@@ -55,6 +56,7 @@
             this.tabSAddProduct = new MaterialSkin.Controls.MaterialTabSelector();
             this.labelName = new MaterialSkin.Controls.MaterialLabel();
             this.tabPageManageProduct = new System.Windows.Forms.TabPage();
+            this.textSearchProduct = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.btnSearchProduct = new MaterialSkin.Controls.MaterialRaisedButton();
             this.dataGridViewProduct = new System.Windows.Forms.DataGridView();
             this.materialDivider6 = new MaterialSkin.Controls.MaterialDivider();
@@ -62,23 +64,28 @@
             this.materialDivider4 = new MaterialSkin.Controls.MaterialDivider();
             this.tabSManageProduct = new MaterialSkin.Controls.MaterialTabSelector();
             this.tabPageManageBrand = new System.Windows.Forms.TabPage();
+            this.textSearchBrand = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.btnSearchBrand = new MaterialSkin.Controls.MaterialRaisedButton();
             this.dataGridViewBrand = new System.Windows.Forms.DataGridView();
             this.materialDivider7 = new MaterialSkin.Controls.MaterialDivider();
             this.materialDivider8 = new MaterialSkin.Controls.MaterialDivider();
             this.materialDivider9 = new MaterialSkin.Controls.MaterialDivider();
             this.tabSManageBrand = new MaterialSkin.Controls.MaterialTabSelector();
             this.tabPageManageCategory = new System.Windows.Forms.TabPage();
+            this.textSearchCategory = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.btnSearchCategory = new MaterialSkin.Controls.MaterialRaisedButton();
             this.dataGridViewCategory = new System.Windows.Forms.DataGridView();
             this.materialDivider10 = new MaterialSkin.Controls.MaterialDivider();
             this.materialDivider11 = new MaterialSkin.Controls.MaterialDivider();
             this.materialDivider12 = new MaterialSkin.Controls.MaterialDivider();
             this.tabSManageCategory = new MaterialSkin.Controls.MaterialTabSelector();
             this.openFilePicture = new System.Windows.Forms.OpenFileDialog();
-            this.textSearchProduct = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.textSearchBrand = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.btnSearchBrand = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.textSearchCategory = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.btnSearchCategory = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.btnDeleteProduct = new MaterialSkin.Controls.MaterialFlatButton();
+            this.btnDeleteBrand = new MaterialSkin.Controls.MaterialFlatButton();
+            this.btnDeleteCategory = new MaterialSkin.Controls.MaterialFlatButton();
+            this.btnUpdateCategory = new MaterialSkin.Controls.MaterialFlatButton();
+            this.btnUpdateBrand = new MaterialSkin.Controls.MaterialFlatButton();
+            this.btnUpdateProduct = new MaterialSkin.Controls.MaterialFlatButton();
             this.mtcInventory.SuspendLayout();
             this.tabPageAddProduct.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureProduct)).BeginInit();
@@ -530,6 +537,8 @@
             // tabPageManageProduct
             // 
             this.tabPageManageProduct.BackColor = System.Drawing.Color.White;
+            this.tabPageManageProduct.Controls.Add(this.btnUpdateProduct);
+            this.tabPageManageProduct.Controls.Add(this.btnDeleteProduct);
             this.tabPageManageProduct.Controls.Add(this.textSearchProduct);
             this.tabPageManageProduct.Controls.Add(this.btnSearchProduct);
             this.tabPageManageProduct.Controls.Add(this.dataGridViewProduct);
@@ -543,6 +552,25 @@
             this.tabPageManageProduct.Size = new System.Drawing.Size(934, 441);
             this.tabPageManageProduct.TabIndex = 1;
             this.tabPageManageProduct.Text = "Manage Products";
+            // 
+            // textSearchProduct
+            // 
+            this.textSearchProduct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textSearchProduct.Depth = 0;
+            this.textSearchProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textSearchProduct.Hint = "Product Name";
+            this.textSearchProduct.Location = new System.Drawing.Point(530, 82);
+            this.textSearchProduct.MaxLength = 32767;
+            this.textSearchProduct.MouseState = MaterialSkin.MouseState.HOVER;
+            this.textSearchProduct.Name = "textSearchProduct";
+            this.textSearchProduct.PasswordChar = '\0';
+            this.textSearchProduct.SelectedText = "";
+            this.textSearchProduct.SelectionLength = 0;
+            this.textSearchProduct.SelectionStart = 0;
+            this.textSearchProduct.Size = new System.Drawing.Size(185, 23);
+            this.textSearchProduct.TabIndex = 7;
+            this.textSearchProduct.TabStop = false;
+            this.textSearchProduct.UseSystemPasswordChar = false;
             // 
             // btnSearchProduct
             // 
@@ -569,11 +597,13 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewProduct.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewProduct.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewProduct.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewProduct.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dataGridViewProduct.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewProduct.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewProduct.Location = new System.Drawing.Point(171, 136);
+            this.dataGridViewProduct.MultiSelect = false;
             this.dataGridViewProduct.Name = "dataGridViewProduct";
             this.dataGridViewProduct.ReadOnly = true;
             this.dataGridViewProduct.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
@@ -633,6 +663,8 @@
             // tabPageManageBrand
             // 
             this.tabPageManageBrand.BackColor = System.Drawing.Color.White;
+            this.tabPageManageBrand.Controls.Add(this.btnUpdateBrand);
+            this.tabPageManageBrand.Controls.Add(this.btnDeleteBrand);
             this.tabPageManageBrand.Controls.Add(this.textSearchBrand);
             this.tabPageManageBrand.Controls.Add(this.btnSearchBrand);
             this.tabPageManageBrand.Controls.Add(this.dataGridViewBrand);
@@ -647,6 +679,42 @@
             this.tabPageManageBrand.TabIndex = 2;
             this.tabPageManageBrand.Text = "Manage Brands";
             // 
+            // textSearchBrand
+            // 
+            this.textSearchBrand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textSearchBrand.Depth = 0;
+            this.textSearchBrand.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textSearchBrand.Hint = "Brand Name";
+            this.textSearchBrand.Location = new System.Drawing.Point(530, 82);
+            this.textSearchBrand.MaxLength = 32767;
+            this.textSearchBrand.MouseState = MaterialSkin.MouseState.HOVER;
+            this.textSearchBrand.Name = "textSearchBrand";
+            this.textSearchBrand.PasswordChar = '\0';
+            this.textSearchBrand.SelectedText = "";
+            this.textSearchBrand.SelectionLength = 0;
+            this.textSearchBrand.SelectionStart = 0;
+            this.textSearchBrand.Size = new System.Drawing.Size(185, 23);
+            this.textSearchBrand.TabIndex = 10;
+            this.textSearchBrand.TabStop = false;
+            this.textSearchBrand.UseSystemPasswordChar = false;
+            // 
+            // btnSearchBrand
+            // 
+            this.btnSearchBrand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSearchBrand.AutoSize = true;
+            this.btnSearchBrand.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnSearchBrand.Depth = 0;
+            this.btnSearchBrand.Icon = null;
+            this.btnSearchBrand.Location = new System.Drawing.Point(721, 69);
+            this.btnSearchBrand.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnSearchBrand.Name = "btnSearchBrand";
+            this.btnSearchBrand.Primary = true;
+            this.btnSearchBrand.Size = new System.Drawing.Size(73, 36);
+            this.btnSearchBrand.TabIndex = 9;
+            this.btnSearchBrand.Text = "Search";
+            this.btnSearchBrand.UseVisualStyleBackColor = true;
+            this.btnSearchBrand.Click += new System.EventHandler(this.btnSearchBrand_Click);
+            // 
             // dataGridViewBrand
             // 
             this.dataGridViewBrand.AllowUserToAddRows = false;
@@ -660,6 +728,7 @@
             this.dataGridViewBrand.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewBrand.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewBrand.Location = new System.Drawing.Point(171, 136);
+            this.dataGridViewBrand.MultiSelect = false;
             this.dataGridViewBrand.Name = "dataGridViewBrand";
             this.dataGridViewBrand.ReadOnly = true;
             this.dataGridViewBrand.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
@@ -719,6 +788,8 @@
             // tabPageManageCategory
             // 
             this.tabPageManageCategory.BackColor = System.Drawing.Color.White;
+            this.tabPageManageCategory.Controls.Add(this.btnUpdateCategory);
+            this.tabPageManageCategory.Controls.Add(this.btnDeleteCategory);
             this.tabPageManageCategory.Controls.Add(this.textSearchCategory);
             this.tabPageManageCategory.Controls.Add(this.btnSearchCategory);
             this.tabPageManageCategory.Controls.Add(this.dataGridViewCategory);
@@ -733,10 +804,48 @@
             this.tabPageManageCategory.TabIndex = 3;
             this.tabPageManageCategory.Text = "Manage Categories";
             // 
+            // textSearchCategory
+            // 
+            this.textSearchCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textSearchCategory.Depth = 0;
+            this.textSearchCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textSearchCategory.Hint = "Category Name";
+            this.textSearchCategory.Location = new System.Drawing.Point(530, 82);
+            this.textSearchCategory.MaxLength = 32767;
+            this.textSearchCategory.MouseState = MaterialSkin.MouseState.HOVER;
+            this.textSearchCategory.Name = "textSearchCategory";
+            this.textSearchCategory.PasswordChar = '\0';
+            this.textSearchCategory.SelectedText = "";
+            this.textSearchCategory.SelectionLength = 0;
+            this.textSearchCategory.SelectionStart = 0;
+            this.textSearchCategory.Size = new System.Drawing.Size(185, 23);
+            this.textSearchCategory.TabIndex = 10;
+            this.textSearchCategory.TabStop = false;
+            this.textSearchCategory.UseSystemPasswordChar = false;
+            // 
+            // btnSearchCategory
+            // 
+            this.btnSearchCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSearchCategory.AutoSize = true;
+            this.btnSearchCategory.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnSearchCategory.Depth = 0;
+            this.btnSearchCategory.Icon = null;
+            this.btnSearchCategory.Location = new System.Drawing.Point(721, 69);
+            this.btnSearchCategory.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnSearchCategory.Name = "btnSearchCategory";
+            this.btnSearchCategory.Primary = true;
+            this.btnSearchCategory.Size = new System.Drawing.Size(73, 36);
+            this.btnSearchCategory.TabIndex = 9;
+            this.btnSearchCategory.Text = "Search";
+            this.btnSearchCategory.UseVisualStyleBackColor = true;
+            this.btnSearchCategory.Click += new System.EventHandler(this.btnSearchCategory_Click);
+            // 
             // dataGridViewCategory
             // 
             this.dataGridViewCategory.AllowUserToAddRows = false;
             this.dataGridViewCategory.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dataGridViewCategory.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -746,6 +855,7 @@
             this.dataGridViewCategory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCategory.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewCategory.Location = new System.Drawing.Point(171, 136);
+            this.dataGridViewCategory.MultiSelect = false;
             this.dataGridViewCategory.Name = "dataGridViewCategory";
             this.dataGridViewCategory.ReadOnly = true;
             this.dataGridViewCategory.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
@@ -809,96 +919,112 @@
             this.openFilePicture.Title = "Select A Picture For The Product";
             this.openFilePicture.FileOk += new System.ComponentModel.CancelEventHandler(this.openFilePicture_FileOk);
             // 
-            // textSearchProduct
+            // btnDeleteProduct
             // 
-            this.textSearchProduct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textSearchProduct.Depth = 0;
-            this.textSearchProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textSearchProduct.Hint = "Product Name";
-            this.textSearchProduct.Location = new System.Drawing.Point(530, 82);
-            this.textSearchProduct.MaxLength = 32767;
-            this.textSearchProduct.MouseState = MaterialSkin.MouseState.HOVER;
-            this.textSearchProduct.Name = "textSearchProduct";
-            this.textSearchProduct.PasswordChar = '\0';
-            this.textSearchProduct.SelectedText = "";
-            this.textSearchProduct.SelectionLength = 0;
-            this.textSearchProduct.SelectionStart = 0;
-            this.textSearchProduct.Size = new System.Drawing.Size(185, 23);
-            this.textSearchProduct.TabIndex = 7;
-            this.textSearchProduct.TabStop = false;
-            this.textSearchProduct.UseSystemPasswordChar = false;
+            this.btnDeleteProduct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteProduct.AutoSize = true;
+            this.btnDeleteProduct.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDeleteProduct.Depth = 0;
+            this.btnDeleteProduct.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.btnDeleteProduct.Icon = null;
+            this.btnDeleteProduct.Location = new System.Drawing.Point(409, 69);
+            this.btnDeleteProduct.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnDeleteProduct.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnDeleteProduct.Name = "btnDeleteProduct";
+            this.btnDeleteProduct.Primary = false;
+            this.btnDeleteProduct.Size = new System.Drawing.Size(69, 36);
+            this.btnDeleteProduct.TabIndex = 8;
+            this.btnDeleteProduct.Text = "Delete";
+            this.btnDeleteProduct.UseVisualStyleBackColor = true;
+            this.btnDeleteProduct.Click += new System.EventHandler(this.btnDeleteProduct_Click);
             // 
-            // textSearchBrand
+            // btnDeleteBrand
             // 
-            this.textSearchBrand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textSearchBrand.Depth = 0;
-            this.textSearchBrand.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textSearchBrand.Hint = "Brand Name";
-            this.textSearchBrand.Location = new System.Drawing.Point(530, 82);
-            this.textSearchBrand.MaxLength = 32767;
-            this.textSearchBrand.MouseState = MaterialSkin.MouseState.HOVER;
-            this.textSearchBrand.Name = "textSearchBrand";
-            this.textSearchBrand.PasswordChar = '\0';
-            this.textSearchBrand.SelectedText = "";
-            this.textSearchBrand.SelectionLength = 0;
-            this.textSearchBrand.SelectionStart = 0;
-            this.textSearchBrand.Size = new System.Drawing.Size(185, 23);
-            this.textSearchBrand.TabIndex = 10;
-            this.textSearchBrand.TabStop = false;
-            this.textSearchBrand.UseSystemPasswordChar = false;
+            this.btnDeleteBrand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteBrand.AutoSize = true;
+            this.btnDeleteBrand.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDeleteBrand.Depth = 0;
+            this.btnDeleteBrand.Icon = null;
+            this.btnDeleteBrand.Location = new System.Drawing.Point(409, 69);
+            this.btnDeleteBrand.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnDeleteBrand.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnDeleteBrand.Name = "btnDeleteBrand";
+            this.btnDeleteBrand.Primary = false;
+            this.btnDeleteBrand.Size = new System.Drawing.Size(69, 36);
+            this.btnDeleteBrand.TabIndex = 11;
+            this.btnDeleteBrand.Text = "Delete";
+            this.btnDeleteBrand.UseVisualStyleBackColor = true;
+            this.btnDeleteBrand.Click += new System.EventHandler(this.btnDeleteBrand_Click);
             // 
-            // btnSearchBrand
+            // btnDeleteCategory
             // 
-            this.btnSearchBrand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSearchBrand.AutoSize = true;
-            this.btnSearchBrand.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnSearchBrand.Depth = 0;
-            this.btnSearchBrand.Icon = null;
-            this.btnSearchBrand.Location = new System.Drawing.Point(721, 69);
-            this.btnSearchBrand.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnSearchBrand.Name = "btnSearchBrand";
-            this.btnSearchBrand.Primary = true;
-            this.btnSearchBrand.Size = new System.Drawing.Size(73, 36);
-            this.btnSearchBrand.TabIndex = 9;
-            this.btnSearchBrand.Text = "Search";
-            this.btnSearchBrand.UseVisualStyleBackColor = true;
-            this.btnSearchBrand.Click += new System.EventHandler(this.btnSearchBrand_Click);
+            this.btnDeleteCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteCategory.AutoSize = true;
+            this.btnDeleteCategory.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDeleteCategory.Depth = 0;
+            this.btnDeleteCategory.Icon = null;
+            this.btnDeleteCategory.Location = new System.Drawing.Point(409, 69);
+            this.btnDeleteCategory.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnDeleteCategory.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnDeleteCategory.Name = "btnDeleteCategory";
+            this.btnDeleteCategory.Primary = false;
+            this.btnDeleteCategory.Size = new System.Drawing.Size(69, 36);
+            this.btnDeleteCategory.TabIndex = 13;
+            this.btnDeleteCategory.Text = "Delete";
+            this.btnDeleteCategory.UseVisualStyleBackColor = true;
+            this.btnDeleteCategory.Click += new System.EventHandler(this.btnDeleteCategory_Click);
             // 
-            // textSearchCategory
+            // btnUpdateCategory
             // 
-            this.textSearchCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textSearchCategory.Depth = 0;
-            this.textSearchCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textSearchCategory.Hint = "Category Name";
-            this.textSearchCategory.Location = new System.Drawing.Point(530, 82);
-            this.textSearchCategory.MaxLength = 32767;
-            this.textSearchCategory.MouseState = MaterialSkin.MouseState.HOVER;
-            this.textSearchCategory.Name = "textSearchCategory";
-            this.textSearchCategory.PasswordChar = '\0';
-            this.textSearchCategory.SelectedText = "";
-            this.textSearchCategory.SelectionLength = 0;
-            this.textSearchCategory.SelectionStart = 0;
-            this.textSearchCategory.Size = new System.Drawing.Size(185, 23);
-            this.textSearchCategory.TabIndex = 10;
-            this.textSearchCategory.TabStop = false;
-            this.textSearchCategory.UseSystemPasswordChar = false;
+            this.btnUpdateCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpdateCategory.AutoSize = true;
+            this.btnUpdateCategory.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnUpdateCategory.Depth = 0;
+            this.btnUpdateCategory.Icon = null;
+            this.btnUpdateCategory.Location = new System.Drawing.Point(328, 69);
+            this.btnUpdateCategory.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnUpdateCategory.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnUpdateCategory.Name = "btnUpdateCategory";
+            this.btnUpdateCategory.Primary = false;
+            this.btnUpdateCategory.Size = new System.Drawing.Size(73, 36);
+            this.btnUpdateCategory.TabIndex = 14;
+            this.btnUpdateCategory.Text = "Update";
+            this.btnUpdateCategory.UseVisualStyleBackColor = true;
+            this.btnUpdateCategory.Click += new System.EventHandler(this.btnUpdateCategory_Click);
             // 
-            // btnSearchCategory
+            // btnUpdateBrand
             // 
-            this.btnSearchCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSearchCategory.AutoSize = true;
-            this.btnSearchCategory.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnSearchCategory.Depth = 0;
-            this.btnSearchCategory.Icon = null;
-            this.btnSearchCategory.Location = new System.Drawing.Point(721, 69);
-            this.btnSearchCategory.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnSearchCategory.Name = "btnSearchCategory";
-            this.btnSearchCategory.Primary = true;
-            this.btnSearchCategory.Size = new System.Drawing.Size(73, 36);
-            this.btnSearchCategory.TabIndex = 9;
-            this.btnSearchCategory.Text = "Search";
-            this.btnSearchCategory.UseVisualStyleBackColor = true;
-            this.btnSearchCategory.Click += new System.EventHandler(this.btnSearchCategory_Click);
+            this.btnUpdateBrand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpdateBrand.AutoSize = true;
+            this.btnUpdateBrand.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnUpdateBrand.Depth = 0;
+            this.btnUpdateBrand.Icon = null;
+            this.btnUpdateBrand.Location = new System.Drawing.Point(328, 69);
+            this.btnUpdateBrand.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnUpdateBrand.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnUpdateBrand.Name = "btnUpdateBrand";
+            this.btnUpdateBrand.Primary = false;
+            this.btnUpdateBrand.Size = new System.Drawing.Size(73, 36);
+            this.btnUpdateBrand.TabIndex = 15;
+            this.btnUpdateBrand.Text = "Update";
+            this.btnUpdateBrand.UseVisualStyleBackColor = true;
+            // 
+            // btnUpdateProduct
+            // 
+            this.btnUpdateProduct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpdateProduct.AutoSize = true;
+            this.btnUpdateProduct.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnUpdateProduct.Depth = 0;
+            this.btnUpdateProduct.Icon = null;
+            this.btnUpdateProduct.Location = new System.Drawing.Point(328, 69);
+            this.btnUpdateProduct.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnUpdateProduct.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnUpdateProduct.Name = "btnUpdateProduct";
+            this.btnUpdateProduct.Primary = false;
+            this.btnUpdateProduct.Size = new System.Drawing.Size(73, 36);
+            this.btnUpdateProduct.TabIndex = 15;
+            this.btnUpdateProduct.Text = "Update";
+            this.btnUpdateProduct.UseVisualStyleBackColor = true;
             // 
             // InventoryPage
             // 
@@ -984,5 +1110,11 @@
         private MaterialSkin.Controls.MaterialRaisedButton btnSearchBrand;
         private MaterialSkin.Controls.MaterialSingleLineTextField textSearchCategory;
         private MaterialSkin.Controls.MaterialRaisedButton btnSearchCategory;
+        private MaterialSkin.Controls.MaterialFlatButton btnDeleteProduct;
+        private MaterialSkin.Controls.MaterialFlatButton btnDeleteBrand;
+        private MaterialSkin.Controls.MaterialFlatButton btnDeleteCategory;
+        private MaterialSkin.Controls.MaterialFlatButton btnUpdateCategory;
+        private MaterialSkin.Controls.MaterialFlatButton btnUpdateProduct;
+        private MaterialSkin.Controls.MaterialFlatButton btnUpdateBrand;
     }
 }

@@ -330,8 +330,6 @@ namespace POSINV
 
             //get text from textSearch and trim leading and trailing whitespace
             string searchString = textSearchProduct.Text.Trim();
-            //searchString.Trim();
-            MessageBox.Show(searchString.Length.ToString() );
 
             products = SQLiteDataAccess.LoadSearchedProducts(searchString);
             //sth
@@ -361,6 +359,101 @@ namespace POSINV
             WireUpCategoryDataGridView();
 
             textSearchCategory.ResetText();
+
+        }
+
+        private void btnDeleteProduct_Click(object sender, EventArgs e)
+        {
+            ///Deletes selected row's product and after confirmation
+            ///deletes from DB, List, and refreshes DataGrid
+
+            ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow.DataBoundItem;
+
+            if ( confirmDeleteItem( product.ProductName ) == true )
+            {
+                SQLiteDataAccess.DeleteProduct( product.ProductId );
+                
+                products.Remove(product);
+
+                WireUpProductDataGridView();
+            }
+        }
+        
+        private void btnDeleteBrand_Click(object sender, EventArgs e)
+        {
+            ///Deletes selected row's brand and after confirmation
+            ///deletes from DB, List, and refreshes DataGrid and ComboBox
+
+            BrandModel brand = (BrandModel)dataGridViewBrand.CurrentRow.DataBoundItem;
+
+            if ( confirmDeleteItem( brand.BrandName ) == true)
+            {
+                SQLiteDataAccess.DeleteBrand( brand.BrandId );
+                
+                brands.Remove(brand);
+
+                WireUpBrandList();
+                WireUpBrandDataGridView();
+
+                //remove deleted from products and rewire
+                products.RemoveAll(
+                    product => product.BrandName == brand.BrandName
+                );
+
+                WireUpProductDataGridView();
+            }
+
+        }
+
+        private void btnDeleteCategory_Click(object sender, EventArgs e)
+        {
+            ///Deletes selected row's category and after confirmation
+            ///deletes from DB, List, and refreshes DataGrid and ComboBox
+
+            CategoryModel category = (CategoryModel)dataGridViewCategory.CurrentRow.DataBoundItem;
+
+            if (confirmDeleteItem( category.CategoryName ) == true)
+            {
+                SQLiteDataAccess.DeleteCategory( category.CategoryId );
+
+                LoadCategoryList();
+                LoadProductList();
+
+                //remove deleted from products and rewire
+                products.RemoveAll(
+                    product => product.CategoryName == category.CategoryName
+                );
+            }
+
+        }
+
+        private bool confirmDeleteItem(string itemName)
+        {
+            string confirmText = string.Format("Delete {0} Permenantly?", itemName);
+            string confirmCaption = "Confirm Delete";
+
+            var confirmDelete = MessageBox.Show(confirmText, confirmCaption, MessageBoxButtons.YesNo);
+
+            return (confirmDelete == DialogResult.Yes);
+        }
+
+        private void btnUpdateCategory_Click(object sender, EventArgs e)
+        {
+            /*
+
+            //open new form with filled values
+            using (var form = new AddBrandPage())
+            {
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    //reload list to include this brand
+                    LoadBrandList();
+                    comboBrand.Text = form.brandName;
+
+                }
+            }
+            */
 
         }
     }
