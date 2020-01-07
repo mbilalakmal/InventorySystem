@@ -1,0 +1,367 @@
+﻿using MaterialSkin;
+using MaterialSkin.Controls;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace POSINV
+{
+    public partial class InventoryPage : MaterialForm
+    {
+        List<BrandModel> brands = new List<BrandModel>();
+
+        List<CategoryModel> categories = new List<CategoryModel>();
+
+        List<ProductModel> products = new List<ProductModel>();
+
+        public InventoryPage()
+        {
+            InitializeComponent();
+
+            //materialSkin
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+            materialSkinManager.ColorScheme = new ColorScheme(
+                Primary.Teal500, Primary.Teal700, Primary.Teal100, Accent.Teal400, TextShade.WHITE
+            );
+
+            //load brands
+            LoadBrandList();
+
+            //load categories
+            LoadCategoryList();
+
+            //load products
+            LoadProductList();
+        }
+
+        private void LoadProductList()
+        {
+            products = SQLiteDataAccess.LoadProducts();
+
+            //display products in datagridview
+            WireUpProductDataGridView();
+        }
+
+        private void WireUpProductDataGridView()
+        {
+            dataGridViewProduct.DataSource = null;
+            dataGridViewProduct.DataSource = products;
+        }
+
+        private void LoadBrandList()
+        {
+            brands = SQLiteDataAccess.LoadBrands();
+
+            //display brands in combo box
+            WireUpBrandList();
+
+            //display brands in datagridview
+            WireUpBrandDataGridView();
+        }
+
+        private void WireUpBrandList()
+        {
+            comboBrand.DataSource = null;
+            comboBrand.ValueMember = "brandId";
+            comboBrand.DisplayMember = "brandName";
+            comboBrand.DataSource = brands;
+        }
+
+        private void WireUpBrandDataGridView()
+        {
+            dataGridViewBrand.DataSource = null;
+            dataGridViewBrand.DataSource = brands;
+        }
+
+        private void LoadCategoryList()
+        {
+            categories = SQLiteDataAccess.LoadCategories();
+
+            //display categories in combo box
+            WireUpCategoryList();
+
+            //display categories in datagridview
+            WireUpCategoryDataGridView();
+        }
+
+        private void WireUpCategoryList()
+        {
+            comboCategory.DataSource = null;
+            comboCategory.ValueMember = "categoryId";
+            comboCategory.DisplayMember = "categoryName";
+            comboCategory.DataSource = categories;
+        }
+
+        private void WireUpCategoryDataGridView()
+        {
+            dataGridViewCategory.DataSource = null;
+            dataGridViewCategory.DataSource = categories;
+        }
+
+        private void InventoryPage_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBrand_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPageAddProduct_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelBrand_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAddPicture_Click(object sender, EventArgs e)
+        {
+            //dispose of previous image to release memory
+            if( pictureProduct.Image != null)
+            {
+                pictureProduct.Image.Dispose();
+                pictureProduct.Image = null;
+            }
+
+            //if a picture file is selected, display it
+            if (openFilePicture.ShowDialog() == DialogResult.OK)
+            {
+                pictureProduct.Load(openFilePicture.FileName);
+            }
+
+            
+        }
+
+        private void labelName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
+
+        private void btnSaveProduct_Click(object sender, EventArgs e)
+        {
+            //Create ProductModel Object And Save In DB
+            ProductModel product = new ProductModel();
+
+            //check Name
+            if( string.IsNullOrWhiteSpace(textName.Text))
+            {
+                //problem
+                MessageBox.Show("Product Name can not be empty");
+                return;
+            }
+            //get Name
+            product.ProductName = textName.Text;
+
+            if( decimal.TryParse(textCost.Text, out decimal cost))
+            {
+                product.CostPrice = cost;
+            }
+            else
+            {
+                //problem
+                MessageBox.Show("Cost Price must be a valid decimal value");
+                return;
+            }
+
+            if( decimal.TryParse(textList.Text, out decimal list))
+            {
+                product.ListPrice = list;
+            }
+            else
+            {
+                //problem
+                MessageBox.Show("List Price must be a valid decimal value");
+                return;
+            }
+
+            if( uint.TryParse(textQuantity.Text, out uint quantity))
+            {
+                product.Quantity = (int) quantity;
+            }
+            else
+            {
+                //problem
+                MessageBox.Show("Quantity must be a natural number");
+                return;
+            }
+
+            product.Description = textDescription.Text;
+
+            BrandModel brand = (BrandModel) comboBrand.SelectedItem;
+            CategoryModel category = (CategoryModel) comboCategory.SelectedItem;
+
+            int brandId = 0;
+            if( brand != null )
+            {
+                brandId = brand.BrandId;
+            }
+            else
+            {
+                //problem
+                MessageBox.Show("Please select a valid Brand");
+                return;
+            }
+
+            int categoryId = 0;
+            if( category != null)
+            {
+                categoryId = category.CategoryId;
+            }
+            else
+            {
+                //problem
+                MessageBox.Show("Please select a valid Category");
+                return;
+            }
+
+            //get picture from picture box
+            if( pictureProduct.Image != null)
+            {
+                //convert image to byte[] and store in productModel
+                byte[] picture = ProductModel.ImageToByte(
+                    pictureProduct.Image, pictureProduct.Image.RawFormat
+                    );
+                product.Picture = picture;
+            }
+
+            //Add This To DB
+            SQLiteDataAccess.SaveProduct(product, brandId, categoryId);
+
+            //Show Message "Product Stored"
+            MessageBox.Show("Product Added Successfully");
+
+            //Reset Inputs
+            resetProductInputs();
+
+            //reload Product Data Grid View
+            LoadProductList();
+        }
+
+        private void btnAddBrand_Click(object sender, EventArgs e)
+        {
+
+            using (var form = new AddBrandPage())
+            {
+                var result = form.ShowDialog();
+                if(result == DialogResult.OK)
+                {
+                    //reload list to include this brand
+                    LoadBrandList();
+                    comboBrand.Text = form.brandName;
+                    
+                }
+            }
+
+        }
+
+        private void btnAddCategory_Click(object sender, EventArgs e)
+        {
+            using (var form = new AddCategoryPage())
+            {
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    //reload list to include this category
+                    LoadCategoryList();
+                    comboCategory.Text = form.categoryName;
+                }
+            }
+        }
+
+        private void pictureProduct_Click(object sender, EventArgs e)
+        {
+            //Remove Picture
+            if (pictureProduct.Image != null)
+            {
+                pictureProduct.Image.Dispose();
+                pictureProduct.Image = null;
+            }
+        }
+
+        private void openFilePicture_FileOk(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void resetProductInputs()
+        {
+            textName.ResetText();
+            textCost.ResetText();
+            textList.ResetText();
+            textQuantity.ResetText();
+            textDescription.ResetText();
+            //comboBrand.ResetText();
+            //comboCategory.ResetText();
+
+            if (pictureProduct.Image != null)
+            {
+                pictureProduct.Image.Dispose();
+                pictureProduct.Image = null;
+            }
+        }
+
+        private void btnSearchProduct_Click(object sender, EventArgs e)
+        {
+            //search for products with (LIKE) in db and update datagridview
+
+            //get text from textSearch and trim leading and trailing whitespace
+            string searchString = textSearchProduct.Text.Trim();
+            //searchString.Trim();
+            MessageBox.Show(searchString.Length.ToString() );
+
+            products = SQLiteDataAccess.LoadSearchedProducts(searchString);
+            //sth
+            WireUpProductDataGridView();
+
+            //reset the text
+            textSearchProduct.ResetText();
+        }
+
+        private void btnSearchBrand_Click(object sender, EventArgs e)
+        {
+            string searchString = textSearchBrand.Text.Trim();
+
+            brands = SQLiteDataAccess.LoadSearchedBrands(searchString);
+
+            WireUpBrandDataGridView();
+
+            textSearchBrand.ResetText();
+        }
+
+        private void btnSearchCategory_Click(object sender, EventArgs e)
+        {
+            string searchString = textSearchCategory.Text.Trim();
+
+            categories = SQLiteDataAccess.LoadSearchedCategories(searchString);
+
+            WireUpCategoryDataGridView();
+
+            textSearchCategory.ResetText();
+
+        }
+    }
+}
