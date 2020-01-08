@@ -102,8 +102,8 @@
     <Compile Include="AddCategoryPage.Designer.cs">
       <DependentUpon>AddCategoryPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="BrandModel.cs" />
-    <Compile Include="CategoryModel.cs" />
+    <Compile Include="Models\BrandModel.cs" />
+    <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Homepage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,7 +128,7 @@
     <Compile Include="PointOfSalePage.Designer.cs">
       <DependentUpon>PointOfSalePage.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProductModel.cs" />
+    <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportsPage.cs">
@@ -217,6 +217,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
