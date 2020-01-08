@@ -12,8 +12,9 @@ namespace POSINV
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
-        public decimal ListPrice { get; set; }
+
         public decimal CostPrice { get; set; }
+        public decimal ListPrice { get; set; }
         public int Quantity { get; set; }
 
         public DateTime UpdatedOn { get; set; }
