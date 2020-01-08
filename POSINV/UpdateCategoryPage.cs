@@ -49,10 +49,10 @@ namespace POSINV
                 return;
             }
             //update in db, combobox and datagrid
-            SQLiteDataAccess.UpdateCategory(category.CategoryId, category.CategoryName);
+            SQLiteDataAccess.UpdateCategory(category);
 
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            DialogResult = DialogResult.OK;
+            Close();
         }
     }
 }

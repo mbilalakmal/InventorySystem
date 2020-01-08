@@ -56,6 +56,8 @@
             this.tabSAddProduct = new MaterialSkin.Controls.MaterialTabSelector();
             this.labelName = new MaterialSkin.Controls.MaterialLabel();
             this.tabPageManageProduct = new System.Windows.Forms.TabPage();
+            this.btnUpdateProduct = new MaterialSkin.Controls.MaterialFlatButton();
+            this.btnDeleteProduct = new MaterialSkin.Controls.MaterialFlatButton();
             this.textSearchProduct = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.btnSearchProduct = new MaterialSkin.Controls.MaterialRaisedButton();
             this.dataGridViewProduct = new System.Windows.Forms.DataGridView();
@@ -64,6 +66,8 @@
             this.materialDivider4 = new MaterialSkin.Controls.MaterialDivider();
             this.tabSManageProduct = new MaterialSkin.Controls.MaterialTabSelector();
             this.tabPageManageBrand = new System.Windows.Forms.TabPage();
+            this.btnUpdateBrand = new MaterialSkin.Controls.MaterialFlatButton();
+            this.btnDeleteBrand = new MaterialSkin.Controls.MaterialFlatButton();
             this.textSearchBrand = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.btnSearchBrand = new MaterialSkin.Controls.MaterialRaisedButton();
             this.dataGridViewBrand = new System.Windows.Forms.DataGridView();
@@ -72,6 +76,8 @@
             this.materialDivider9 = new MaterialSkin.Controls.MaterialDivider();
             this.tabSManageBrand = new MaterialSkin.Controls.MaterialTabSelector();
             this.tabPageManageCategory = new System.Windows.Forms.TabPage();
+            this.btnUpdateCategory = new MaterialSkin.Controls.MaterialFlatButton();
+            this.btnDeleteCategory = new MaterialSkin.Controls.MaterialFlatButton();
             this.textSearchCategory = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.btnSearchCategory = new MaterialSkin.Controls.MaterialRaisedButton();
             this.dataGridViewCategory = new System.Windows.Forms.DataGridView();
@@ -80,12 +86,6 @@
             this.materialDivider12 = new MaterialSkin.Controls.MaterialDivider();
             this.tabSManageCategory = new MaterialSkin.Controls.MaterialTabSelector();
             this.openFilePicture = new System.Windows.Forms.OpenFileDialog();
-            this.btnDeleteProduct = new MaterialSkin.Controls.MaterialFlatButton();
-            this.btnDeleteBrand = new MaterialSkin.Controls.MaterialFlatButton();
-            this.btnDeleteCategory = new MaterialSkin.Controls.MaterialFlatButton();
-            this.btnUpdateCategory = new MaterialSkin.Controls.MaterialFlatButton();
-            this.btnUpdateBrand = new MaterialSkin.Controls.MaterialFlatButton();
-            this.btnUpdateProduct = new MaterialSkin.Controls.MaterialFlatButton();
             this.mtcInventory.SuspendLayout();
             this.tabPageAddProduct.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureProduct)).BeginInit();
@@ -553,6 +553,42 @@
             this.tabPageManageProduct.TabIndex = 1;
             this.tabPageManageProduct.Text = "Manage Products";
             // 
+            // btnUpdateProduct
+            // 
+            this.btnUpdateProduct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpdateProduct.AutoSize = true;
+            this.btnUpdateProduct.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnUpdateProduct.Depth = 0;
+            this.btnUpdateProduct.Icon = null;
+            this.btnUpdateProduct.Location = new System.Drawing.Point(328, 69);
+            this.btnUpdateProduct.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnUpdateProduct.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnUpdateProduct.Name = "btnUpdateProduct";
+            this.btnUpdateProduct.Primary = false;
+            this.btnUpdateProduct.Size = new System.Drawing.Size(73, 36);
+            this.btnUpdateProduct.TabIndex = 15;
+            this.btnUpdateProduct.Text = "Update";
+            this.btnUpdateProduct.UseVisualStyleBackColor = true;
+            // 
+            // btnDeleteProduct
+            // 
+            this.btnDeleteProduct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteProduct.AutoSize = true;
+            this.btnDeleteProduct.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDeleteProduct.Depth = 0;
+            this.btnDeleteProduct.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.btnDeleteProduct.Icon = null;
+            this.btnDeleteProduct.Location = new System.Drawing.Point(409, 69);
+            this.btnDeleteProduct.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnDeleteProduct.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnDeleteProduct.Name = "btnDeleteProduct";
+            this.btnDeleteProduct.Primary = false;
+            this.btnDeleteProduct.Size = new System.Drawing.Size(69, 36);
+            this.btnDeleteProduct.TabIndex = 8;
+            this.btnDeleteProduct.Text = "Delete";
+            this.btnDeleteProduct.UseVisualStyleBackColor = true;
+            this.btnDeleteProduct.Click += new System.EventHandler(this.btnDeleteProduct_Click);
+            // 
             // textSearchProduct
             // 
             this.textSearchProduct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -679,6 +715,42 @@
             this.tabPageManageBrand.TabIndex = 2;
             this.tabPageManageBrand.Text = "Manage Brands";
             // 
+            // btnUpdateBrand
+            // 
+            this.btnUpdateBrand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpdateBrand.AutoSize = true;
+            this.btnUpdateBrand.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnUpdateBrand.Depth = 0;
+            this.btnUpdateBrand.Icon = null;
+            this.btnUpdateBrand.Location = new System.Drawing.Point(328, 69);
+            this.btnUpdateBrand.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnUpdateBrand.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnUpdateBrand.Name = "btnUpdateBrand";
+            this.btnUpdateBrand.Primary = false;
+            this.btnUpdateBrand.Size = new System.Drawing.Size(73, 36);
+            this.btnUpdateBrand.TabIndex = 15;
+            this.btnUpdateBrand.Text = "Update";
+            this.btnUpdateBrand.UseVisualStyleBackColor = true;
+            this.btnUpdateBrand.Click += new System.EventHandler(this.btnUpdateBrand_Click);
+            // 
+            // btnDeleteBrand
+            // 
+            this.btnDeleteBrand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteBrand.AutoSize = true;
+            this.btnDeleteBrand.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDeleteBrand.Depth = 0;
+            this.btnDeleteBrand.Icon = null;
+            this.btnDeleteBrand.Location = new System.Drawing.Point(409, 69);
+            this.btnDeleteBrand.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnDeleteBrand.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnDeleteBrand.Name = "btnDeleteBrand";
+            this.btnDeleteBrand.Primary = false;
+            this.btnDeleteBrand.Size = new System.Drawing.Size(69, 36);
+            this.btnDeleteBrand.TabIndex = 11;
+            this.btnDeleteBrand.Text = "Delete";
+            this.btnDeleteBrand.UseVisualStyleBackColor = true;
+            this.btnDeleteBrand.Click += new System.EventHandler(this.btnDeleteBrand_Click);
+            // 
             // textSearchBrand
             // 
             this.textSearchBrand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -804,6 +876,42 @@
             this.tabPageManageCategory.TabIndex = 3;
             this.tabPageManageCategory.Text = "Manage Categories";
             // 
+            // btnUpdateCategory
+            // 
+            this.btnUpdateCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpdateCategory.AutoSize = true;
+            this.btnUpdateCategory.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnUpdateCategory.Depth = 0;
+            this.btnUpdateCategory.Icon = null;
+            this.btnUpdateCategory.Location = new System.Drawing.Point(328, 69);
+            this.btnUpdateCategory.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnUpdateCategory.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnUpdateCategory.Name = "btnUpdateCategory";
+            this.btnUpdateCategory.Primary = false;
+            this.btnUpdateCategory.Size = new System.Drawing.Size(73, 36);
+            this.btnUpdateCategory.TabIndex = 14;
+            this.btnUpdateCategory.Text = "Update";
+            this.btnUpdateCategory.UseVisualStyleBackColor = true;
+            this.btnUpdateCategory.Click += new System.EventHandler(this.btnUpdateCategory_Click);
+            // 
+            // btnDeleteCategory
+            // 
+            this.btnDeleteCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteCategory.AutoSize = true;
+            this.btnDeleteCategory.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDeleteCategory.Depth = 0;
+            this.btnDeleteCategory.Icon = null;
+            this.btnDeleteCategory.Location = new System.Drawing.Point(409, 69);
+            this.btnDeleteCategory.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnDeleteCategory.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnDeleteCategory.Name = "btnDeleteCategory";
+            this.btnDeleteCategory.Primary = false;
+            this.btnDeleteCategory.Size = new System.Drawing.Size(69, 36);
+            this.btnDeleteCategory.TabIndex = 13;
+            this.btnDeleteCategory.Text = "Delete";
+            this.btnDeleteCategory.UseVisualStyleBackColor = true;
+            this.btnDeleteCategory.Click += new System.EventHandler(this.btnDeleteCategory_Click);
+            // 
             // textSearchCategory
             // 
             this.textSearchCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -918,113 +1026,6 @@
     "; *.png;\"";
             this.openFilePicture.Title = "Select A Picture For The Product";
             this.openFilePicture.FileOk += new System.ComponentModel.CancelEventHandler(this.openFilePicture_FileOk);
-            // 
-            // btnDeleteProduct
-            // 
-            this.btnDeleteProduct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteProduct.AutoSize = true;
-            this.btnDeleteProduct.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnDeleteProduct.Depth = 0;
-            this.btnDeleteProduct.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.btnDeleteProduct.Icon = null;
-            this.btnDeleteProduct.Location = new System.Drawing.Point(409, 69);
-            this.btnDeleteProduct.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnDeleteProduct.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnDeleteProduct.Name = "btnDeleteProduct";
-            this.btnDeleteProduct.Primary = false;
-            this.btnDeleteProduct.Size = new System.Drawing.Size(69, 36);
-            this.btnDeleteProduct.TabIndex = 8;
-            this.btnDeleteProduct.Text = "Delete";
-            this.btnDeleteProduct.UseVisualStyleBackColor = true;
-            this.btnDeleteProduct.Click += new System.EventHandler(this.btnDeleteProduct_Click);
-            // 
-            // btnDeleteBrand
-            // 
-            this.btnDeleteBrand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteBrand.AutoSize = true;
-            this.btnDeleteBrand.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnDeleteBrand.Depth = 0;
-            this.btnDeleteBrand.Icon = null;
-            this.btnDeleteBrand.Location = new System.Drawing.Point(409, 69);
-            this.btnDeleteBrand.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnDeleteBrand.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnDeleteBrand.Name = "btnDeleteBrand";
-            this.btnDeleteBrand.Primary = false;
-            this.btnDeleteBrand.Size = new System.Drawing.Size(69, 36);
-            this.btnDeleteBrand.TabIndex = 11;
-            this.btnDeleteBrand.Text = "Delete";
-            this.btnDeleteBrand.UseVisualStyleBackColor = true;
-            this.btnDeleteBrand.Click += new System.EventHandler(this.btnDeleteBrand_Click);
-            // 
-            // btnDeleteCategory
-            // 
-            this.btnDeleteCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteCategory.AutoSize = true;
-            this.btnDeleteCategory.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnDeleteCategory.Depth = 0;
-            this.btnDeleteCategory.Icon = null;
-            this.btnDeleteCategory.Location = new System.Drawing.Point(409, 69);
-            this.btnDeleteCategory.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnDeleteCategory.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnDeleteCategory.Name = "btnDeleteCategory";
-            this.btnDeleteCategory.Primary = false;
-            this.btnDeleteCategory.Size = new System.Drawing.Size(69, 36);
-            this.btnDeleteCategory.TabIndex = 13;
-            this.btnDeleteCategory.Text = "Delete";
-            this.btnDeleteCategory.UseVisualStyleBackColor = true;
-            this.btnDeleteCategory.Click += new System.EventHandler(this.btnDeleteCategory_Click);
-            // 
-            // btnUpdateCategory
-            // 
-            this.btnUpdateCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpdateCategory.AutoSize = true;
-            this.btnUpdateCategory.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnUpdateCategory.Depth = 0;
-            this.btnUpdateCategory.Icon = null;
-            this.btnUpdateCategory.Location = new System.Drawing.Point(328, 69);
-            this.btnUpdateCategory.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnUpdateCategory.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnUpdateCategory.Name = "btnUpdateCategory";
-            this.btnUpdateCategory.Primary = false;
-            this.btnUpdateCategory.Size = new System.Drawing.Size(73, 36);
-            this.btnUpdateCategory.TabIndex = 14;
-            this.btnUpdateCategory.Text = "Update";
-            this.btnUpdateCategory.UseVisualStyleBackColor = true;
-            this.btnUpdateCategory.Click += new System.EventHandler(this.btnUpdateCategory_Click);
-            // 
-            // btnUpdateBrand
-            // 
-            this.btnUpdateBrand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpdateBrand.AutoSize = true;
-            this.btnUpdateBrand.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnUpdateBrand.Depth = 0;
-            this.btnUpdateBrand.Icon = null;
-            this.btnUpdateBrand.Location = new System.Drawing.Point(328, 69);
-            this.btnUpdateBrand.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnUpdateBrand.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnUpdateBrand.Name = "btnUpdateBrand";
-            this.btnUpdateBrand.Primary = false;
-            this.btnUpdateBrand.Size = new System.Drawing.Size(73, 36);
-            this.btnUpdateBrand.TabIndex = 15;
-            this.btnUpdateBrand.Text = "Update";
-            this.btnUpdateBrand.UseVisualStyleBackColor = true;
-            // 
-            // btnUpdateProduct
-            // 
-            this.btnUpdateProduct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpdateProduct.AutoSize = true;
-            this.btnUpdateProduct.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnUpdateProduct.Depth = 0;
-            this.btnUpdateProduct.Icon = null;
-            this.btnUpdateProduct.Location = new System.Drawing.Point(328, 69);
-            this.btnUpdateProduct.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnUpdateProduct.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnUpdateProduct.Name = "btnUpdateProduct";
-            this.btnUpdateProduct.Primary = false;
-            this.btnUpdateProduct.Size = new System.Drawing.Size(73, 36);
-            this.btnUpdateProduct.TabIndex = 15;
-            this.btnUpdateProduct.Text = "Update";
-            this.btnUpdateProduct.UseVisualStyleBackColor = true;
             // 
             // InventoryPage
             // 

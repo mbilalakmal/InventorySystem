@@ -160,12 +160,21 @@ namespace POSINV
             }
         }
 
-        public static void UpdateCategory(int categoryId, string categoryName)
+        public static void UpdateBrand(BrandModel brand)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string sql = @"UPDATE OR IGNORE BRAND SET BRANDNAME = @name WHERE BRANDID = @id";
+                cnn.Execute(sql, new { name = brand.BrandName, id = brand.BrandId });
+            }
+        }
+
+        public static void UpdateCategory(CategoryModel category)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"UPDATE OR IGNORE CATEGORY SET CATEGORYNAME = @name WHERE CATEGORYID = @id";
-                cnn.Execute(sql, new { name = categoryName, id = categoryId });
+                cnn.Execute(sql, new { name = category.CategoryName, id = category.CategoryId });
             }
         }
 

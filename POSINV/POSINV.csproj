@@ -138,6 +138,12 @@
       <DependentUpon>ReportsPage.cs</DependentUpon>
     </Compile>
     <Compile Include="SQLiteDataAccess.cs" />
+    <Compile Include="UpdateBrandPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateBrandPage.Designer.cs">
+      <DependentUpon>UpdateBrandPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="UpdateCategoryPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,6 +179,9 @@
     </Compile>
     <EmbeddedResource Include="ReportsPage.resx">
       <DependentUpon>ReportsPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateBrandPage.resx">
+      <DependentUpon>UpdateBrandPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UpdateCategoryPage.resx">
       <DependentUpon>UpdateCategoryPage.cs</DependentUpon>

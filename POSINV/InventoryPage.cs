@@ -445,7 +445,10 @@ namespace POSINV
         {
             CategoryModel category = (CategoryModel)dataGridViewCategory.CurrentRow.DataBoundItem;
 
-            string oldCategoryName = category.CategoryName;
+            //select products which have the same category name
+            var updatedProducts = products.Where(
+                product => product.CategoryName.Equals(category.CategoryName)
+                ).ToList();
 
             using ( var form = new UpdateCategoryPage(category) )
             {
@@ -455,23 +458,46 @@ namespace POSINV
                     //reload list to include this category
                     LoadCategoryList();
 
-                    //change in products datagrid
-                    foreach(ProductModel  product in products)
-                    {
-                        if( product.CategoryName.Equals(oldCategoryName))
-                        {
-                            product.CategoryName = category.CategoryName;
-                        }
-                    }
+                    //update products in datagridview
+                    updatedProducts.ForEach(
+                        product => product.CategoryName = category.CategoryName
+                        );
 
                     //wireup datagrid
                     WireUpProductDataGridView();
 
                 }
             }
-
-            
-
         }
+
+        private void btnUpdateBrand_Click(object sender, EventArgs e)
+        {
+            BrandModel brand = (BrandModel)dataGridViewBrand.CurrentRow.DataBoundItem;
+
+            //select products which have the same brand name
+            var updatedProducts = products.Where(
+                product => product.BrandName.Equals(brand.BrandName)
+                ).ToList();
+
+            using (var form = new UpdateBrandPage(brand))
+            {
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    //reload list to include this brand
+                    LoadBrandList();
+
+                    //update products in datagridview
+                    updatedProducts.ForEach(
+                        product => product.BrandName = brand.BrandName
+                        );
+
+                    //wireup datagrid
+                    WireUpProductDataGridView();
+
+                }
+            }
+        }
+
     }
 }
