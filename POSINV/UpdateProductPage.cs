@@ -14,7 +14,9 @@ namespace POSINV
 {
     public partial class UpdateProductPage : MaterialForm
     {
-        public UpdateProductPage()
+        public ProductModel product { get; private set; }
+
+        public UpdateProductPage(ProductModel productOld)
         {
             InitializeComponent();
 
@@ -25,6 +27,30 @@ namespace POSINV
             materialSkinManager.ColorScheme = new ColorScheme(
                 Primary.Teal500, Primary.Teal700, Primary.Teal100, Accent.Teal400, TextShade.WHITE
             );
+
+            product = productOld;
+
+            //set fields to old product
+            FillInputFields();
+
+        }
+
+        private void FillInputFields()
+        {
+            textName.Text = product.ProductName;
+            textCost.Text = product.CostPrice.ToString();
+            textList.Text = product.ListPrice.ToString();
+            textQuantity.Text = product.Quantity.ToString();
+            textDescription.Text = product.Description;
+
+            comboBrand.Text = product.BrandName;
+            comboCategory.Text = product.CategoryName;
+
+            if( product.Picture != null)
+            {
+                pictureProduct.Image = ProductModel.ByteToImage(product.Picture);
+            }
+
         }
     }
 }
