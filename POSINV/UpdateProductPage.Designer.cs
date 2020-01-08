@@ -48,6 +48,7 @@
             this.btnSaveProduct = new MaterialSkin.Controls.MaterialRaisedButton();
             this.pictureProduct = new System.Windows.Forms.PictureBox();
             this.btnAddPicture = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.openFilePicture = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pictureProduct)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,6 +68,7 @@
             this.btnAddBrand.TabIndex = 35;
             this.btnAddBrand.Text = "Add New Brand";
             this.btnAddBrand.UseVisualStyleBackColor = true;
+            this.btnAddBrand.Click += new System.EventHandler(this.btnAddBrand_Click);
             // 
             // btnAddCategory
             // 
@@ -84,6 +86,7 @@
             this.btnAddCategory.TabIndex = 34;
             this.btnAddCategory.Text = "Add New Category";
             this.btnAddCategory.UseVisualStyleBackColor = true;
+            this.btnAddCategory.Click += new System.EventHandler(this.btnAddCategory_Click);
             // 
             // labelCategory
             // 
@@ -339,6 +342,7 @@
             this.btnSaveProduct.TabIndex = 41;
             this.btnSaveProduct.Text = "Save Product";
             this.btnSaveProduct.UseVisualStyleBackColor = true;
+            this.btnSaveProduct.Click += new System.EventHandler(this.btnSaveProduct_Click);
             // 
             // pictureProduct
             // 
@@ -355,6 +359,7 @@
             this.pictureProduct.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureProduct.TabIndex = 40;
             this.pictureProduct.TabStop = false;
+            this.pictureProduct.Click += new System.EventHandler(this.pictureProduct_Click);
             // 
             // btnAddPicture
             // 
@@ -370,6 +375,13 @@
             this.btnAddPicture.TabIndex = 39;
             this.btnAddPicture.Text = "Add Picture";
             this.btnAddPicture.UseVisualStyleBackColor = true;
+            this.btnAddPicture.Click += new System.EventHandler(this.btnAddPicture_Click);
+            // 
+            // openFilePicture
+            // 
+            this.openFilePicture.Filter = "\"Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif" +
+    "; *.png;\"";
+            this.openFilePicture.Title = "Select A Picture For The Product";
             // 
             // UpdateProductPage
             // 
@@ -429,5 +441,6 @@
         private MaterialSkin.Controls.MaterialRaisedButton btnSaveProduct;
         private System.Windows.Forms.PictureBox pictureProduct;
         private MaterialSkin.Controls.MaterialRaisedButton btnAddPicture;
+        private System.Windows.Forms.OpenFileDialog openFilePicture;
     }
 }
