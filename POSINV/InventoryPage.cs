@@ -178,7 +178,7 @@ namespace POSINV
                 return;
             }
             //get Name
-            product.ProductName = textName.Text;
+            product.ProductName = textName.Text.Trim();
 
             if( decimal.TryParse(textCost.Text, out decimal cost))
             {
@@ -213,7 +213,7 @@ namespace POSINV
                 return;
             }
 
-            product.Description = textDescription.Text;
+            product.Description = textDescription.Text.Trim();
 
             BrandModel brand = (BrandModel) comboBrand.SelectedItem;
             CategoryModel category = (CategoryModel) comboCategory.SelectedItem;
@@ -508,7 +508,7 @@ namespace POSINV
                 var result = form.ShowDialog();
             }
             */
-            using (var form = new UpdateProductPage())
+            using (var form = new UpdateProductPage(product))
             {
                 var result = form.ShowDialog();
             }
