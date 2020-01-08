@@ -20,33 +20,20 @@ namespace POSINV
                 var output = cnn.Query<ProductModel>(
                     "SELECT * FROM PRODUCT NATURAL JOIN BRAND NATURAL JOIN CATEGORY", new DynamicParameters()
                     );
-                /*
-                var output = cnn.Query<ProductModel>(
-                    "SELECT * FROM PRODUCT ORDER BY " + OrderBy, new DynamicParameters()
-                    );
-                */
                 return output.ToList();
             }
         }
 
         public static List<ProductModel> LoadSearchedProducts(String searchString)
         {
-
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-
-                //string sql = "SELECT * FROM PRODUCT NATURAL JOIN BRAND NATURAL JOIN CATEGORY" +
-                //  "WHERE PRODUCTNAME LIKE @value";
-
                 string sql = @"SELECT * FROM PRODUCT NATURAL JOIN " +
-                    "BRAND NATURAL JOIN CATEGORY WHERE PRODUCTNAME LIKE " +
-                    "@search";
+                    "BRAND NATURAL JOIN CATEGORY WHERE PRODUCTNAME LIKE @search";
 
                 var output = cnn.Query<ProductModel>(sql, new { search = '%' + searchString + '%' } );
-
                 return output.ToList();
             }
-
         }
 
         public static List<BrandModel> LoadBrands()
@@ -119,27 +106,25 @@ namespace POSINV
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                string sql = string.Format("INSERT OR IGNORE INTO PRODUCT (" +
-                    "PRODUCTNAME, COSTPRICE, LISTPRICE, QUANTITY," +
-                    "DESCRIPTION, BRANDID, CATEGORYID, PICTURE" +
-                    ") VALUES (" +
-                    "@ProductName, @CostPrice, @ListPrice, @Quantity," +
-                    "@Description, {0}, {1}, @Picture" +
-                    ");", brandId, categoryId);
+                string sql = @"INSERT OR IGNORE INTO PRODUCT(" +
+                    "PRODUCTNAME, COSTPRICE, LISTPRICE, QUANTITY, DESCRIPTION, BRANDID, CATEGORYID, PICTURE)" +
+                    " VALUES (@name, @cost, @list, @quantity, @description, @brand, @category, @picture)";
 
-                cnn.Execute(sql, product);
+                cnn.Execute(sql, new {
+                    name = product.ProductName, cost = product.CostPrice, list = product.ListPrice,
+                    quantity = product.Quantity, description = product.Description,
+                    brand = brandId, category = categoryId, picture = product.Picture
+                });
             }
         }
 
         public static void DeleteProduct(int productId)
         {
-            //delete where productId = ..
-
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()) ){
                 string sql = @"DELETE FROM PRODUCT WHERE PRODUCTID = @search";
+
                 cnn.Execute(sql, new { search = productId });
             }
-
         }
 
         public static void DeleteBrand(int brandId)
@@ -147,6 +132,7 @@ namespace POSINV
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"DELETE FROM BRAND WHERE BRANDID = @search";
+
                 cnn.Execute(sql, new { search = brandId });
             }
         }
@@ -156,6 +142,7 @@ namespace POSINV
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"DELETE FROM CATEGORY WHERE CATEGORYID = @search";
+
                 cnn.Execute(sql, new { search = categoryId });
             }
         }
@@ -165,6 +152,7 @@ namespace POSINV
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"UPDATE OR IGNORE BRAND SET BRANDNAME = @name WHERE BRANDID = @id";
+
                 cnn.Execute(sql, new { name = brand.BrandName, id = brand.BrandId });
             }
         }
@@ -174,6 +162,7 @@ namespace POSINV
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"UPDATE OR IGNORE CATEGORY SET CATEGORYNAME = @name WHERE CATEGORYID = @id";
+
                 cnn.Execute(sql, new { name = category.CategoryName, id = category.CategoryId });
             }
         }
