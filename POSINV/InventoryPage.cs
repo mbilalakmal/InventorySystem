@@ -19,7 +19,8 @@ namespace POSINV
         List<CategoryModel> categories = new List<CategoryModel>();
 
         List<ProductModel> products = new List<ProductModel>();
-        private readonly object product;
+
+        //private readonly object product;
 
         public InventoryPage()
         {
@@ -71,12 +72,9 @@ namespace POSINV
         private void WireUpBrandComboBox()
         {
             comboBrand.DataSource = null;
-            comboBrand.Refresh();
-
             comboBrand.ValueMember = "brandId";
             comboBrand.DisplayMember = "brandName";
             comboBrand.DataSource = brands;
-            //comboBrand.Refresh();
         }
 
         private void WireUpBrandDataGridView()
@@ -149,7 +147,6 @@ namespace POSINV
             {
                 pictureProduct.Load(openFilePicture.FileName);
             }
-
             
         }
 
@@ -267,7 +264,6 @@ namespace POSINV
 
         private void btnAddBrand_Click(object sender, EventArgs e)
         {
-
             using (var form = new AddBrandPage())
             {
                 var result = form.ShowDialog();
@@ -279,7 +275,6 @@ namespace POSINV
                     
                 }
             }
-
         }
 
         private void btnAddCategory_Click(object sender, EventArgs e)
@@ -371,6 +366,12 @@ namespace POSINV
             ///Deletes selected row's product and after confirmation
             ///deletes from DB, List, and refreshes DataGrid
 
+            //check if dgv is empty
+            if (dataGridViewProduct.Rows.Count == 0)
+            {
+                return;
+            }
+
             ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow.DataBoundItem;
 
             if ( confirmDeleteItem( product.ProductName ) == true )
@@ -387,6 +388,12 @@ namespace POSINV
         {
             ///Deletes selected row's brand and after confirmation
             ///deletes from DB, List, and refreshes DataGrid and ComboBox
+
+            //check if dgv is empty
+            if (dataGridViewBrand.Rows.Count == 0)
+            {
+                return;
+            }
 
             BrandModel brand = (BrandModel)dataGridViewBrand.CurrentRow.DataBoundItem;
 
@@ -412,6 +419,12 @@ namespace POSINV
         {
             ///Deletes selected row's category and after confirmation
             ///deletes from DB, List, and refreshes DataGrid and ComboBox
+            
+            //check if dgv is empty
+            if( dataGridViewCategory.Rows.Count == 0)
+            {
+                return;
+            }
 
             CategoryModel category = (CategoryModel)dataGridViewCategory.CurrentRow.DataBoundItem;
 
@@ -443,6 +456,12 @@ namespace POSINV
 
         private void btnUpdateCategory_Click(object sender, EventArgs e)
         {
+            //check if dgv is empty
+            if (dataGridViewCategory.Rows.Count == 0)
+            {
+                return;
+            }
+
             CategoryModel category = (CategoryModel)dataGridViewCategory.CurrentRow.DataBoundItem;
 
             //select products which have the same category name
@@ -472,6 +491,12 @@ namespace POSINV
 
         private void btnUpdateBrand_Click(object sender, EventArgs e)
         {
+            //check if dgv is empty
+            if (dataGridViewBrand.Rows.Count == 0)
+            {
+                return;
+            }
+
             BrandModel brand = (BrandModel)dataGridViewBrand.CurrentRow.DataBoundItem;
 
             //select products which have the same brand name
@@ -501,16 +526,23 @@ namespace POSINV
 
         private void btnUpdateProduct_Click(object sender, EventArgs e)
         {
-            ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow.DataBoundItem;
-            /*
-            using (var form = new UpdateProductPage(product))
+            //check if dgv is empty
+            if (dataGridViewProduct.Rows.Count == 0)
             {
-                var result = form.ShowDialog();
+                return;
             }
-            */
-            using (var form = new UpdateProductPage(product))
+
+            ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow.DataBoundItem;
+
+            using (var form = new UpdateProductPage(product, brands, categories))
             {
                 var result = form.ShowDialog();
+
+                //refresh the product
+                LoadProductList();
+
+                LoadBrandList();
+                LoadCategoryList();
             }
 
         }
