@@ -116,11 +116,11 @@
     <Compile Include="InventoryPage.Designer.cs">
       <DependentUpon>InventoryPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="ManageSelectedProduct.cs">
+    <Compile Include="UpdateProductPage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ManageSelectedProduct.Designer.cs">
-      <DependentUpon>ManageSelectedProduct.cs</DependentUpon>
+    <Compile Include="UpdateProductPage.Designer.cs">
+      <DependentUpon>UpdateProductPage.cs</DependentUpon>
     </Compile>
     <Compile Include="PointOfSalePage.cs">
       <SubType>Form</SubType>
@@ -162,8 +162,8 @@
     <EmbeddedResource Include="InventoryPage.resx">
       <DependentUpon>InventoryPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ManageSelectedProduct.resx">
-      <DependentUpon>ManageSelectedProduct.cs</DependentUpon>
+    <EmbeddedResource Include="UpdateProductPage.resx">
+      <DependentUpon>UpdateProductPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PointOfSalePage.resx">
       <DependentUpon>PointOfSalePage.cs</DependentUpon>

@@ -499,5 +499,20 @@ namespace POSINV
             }
         }
 
+        private void btnUpdateProduct_Click(object sender, EventArgs e)
+        {
+            ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow.DataBoundItem;
+            /*
+            using (var form = new UpdateProductPage(product))
+            {
+                var result = form.ShowDialog();
+            }
+            */
+            using (var form = new UpdateProductPage())
+            {
+                var result = form.ShowDialog();
+            }
+
+        }
     }
 }
