@@ -17,14 +17,14 @@ namespace POSINV
         public ReportsPage()
         {
             InitializeComponent();
-
+            
             //materialSkin
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
-            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
             materialSkinManager.ColorScheme = new ColorScheme(
-                Primary.DeepPurple500, Primary.DeepPurple700, Primary.DeepPurple100, Accent.DeepPurple200, TextShade.WHITE
-            );
+                Primary.Teal500, Primary.Teal700, Primary.Teal100, Accent.Teal400, TextShade.WHITE
+                );
         }
 
         private void ReportsPage_Load(object sender, EventArgs e)
