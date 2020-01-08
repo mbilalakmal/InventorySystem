@@ -12,18 +12,20 @@ namespace POSINV
 {
     public class SQLiteDataAccess
     {
-
+        
+        //Load All Products (Joined with Brand & Category)
         public static List<ProductModel> LoadProducts(String OrderBy = "PRODUCTNAME")
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<ProductModel>(
-                    "SELECT * FROM PRODUCT NATURAL JOIN BRAND NATURAL JOIN CATEGORY", new DynamicParameters()
-                    );
+                string sql = @"SELECT * FROM PRODUCT NATURAL JOIN BRAND NATURAL JOIN CATEGORY";
+
+                var output = cnn.Query<ProductModel>(sql, new DynamicParameters());
                 return output.ToList();
             }
         }
 
+        //Load Products containing the search string
         public static List<ProductModel> LoadSearchedProducts(String searchString)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -36,18 +38,19 @@ namespace POSINV
             }
         }
 
+        //Load All Brands
         public static List<BrandModel> LoadBrands()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<BrandModel>(
-                    "SELECT * FROM BRAND", new DynamicParameters()
-                    );
+                string sql = @"SELECT * FROM BRAND";
+
+                var output = cnn.Query<BrandModel>(sql, new DynamicParameters());
                 return output.ToList();
             }
         }
 
-
+        //Load Brands containing the search string
         public static List<BrandModel> LoadSearchedBrands(string searchString)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -59,18 +62,19 @@ namespace POSINV
             }
         }
 
+        //Load All Categories
         public static List<CategoryModel> LoadCategories()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<CategoryModel>(
-                    "SELECT * FROM CATEGORY", new DynamicParameters()
-                    );
+                string sql = @"SELECT * FROM CATEGORY";
+
+                var output = cnn.Query<CategoryModel>(sql, new DynamicParameters());
                 return output.ToList();
             }
         }
-
-
+        
+        //Load Categories containing the search string
         public static List<CategoryModel> LoadSearchedCategories(string searchString)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -82,6 +86,7 @@ namespace POSINV
             }
         }
 
+        //Save newly created category
         public static void SaveCategory(string categoryName)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -92,6 +97,7 @@ namespace POSINV
             }
         }
 
+        //Save newly created brand
         public static void SaveBrand(string brandName)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -102,51 +108,92 @@ namespace POSINV
             }
         }
 
+        //save newly created product with brandId and categoryId
         public static void SaveProduct(ProductModel product, int brandId, int categoryId)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"INSERT OR IGNORE INTO PRODUCT(" +
-                    "PRODUCTNAME, COSTPRICE, LISTPRICE, QUANTITY, DESCRIPTION, BRANDID, CATEGORYID, PICTURE)" +
-                    " VALUES (@name, @cost, @list, @quantity, @description, @brand, @category, @picture)";
+                    "PRODUCTNAME, COSTPRICE, LISTPRICE, QUANTITY, DESCRIPTION, " +
+                    "UPDATEDON, BRANDID, CATEGORYID, PICTURE)" +
+                    " VALUES (@name, @cost, @list, @quantity, @description, " +
+                    "datetime(CURRENT_TIMESTAMP, 'localtime'), @brand, @category, @picture)";
 
-                cnn.Execute(sql, new {
-                    name = product.ProductName, cost = product.CostPrice, list = product.ListPrice,
-                    quantity = product.Quantity, description = product.Description,
-                    brand = brandId, category = categoryId, picture = product.Picture
+                cnn.Execute(sql, new
+                {
+                    name = product.ProductName,
+                    cost = product.CostPrice,
+                    list = product.ListPrice,
+                    quantity = product.Quantity,
+                    description = product.Description,
+                    brand = brandId,
+                    category = categoryId,
+                    picture = product.Picture
                 });
             }
         }
 
+        //Delete product with given productId, CASCADING
         public static void DeleteProduct(int productId)
         {
-            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()) ){
-                string sql = @"DELETE FROM PRODUCT WHERE PRODUCTID = @search";
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string sql = @"PRAGMA foreign_keys = ON;DELETE FROM PRODUCT WHERE PRODUCTID = @search";
 
                 cnn.Execute(sql, new { search = productId });
             }
         }
 
+        //Delete brand with given brandId,  CASCADING
         public static void DeleteBrand(int brandId)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                string sql = @"DELETE FROM BRAND WHERE BRANDID = @search";
+                string sql = @"PRAGMA foreign_keys = ON;DELETE FROM BRAND WHERE BRANDID = @search";
 
                 cnn.Execute(sql, new { search = brandId });
             }
         }
 
+        //Delete product with given productId, CASCADING
         public static void DeleteCategory(int categoryId)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                string sql = @"DELETE FROM CATEGORY WHERE CATEGORYID = @search";
+                string sql = @"PRAGMA foreign_keys = ON;DELETE FROM CATEGORY WHERE CATEGORYID = @search";
 
                 cnn.Execute(sql, new { search = categoryId });
             }
         }
 
+
+        //Update existing product
+        public static void UpdateProduct(ProductModel product, int brandId, int categoryId)
+        {
+            using (IDbConnection cnn = new SQLiteConnection( LoadConnectionString()))
+            {
+                string sql = @"UPDATE OR IGNORE PRODUCT SET PRODUCTNAME = @name," + 
+                    " COSTPRICE = @cost, LISTPRICE = @list, QUANTITY = @quantity," +
+                    " DESCRIPTION = @description, UPDATEDON = datetime(CURRENT_TIMESTAMP, 'localtime')," +
+                    " BRANDID = @brand, CATEGORYID = @category," +
+                    " PICTURE = @picture WHERE PRODUCTID = @id";
+
+                cnn.Execute(sql, new
+                {
+                    name = product.ProductName,
+                    cost = product.CostPrice,
+                    list = product.ListPrice,
+                    quantity = product.Quantity,
+                    description = product.Description,
+                    brand = brandId,
+                    category = categoryId,
+                    picture = product.Picture,
+                    id = product.ProductId
+                });
+            }
+        }
+
+        //Update existing brand
         public static void UpdateBrand(BrandModel brand)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -157,6 +204,7 @@ namespace POSINV
             }
         }
 
+        //Update existing category
         public static void UpdateCategory(CategoryModel category)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
