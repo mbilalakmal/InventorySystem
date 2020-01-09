@@ -34,6 +34,11 @@ namespace POSINV
         /// <summary>Accepts an image in a given format and returns a byte array created from image</summary>
         public static byte[] ImageToByte(Image image, System.Drawing.Imaging.ImageFormat format)
         {
+            if(image == null)
+            {
+                return null;
+            }
+
             using (MemoryStream ms = new MemoryStream())
             {
                 // Convert Image to byte[]
@@ -45,6 +50,10 @@ namespace POSINV
 
         public static Image ByteToImage(byte[] imageBytes)
         {
+            if(imageBytes == null)
+            {
+                return null;
+            }
             /// Convert byte[] to Image
             MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
             ms.Write(imageBytes, 0, imageBytes.Length);
