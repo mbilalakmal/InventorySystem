@@ -564,11 +564,11 @@
             // 
             this.pictureProductPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureProductPreview.BackColor = System.Drawing.Color.Transparent;
-            this.pictureProductPreview.Location = new System.Drawing.Point(19, 276);
+            this.pictureProductPreview.Location = new System.Drawing.Point(19, 252);
             this.pictureProductPreview.MaximumSize = new System.Drawing.Size(192, 192);
             this.pictureProductPreview.MinimumSize = new System.Drawing.Size(128, 128);
             this.pictureProductPreview.Name = "pictureProductPreview";
-            this.pictureProductPreview.Size = new System.Drawing.Size(146, 146);
+            this.pictureProductPreview.Size = new System.Drawing.Size(170, 170);
             this.pictureProductPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureProductPreview.TabIndex = 22;
             this.pictureProductPreview.TabStop = false;
@@ -660,13 +660,13 @@
             this.dataGridViewProduct.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dataGridViewProduct.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewProduct.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridViewProduct.Location = new System.Drawing.Point(171, 136);
+            this.dataGridViewProduct.Location = new System.Drawing.Point(195, 136);
             this.dataGridViewProduct.MultiSelect = false;
             this.dataGridViewProduct.Name = "dataGridViewProduct";
             this.dataGridViewProduct.ReadOnly = true;
             this.dataGridViewProduct.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            this.dataGridViewProduct.RowTemplate.Height = 24;
-            this.dataGridViewProduct.Size = new System.Drawing.Size(744, 286);
+            this.dataGridViewProduct.RowTemplate.Height = 32;
+            this.dataGridViewProduct.Size = new System.Drawing.Size(720, 286);
             this.dataGridViewProduct.TabIndex = 5;
             this.dataGridViewProduct.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewProduct_DataBindingComplete);
             this.dataGridViewProduct.Click += new System.EventHandler(this.dataGridViewProduct_Click);
@@ -824,12 +824,13 @@
             this.dataGridViewBrand.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dataGridViewBrand.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewBrand.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridViewBrand.Location = new System.Drawing.Point(171, 136);
+            this.dataGridViewBrand.Location = new System.Drawing.Point(195, 136);
             this.dataGridViewBrand.MultiSelect = false;
             this.dataGridViewBrand.Name = "dataGridViewBrand";
             this.dataGridViewBrand.ReadOnly = true;
             this.dataGridViewBrand.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            this.dataGridViewBrand.Size = new System.Drawing.Size(744, 286);
+            this.dataGridViewBrand.RowTemplate.Height = 32;
+            this.dataGridViewBrand.Size = new System.Drawing.Size(720, 286);
             this.dataGridViewBrand.TabIndex = 8;
             // 
             // materialDivider7
@@ -987,12 +988,13 @@
             this.dataGridViewCategory.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dataGridViewCategory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCategory.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridViewCategory.Location = new System.Drawing.Point(171, 136);
+            this.dataGridViewCategory.Location = new System.Drawing.Point(195, 136);
             this.dataGridViewCategory.MultiSelect = false;
             this.dataGridViewCategory.Name = "dataGridViewCategory";
             this.dataGridViewCategory.ReadOnly = true;
             this.dataGridViewCategory.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            this.dataGridViewCategory.Size = new System.Drawing.Size(744, 286);
+            this.dataGridViewCategory.RowTemplate.Height = 32;
+            this.dataGridViewCategory.Size = new System.Drawing.Size(720, 286);
             this.dataGridViewCategory.TabIndex = 8;
             // 
             // materialDivider10
@@ -1059,7 +1061,7 @@
             this.labelPreview.Depth = 0;
             this.labelPreview.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelPreview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelPreview.Location = new System.Drawing.Point(39, 254);
+            this.labelPreview.Location = new System.Drawing.Point(39, 220);
             this.labelPreview.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelPreview.Name = "labelPreview";
             this.labelPreview.Size = new System.Drawing.Size(61, 19);
