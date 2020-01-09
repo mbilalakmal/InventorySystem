@@ -56,6 +56,8 @@ namespace POSINV
         {
             dataGridViewProduct.DataSource = null;
             dataGridViewProduct.DataSource = products;
+
+            setProductPreview();
         }
 
         private void LoadBrandList()
@@ -367,7 +369,7 @@ namespace POSINV
             ///deletes from DB, List, and refreshes DataGrid
 
             //check if dgv is empty
-            if (dataGridViewProduct.Rows.Count == 0)
+            if (dataGridViewProduct.CurrentRow == null)
             {
                 return;
             }
@@ -390,7 +392,7 @@ namespace POSINV
             ///deletes from DB, List, and refreshes DataGrid and ComboBox
 
             //check if dgv is empty
-            if (dataGridViewBrand.Rows.Count == 0)
+            if (dataGridViewBrand.CurrentRow == null)
             {
                 return;
             }
@@ -419,9 +421,9 @@ namespace POSINV
         {
             ///Deletes selected row's category and after confirmation
             ///deletes from DB, List, and refreshes DataGrid and ComboBox
-            
+
             //check if dgv is empty
-            if( dataGridViewCategory.Rows.Count == 0)
+            if (dataGridViewCategory.CurrentRow == null)
             {
                 return;
             }
@@ -457,7 +459,7 @@ namespace POSINV
         private void btnUpdateCategory_Click(object sender, EventArgs e)
         {
             //check if dgv is empty
-            if (dataGridViewCategory.Rows.Count == 0)
+            if (dataGridViewCategory.CurrentRow == null)
             {
                 return;
             }
@@ -492,7 +494,7 @@ namespace POSINV
         private void btnUpdateBrand_Click(object sender, EventArgs e)
         {
             //check if dgv is empty
-            if (dataGridViewBrand.Rows.Count == 0)
+            if (dataGridViewBrand.CurrentRow == null)
             {
                 return;
             }
@@ -527,7 +529,7 @@ namespace POSINV
         private void btnUpdateProduct_Click(object sender, EventArgs e)
         {
             //check if dgv is empty
-            if (dataGridViewProduct.Rows.Count == 0)
+            if (dataGridViewProduct.CurrentRow == null)
             {
                 return;
             }
@@ -549,15 +551,34 @@ namespace POSINV
 
         private void dataGridViewProduct_Click(object sender, EventArgs e)
         {
-            //check row selected
-            if ( dataGridViewProduct.Rows.Count == 0)
+            //set Image of current row in preview picturebox
+            setProductPreview();
+        }
+
+        private void setProductPreview()
+        {
+            resetProductPreview();
+            
+            //If no row is selected, return
+            if (dataGridViewProduct.CurrentRow == null)
             {
                 return;
             }
-
+            //get product of current row
             ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow.DataBoundItem;
+            
+            //set current preview
+            pictureProductPreview.Image = ProductModel.ByteToImage(product.Picture);
+        }
 
-            MessageBox.Show(product.ProductName);
+        private void resetProductPreview()
+        {
+            //dispose of previous preview
+            if (pictureProductPreview.Image != null)
+            {
+                pictureProductPreview.Image.Dispose();
+                pictureProductPreview.Image = null;
+            }
         }
     }
 }

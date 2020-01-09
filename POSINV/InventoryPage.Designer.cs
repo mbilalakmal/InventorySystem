@@ -56,6 +56,7 @@
             this.tabSAddProduct = new MaterialSkin.Controls.MaterialTabSelector();
             this.labelName = new MaterialSkin.Controls.MaterialLabel();
             this.tabPageManageProduct = new System.Windows.Forms.TabPage();
+            this.pictureProductPreview = new System.Windows.Forms.PictureBox();
             this.btnUpdateProduct = new MaterialSkin.Controls.MaterialFlatButton();
             this.btnDeleteProduct = new MaterialSkin.Controls.MaterialFlatButton();
             this.textSearchProduct = new MaterialSkin.Controls.MaterialSingleLineTextField();
@@ -90,6 +91,7 @@
             this.tabPageAddProduct.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureProduct)).BeginInit();
             this.tabPageManageProduct.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureProductPreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProduct)).BeginInit();
             this.tabPageManageBrand.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBrand)).BeginInit();
@@ -537,6 +539,7 @@
             // tabPageManageProduct
             // 
             this.tabPageManageProduct.BackColor = System.Drawing.Color.White;
+            this.tabPageManageProduct.Controls.Add(this.pictureProductPreview);
             this.tabPageManageProduct.Controls.Add(this.btnUpdateProduct);
             this.tabPageManageProduct.Controls.Add(this.btnDeleteProduct);
             this.tabPageManageProduct.Controls.Add(this.textSearchProduct);
@@ -552,6 +555,20 @@
             this.tabPageManageProduct.Size = new System.Drawing.Size(934, 441);
             this.tabPageManageProduct.TabIndex = 1;
             this.tabPageManageProduct.Text = "Manage Products";
+            // 
+            // pictureProductPreview
+            // 
+            this.pictureProductPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureProductPreview.BackColor = System.Drawing.Color.Transparent;
+            this.pictureProductPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureProductPreview.Location = new System.Drawing.Point(19, 276);
+            this.pictureProductPreview.MaximumSize = new System.Drawing.Size(192, 192);
+            this.pictureProductPreview.MinimumSize = new System.Drawing.Size(128, 128);
+            this.pictureProductPreview.Name = "pictureProductPreview";
+            this.pictureProductPreview.Size = new System.Drawing.Size(146, 146);
+            this.pictureProductPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureProductPreview.TabIndex = 22;
+            this.pictureProductPreview.TabStop = false;
             // 
             // btnUpdateProduct
             // 
@@ -634,7 +651,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewProduct.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewProduct.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewProduct.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewProduct.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dataGridViewProduct.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1050,6 +1066,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureProduct)).EndInit();
             this.tabPageManageProduct.ResumeLayout(false);
             this.tabPageManageProduct.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureProductPreview)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProduct)).EndInit();
             this.tabPageManageBrand.ResumeLayout(false);
             this.tabPageManageBrand.PerformLayout();
@@ -1119,5 +1136,6 @@
         private MaterialSkin.Controls.MaterialFlatButton btnUpdateCategory;
         private MaterialSkin.Controls.MaterialFlatButton btnUpdateProduct;
         private MaterialSkin.Controls.MaterialFlatButton btnUpdateBrand;
+        private System.Windows.Forms.PictureBox pictureProductPreview;
     }
 }
