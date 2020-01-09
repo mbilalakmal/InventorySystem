@@ -1,5 +1,6 @@
 ﻿using MaterialSkin;
 using MaterialSkin.Controls;
+using Squirrel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,6 +26,17 @@ namespace POSINV
             materialSkinManager.ColorScheme =new ColorScheme(
                 Primary.Teal500, Primary.Teal700, Primary.Teal100, Accent.Teal400, TextShade.WHITE
                 );
+
+            CheckForUpdates();
+        }
+
+        //Squirrel update
+        private async Task CheckForUpdates()
+        {
+            using (var manager = new UpdateManager(@"C:\Users\Bilal\source\repos\POSINV\Releases") )
+            {
+                await manager.UpdateApp();
+            }
         }
 
         private void Homepage_Load(object sender, EventArgs e)
