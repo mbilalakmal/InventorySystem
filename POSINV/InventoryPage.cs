@@ -569,6 +569,7 @@ namespace POSINV
             
             //set current preview
             pictureProductPreview.Image = ProductModel.ByteToImage(product.Picture);
+            
         }
 
         private void resetProductPreview()

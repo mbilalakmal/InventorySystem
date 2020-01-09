@@ -87,6 +87,7 @@
             this.materialDivider12 = new MaterialSkin.Controls.MaterialDivider();
             this.tabSManageCategory = new MaterialSkin.Controls.MaterialTabSelector();
             this.openFilePicture = new System.Windows.Forms.OpenFileDialog();
+            this.labelPreview = new MaterialSkin.Controls.MaterialLabel();
             this.mtcInventory.SuspendLayout();
             this.tabPageAddProduct.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureProduct)).BeginInit();
@@ -256,6 +257,7 @@
             this.btnAddBrand.Primary = true;
             this.btnAddBrand.Size = new System.Drawing.Size(130, 36);
             this.btnAddBrand.TabIndex = 19;
+            this.btnAddBrand.TabStop = false;
             this.btnAddBrand.Text = "Add New Brand";
             this.btnAddBrand.UseVisualStyleBackColor = true;
             this.btnAddBrand.Click += new System.EventHandler(this.btnAddBrand_Click);
@@ -274,6 +276,7 @@
             this.btnAddCategory.Primary = true;
             this.btnAddCategory.Size = new System.Drawing.Size(154, 36);
             this.btnAddCategory.TabIndex = 18;
+            this.btnAddCategory.TabStop = false;
             this.btnAddCategory.Text = "Add New Category";
             this.btnAddCategory.UseVisualStyleBackColor = true;
             this.btnAddCategory.Click += new System.EventHandler(this.btnAddCategory_Click);
@@ -539,6 +542,7 @@
             // tabPageManageProduct
             // 
             this.tabPageManageProduct.BackColor = System.Drawing.Color.White;
+            this.tabPageManageProduct.Controls.Add(this.labelPreview);
             this.tabPageManageProduct.Controls.Add(this.pictureProductPreview);
             this.tabPageManageProduct.Controls.Add(this.btnUpdateProduct);
             this.tabPageManageProduct.Controls.Add(this.btnDeleteProduct);
@@ -560,13 +564,12 @@
             // 
             this.pictureProductPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureProductPreview.BackColor = System.Drawing.Color.Transparent;
-            this.pictureProductPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureProductPreview.Location = new System.Drawing.Point(19, 276);
             this.pictureProductPreview.MaximumSize = new System.Drawing.Size(192, 192);
             this.pictureProductPreview.MinimumSize = new System.Drawing.Size(128, 128);
             this.pictureProductPreview.Name = "pictureProductPreview";
             this.pictureProductPreview.Size = new System.Drawing.Size(146, 146);
-            this.pictureProductPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureProductPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureProductPreview.TabIndex = 22;
             this.pictureProductPreview.TabStop = false;
             // 
@@ -584,6 +587,7 @@
             this.btnUpdateProduct.Primary = false;
             this.btnUpdateProduct.Size = new System.Drawing.Size(73, 36);
             this.btnUpdateProduct.TabIndex = 15;
+            this.btnUpdateProduct.TabStop = false;
             this.btnUpdateProduct.Text = "Update";
             this.btnUpdateProduct.UseVisualStyleBackColor = true;
             this.btnUpdateProduct.Click += new System.EventHandler(this.btnUpdateProduct_Click);
@@ -603,6 +607,7 @@
             this.btnDeleteProduct.Primary = false;
             this.btnDeleteProduct.Size = new System.Drawing.Size(69, 36);
             this.btnDeleteProduct.TabIndex = 8;
+            this.btnDeleteProduct.TabStop = false;
             this.btnDeleteProduct.Text = "Delete";
             this.btnDeleteProduct.UseVisualStyleBackColor = true;
             this.btnDeleteProduct.Click += new System.EventHandler(this.btnDeleteProduct_Click);
@@ -638,7 +643,7 @@
             this.btnSearchProduct.Name = "btnSearchProduct";
             this.btnSearchProduct.Primary = true;
             this.btnSearchProduct.Size = new System.Drawing.Size(73, 36);
-            this.btnSearchProduct.TabIndex = 6;
+            this.btnSearchProduct.TabIndex = 8;
             this.btnSearchProduct.Text = "Search";
             this.btnSearchProduct.UseVisualStyleBackColor = true;
             this.btnSearchProduct.Click += new System.EventHandler(this.btnSearchProduct_Click);
@@ -1045,6 +1050,20 @@
             this.openFilePicture.Title = "Select A Picture For The Product";
             this.openFilePicture.FileOk += new System.ComponentModel.CancelEventHandler(this.openFilePicture_FileOk);
             // 
+            // labelPreview
+            // 
+            this.labelPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelPreview.AutoSize = true;
+            this.labelPreview.Depth = 0;
+            this.labelPreview.Font = new System.Drawing.Font("Roboto", 11F);
+            this.labelPreview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labelPreview.Location = new System.Drawing.Point(39, 254);
+            this.labelPreview.MouseState = MaterialSkin.MouseState.HOVER;
+            this.labelPreview.Name = "labelPreview";
+            this.labelPreview.Size = new System.Drawing.Size(61, 19);
+            this.labelPreview.TabIndex = 23;
+            this.labelPreview.Text = "Preview";
+            // 
             // InventoryPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1137,5 +1156,6 @@
         private MaterialSkin.Controls.MaterialFlatButton btnUpdateProduct;
         private MaterialSkin.Controls.MaterialFlatButton btnUpdateBrand;
         private System.Windows.Forms.PictureBox pictureProductPreview;
+        private MaterialSkin.Controls.MaterialLabel labelPreview;
     }
 }
