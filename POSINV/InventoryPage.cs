@@ -546,5 +546,18 @@ namespace POSINV
             }
 
         }
+
+        private void dataGridViewProduct_Click(object sender, EventArgs e)
+        {
+            //check row selected
+            if ( dataGridViewProduct.Rows.Count == 0)
+            {
+                return;
+            }
+
+            ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow.DataBoundItem;
+
+            MessageBox.Show(product.ProductName);
+        }
     }
 }
