@@ -665,8 +665,10 @@
             this.dataGridViewProduct.Name = "dataGridViewProduct";
             this.dataGridViewProduct.ReadOnly = true;
             this.dataGridViewProduct.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            this.dataGridViewProduct.RowTemplate.Height = 24;
             this.dataGridViewProduct.Size = new System.Drawing.Size(744, 286);
             this.dataGridViewProduct.TabIndex = 5;
+            this.dataGridViewProduct.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewProduct_DataBindingComplete);
             this.dataGridViewProduct.Click += new System.EventHandler(this.dataGridViewProduct_Click);
             // 
             // materialDivider6

@@ -581,5 +581,10 @@ namespace POSINV
                 pictureProductPreview.Image = null;
             }
         }
+
+        private void dataGridViewProduct_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            dataGridViewProduct.Columns["Picture"].Visible = false;
+        }
     }
 }
