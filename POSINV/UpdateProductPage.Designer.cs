@@ -356,7 +356,7 @@
             this.pictureProduct.MinimumSize = new System.Drawing.Size(192, 192);
             this.pictureProduct.Name = "pictureProduct";
             this.pictureProduct.Size = new System.Drawing.Size(200, 200);
-            this.pictureProduct.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureProduct.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureProduct.TabIndex = 40;
             this.pictureProduct.TabStop = false;
             this.pictureProduct.Click += new System.EventHandler(this.pictureProduct_Click);

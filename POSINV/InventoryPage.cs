@@ -586,5 +586,6 @@ namespace POSINV
         {
             dataGridViewProduct.Columns["Picture"].Visible = false;
         }
+        
     }
 }

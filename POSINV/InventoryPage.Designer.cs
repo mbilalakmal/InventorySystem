@@ -56,6 +56,7 @@
             this.tabSAddProduct = new MaterialSkin.Controls.MaterialTabSelector();
             this.labelName = new MaterialSkin.Controls.MaterialLabel();
             this.tabPageManageProduct = new System.Windows.Forms.TabPage();
+            this.labelPreview = new MaterialSkin.Controls.MaterialLabel();
             this.pictureProductPreview = new System.Windows.Forms.PictureBox();
             this.btnUpdateProduct = new MaterialSkin.Controls.MaterialFlatButton();
             this.btnDeleteProduct = new MaterialSkin.Controls.MaterialFlatButton();
@@ -87,7 +88,6 @@
             this.materialDivider12 = new MaterialSkin.Controls.MaterialDivider();
             this.tabSManageCategory = new MaterialSkin.Controls.MaterialTabSelector();
             this.openFilePicture = new System.Windows.Forms.OpenFileDialog();
-            this.labelPreview = new MaterialSkin.Controls.MaterialLabel();
             this.mtcInventory.SuspendLayout();
             this.tabPageAddProduct.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureProduct)).BeginInit();
@@ -222,7 +222,7 @@
             this.pictureProduct.MinimumSize = new System.Drawing.Size(192, 192);
             this.pictureProduct.Name = "pictureProduct";
             this.pictureProduct.Size = new System.Drawing.Size(200, 200);
-            this.pictureProduct.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureProduct.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureProduct.TabIndex = 21;
             this.pictureProduct.TabStop = false;
             this.pictureProduct.Click += new System.EventHandler(this.pictureProduct_Click);
@@ -559,6 +559,20 @@
             this.tabPageManageProduct.Size = new System.Drawing.Size(934, 441);
             this.tabPageManageProduct.TabIndex = 1;
             this.tabPageManageProduct.Text = "Manage Products";
+            // 
+            // labelPreview
+            // 
+            this.labelPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelPreview.AutoSize = true;
+            this.labelPreview.Depth = 0;
+            this.labelPreview.Font = new System.Drawing.Font("Roboto", 11F);
+            this.labelPreview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labelPreview.Location = new System.Drawing.Point(39, 220);
+            this.labelPreview.MouseState = MaterialSkin.MouseState.HOVER;
+            this.labelPreview.Name = "labelPreview";
+            this.labelPreview.Size = new System.Drawing.Size(61, 19);
+            this.labelPreview.TabIndex = 23;
+            this.labelPreview.Text = "Preview";
             // 
             // pictureProductPreview
             // 
@@ -1053,20 +1067,6 @@
     "; *.png;\"";
             this.openFilePicture.Title = "Select A Picture For The Product";
             this.openFilePicture.FileOk += new System.ComponentModel.CancelEventHandler(this.openFilePicture_FileOk);
-            // 
-            // labelPreview
-            // 
-            this.labelPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelPreview.AutoSize = true;
-            this.labelPreview.Depth = 0;
-            this.labelPreview.Font = new System.Drawing.Font("Roboto", 11F);
-            this.labelPreview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelPreview.Location = new System.Drawing.Point(39, 220);
-            this.labelPreview.MouseState = MaterialSkin.MouseState.HOVER;
-            this.labelPreview.Name = "labelPreview";
-            this.labelPreview.Size = new System.Drawing.Size(61, 19);
-            this.labelPreview.TabIndex = 23;
-            this.labelPreview.Text = "Preview";
             // 
             // InventoryPage
             // 
