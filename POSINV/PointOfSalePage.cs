@@ -1,5 +1,6 @@
 ﻿using MaterialSkin;
 using MaterialSkin.Controls;
+using POSINV.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,8 @@ namespace POSINV
     {
         List<ProductModel> products = new List<ProductModel>();
 
+        List<CartItemModel> cartItems = new List<CartItemModel>();
+
         public PointOfSalePage()
         {
             InitializeComponent();
@@ -30,6 +33,9 @@ namespace POSINV
 
             //Load products
             LoadProductList();
+
+            //Load cart items
+            WireUpCartItemDataGridView();
         }
 
         //load product objects from db
@@ -50,6 +56,7 @@ namespace POSINV
             setProductPreview();
         }
 
+
         //remove unnecessary columns from product DGV
         private void dataGridViewProduct_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
@@ -58,6 +65,13 @@ namespace POSINV
 
             //also remove cost price because of customer
             dataGridViewProduct.Columns["CostPrice"].Visible = false;
+        }
+
+        //populate the cartItems DGV
+        private void WireUpCartItemDataGridView()
+        {
+            dataGridViewCartItem.DataSource = null;
+            dataGridViewCartItem.DataSource = cartItems;
         }
 
         private void PointOfSalePage_Load(object sender, EventArgs e)
@@ -121,6 +135,53 @@ namespace POSINV
         private void textSearchProduct_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnAddToCart_Click(object sender, EventArgs e)
+        {
+            //check if a product is selected and quantity is within limit
+            /*
+            if ( CanAddToCart())
+            {
+                //create cartItem and add it to cart
+                //update total price etc and quanityt
+
+            }
+            */
+            MessageBox.Show(CanAddToCart().ToString());
+
+            //if item is already in cart, increment quantity
+        }
+
+        private bool CanAddToCart()
+        {
+            //if product selected and q>0 & q<= p.quantity return true
+
+            ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow?.DataBoundItem;
+
+            if (int.TryParse(textQuantity.Text, out int quantity))
+            {
+                if ( quantity > 0 && quantity <= product?.Quantity)
+                {
+                    return true;
+                }
+            }
+            return false;
+
+        }
+
+        private void btnRemoveFromCart_Click(object sender, EventArgs e)
+        {
+            //check if a product is selected, revert quantity and total
+            MessageBox.Show(CanRemoveFromCart().ToString());
+        }
+
+        private bool CanRemoveFromCart()
+        {
+            //if product selected remove it from cart
+
+            CartItemModel cartItem = (CartItemModel)dataGridViewCartItem.CurrentRow?.DataBoundItem;
+            return cartItem != null;
         }
     }
 }

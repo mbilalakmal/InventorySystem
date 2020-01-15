@@ -49,12 +49,21 @@
             this.materialDivider8 = new MaterialSkin.Controls.MaterialDivider();
             this.materialDivider9 = new MaterialSkin.Controls.MaterialDivider();
             this.tabSManageSale = new MaterialSkin.Controls.MaterialTabSelector();
+            this.textQuantity = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.labelQuantity = new MaterialSkin.Controls.MaterialLabel();
+            this.btnAddToCart = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.labelSubtotal = new MaterialSkin.Controls.MaterialLabel();
+            this.labelSubTotalAmount = new MaterialSkin.Controls.MaterialLabel();
+            this.btnCheckOut = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.btnRemoveFromCart = new MaterialSkin.Controls.MaterialFlatButton();
+            this.dataGridViewCartItem = new System.Windows.Forms.DataGridView();
             this.mtcSale.SuspendLayout();
             this.tabPageAddSale.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureProductPreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProduct)).BeginInit();
             this.tabPageManageSale.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSale)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCartItem)).BeginInit();
             this.SuspendLayout();
             // 
             // mtcSale
@@ -78,6 +87,14 @@
             // tabPageAddSale
             // 
             this.tabPageAddSale.BackColor = System.Drawing.Color.White;
+            this.tabPageAddSale.Controls.Add(this.dataGridViewCartItem);
+            this.tabPageAddSale.Controls.Add(this.btnRemoveFromCart);
+            this.tabPageAddSale.Controls.Add(this.btnCheckOut);
+            this.tabPageAddSale.Controls.Add(this.labelSubTotalAmount);
+            this.tabPageAddSale.Controls.Add(this.labelSubtotal);
+            this.tabPageAddSale.Controls.Add(this.btnAddToCart);
+            this.tabPageAddSale.Controls.Add(this.textQuantity);
+            this.tabPageAddSale.Controls.Add(this.labelQuantity);
             this.tabPageAddSale.Controls.Add(this.pictureProductPreview);
             this.tabPageAddSale.Controls.Add(this.textSearchProduct);
             this.tabPageAddSale.Controls.Add(this.dataGridViewProduct);
@@ -95,15 +112,13 @@
             // 
             // pictureProductPreview
             // 
-            this.pictureProductPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureProductPreview.Location = new System.Drawing.Point(23, 61);
-            this.pictureProductPreview.Margin = new System.Windows.Forms.Padding(10);
-            this.pictureProductPreview.MaximumSize = new System.Drawing.Size(110, 110);
-            this.pictureProductPreview.MinimumSize = new System.Drawing.Size(64, 64);
+            this.pictureProductPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureProductPreview.Location = new System.Drawing.Point(434, 66);
+            this.pictureProductPreview.Margin = new System.Windows.Forms.Padding(15);
+            this.pictureProductPreview.MaximumSize = new System.Drawing.Size(156, 156);
+            this.pictureProductPreview.MinimumSize = new System.Drawing.Size(96, 96);
             this.pictureProductPreview.Name = "pictureProductPreview";
-            this.pictureProductPreview.Size = new System.Drawing.Size(96, 96);
+            this.pictureProductPreview.Size = new System.Drawing.Size(155, 155);
             this.pictureProductPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureProductPreview.TabIndex = 0;
             this.pictureProductPreview.TabStop = false;
@@ -114,7 +129,7 @@
             this.textSearchProduct.Depth = 0;
             this.textSearchProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textSearchProduct.Hint = "Product Name";
-            this.textSearchProduct.Location = new System.Drawing.Point(172, 134);
+            this.textSearchProduct.Location = new System.Drawing.Point(152, 86);
             this.textSearchProduct.MaxLength = 32767;
             this.textSearchProduct.MouseState = MaterialSkin.MouseState.HOVER;
             this.textSearchProduct.Name = "textSearchProduct";
@@ -140,13 +155,13 @@
             this.dataGridViewProduct.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dataGridViewProduct.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewProduct.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridViewProduct.Location = new System.Drawing.Point(16, 185);
+            this.dataGridViewProduct.Location = new System.Drawing.Point(16, 125);
             this.dataGridViewProduct.MultiSelect = false;
             this.dataGridViewProduct.Name = "dataGridViewProduct";
             this.dataGridViewProduct.ReadOnly = true;
             this.dataGridViewProduct.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dataGridViewProduct.RowTemplate.Height = 32;
-            this.dataGridViewProduct.Size = new System.Drawing.Size(420, 240);
+            this.dataGridViewProduct.Size = new System.Drawing.Size(400, 300);
             this.dataGridViewProduct.TabIndex = 26;
             this.dataGridViewProduct.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewProduct_DataBindingComplete);
             this.dataGridViewProduct.Click += new System.EventHandler(this.dataGridViewProduct_Click);
@@ -158,7 +173,7 @@
             this.btnSearchProduct.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnSearchProduct.Depth = 0;
             this.btnSearchProduct.Icon = null;
-            this.btnSearchProduct.Location = new System.Drawing.Point(363, 121);
+            this.btnSearchProduct.Location = new System.Drawing.Point(343, 73);
             this.btnSearchProduct.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSearchProduct.Name = "btnSearchProduct";
             this.btnSearchProduct.Primary = true;
@@ -380,6 +395,144 @@
             this.tabSManageSale.TabIndex = 2;
             this.tabSManageSale.Text = "materialTabSelector2";
             // 
+            // textQuantity
+            // 
+            this.textQuantity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textQuantity.Depth = 0;
+            this.textQuantity.Hint = "1";
+            this.textQuantity.Location = new System.Drawing.Point(439, 264);
+            this.textQuantity.MaxLength = 10;
+            this.textQuantity.MouseState = MaterialSkin.MouseState.HOVER;
+            this.textQuantity.Name = "textQuantity";
+            this.textQuantity.PasswordChar = '\0';
+            this.textQuantity.SelectedText = "";
+            this.textQuantity.SelectionLength = 0;
+            this.textQuantity.SelectionStart = 0;
+            this.textQuantity.Size = new System.Drawing.Size(108, 23);
+            this.textQuantity.TabIndex = 30;
+            this.textQuantity.TabStop = false;
+            this.textQuantity.UseSystemPasswordChar = false;
+            // 
+            // labelQuantity
+            // 
+            this.labelQuantity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelQuantity.AutoSize = true;
+            this.labelQuantity.Depth = 0;
+            this.labelQuantity.Font = new System.Drawing.Font("Roboto", 11F);
+            this.labelQuantity.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labelQuantity.Location = new System.Drawing.Point(435, 239);
+            this.labelQuantity.Margin = new System.Windows.Forms.Padding(3);
+            this.labelQuantity.MouseState = MaterialSkin.MouseState.HOVER;
+            this.labelQuantity.Name = "labelQuantity";
+            this.labelQuantity.Size = new System.Drawing.Size(74, 19);
+            this.labelQuantity.TabIndex = 29;
+            this.labelQuantity.Text = "Quantity *";
+            this.labelQuantity.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnAddToCart
+            // 
+            this.btnAddToCart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddToCart.AutoSize = true;
+            this.btnAddToCart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnAddToCart.Depth = 0;
+            this.btnAddToCart.Icon = null;
+            this.btnAddToCart.Location = new System.Drawing.Point(434, 293);
+            this.btnAddToCart.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnAddToCart.Name = "btnAddToCart";
+            this.btnAddToCart.Primary = true;
+            this.btnAddToCart.Size = new System.Drawing.Size(108, 36);
+            this.btnAddToCart.TabIndex = 35;
+            this.btnAddToCart.Text = "Add To Cart";
+            this.btnAddToCart.UseVisualStyleBackColor = true;
+            this.btnAddToCart.Click += new System.EventHandler(this.btnAddToCart_Click);
+            // 
+            // labelSubtotal
+            // 
+            this.labelSubtotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelSubtotal.AutoSize = true;
+            this.labelSubtotal.Depth = 0;
+            this.labelSubtotal.Font = new System.Drawing.Font("Roboto", 11F);
+            this.labelSubtotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labelSubtotal.Location = new System.Drawing.Point(435, 339);
+            this.labelSubtotal.Margin = new System.Windows.Forms.Padding(3);
+            this.labelSubtotal.MouseState = MaterialSkin.MouseState.HOVER;
+            this.labelSubtotal.Name = "labelSubtotal";
+            this.labelSubtotal.Size = new System.Drawing.Size(69, 19);
+            this.labelSubtotal.TabIndex = 37;
+            this.labelSubtotal.Text = "Subtotal:";
+            this.labelSubtotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelSubTotalAmount
+            // 
+            this.labelSubTotalAmount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelSubTotalAmount.AutoSize = true;
+            this.labelSubTotalAmount.Depth = 0;
+            this.labelSubTotalAmount.Font = new System.Drawing.Font("Roboto", 11F);
+            this.labelSubTotalAmount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labelSubTotalAmount.Location = new System.Drawing.Point(552, 339);
+            this.labelSubTotalAmount.Margin = new System.Windows.Forms.Padding(3);
+            this.labelSubTotalAmount.MouseState = MaterialSkin.MouseState.HOVER;
+            this.labelSubTotalAmount.Name = "labelSubTotalAmount";
+            this.labelSubTotalAmount.Size = new System.Drawing.Size(37, 19);
+            this.labelSubTotalAmount.TabIndex = 38;
+            this.labelSubTotalAmount.Text = "0.00";
+            this.labelSubTotalAmount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnCheckOut
+            // 
+            this.btnCheckOut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCheckOut.AutoSize = true;
+            this.btnCheckOut.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnCheckOut.Depth = 0;
+            this.btnCheckOut.Icon = null;
+            this.btnCheckOut.Location = new System.Drawing.Point(439, 364);
+            this.btnCheckOut.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnCheckOut.Name = "btnCheckOut";
+            this.btnCheckOut.Primary = true;
+            this.btnCheckOut.Size = new System.Drawing.Size(95, 36);
+            this.btnCheckOut.TabIndex = 39;
+            this.btnCheckOut.Text = "Check Out";
+            this.btnCheckOut.UseVisualStyleBackColor = true;
+            // 
+            // btnRemoveFromCart
+            // 
+            this.btnRemoveFromCart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRemoveFromCart.AutoSize = true;
+            this.btnRemoveFromCart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnRemoveFromCart.Depth = 0;
+            this.btnRemoveFromCart.Icon = null;
+            this.btnRemoveFromCart.Location = new System.Drawing.Point(760, 70);
+            this.btnRemoveFromCart.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnRemoveFromCart.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnRemoveFromCart.Name = "btnRemoveFromCart";
+            this.btnRemoveFromCart.Primary = false;
+            this.btnRemoveFromCart.Size = new System.Drawing.Size(155, 36);
+            this.btnRemoveFromCart.TabIndex = 40;
+            this.btnRemoveFromCart.Text = "Remove From Cart";
+            this.btnRemoveFromCart.UseVisualStyleBackColor = true;
+            this.btnRemoveFromCart.Click += new System.EventHandler(this.btnRemoveFromCart_Click);
+            // 
+            // dataGridViewCartItem
+            // 
+            this.dataGridViewCartItem.AllowUserToAddRows = false;
+            this.dataGridViewCartItem.AllowUserToDeleteRows = false;
+            this.dataGridViewCartItem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewCartItem.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewCartItem.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridViewCartItem.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dataGridViewCartItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCartItem.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridViewCartItem.Location = new System.Drawing.Point(618, 125);
+            this.dataGridViewCartItem.MaximumSize = new System.Drawing.Size(300, 600);
+            this.dataGridViewCartItem.MultiSelect = false;
+            this.dataGridViewCartItem.Name = "dataGridViewCartItem";
+            this.dataGridViewCartItem.ReadOnly = true;
+            this.dataGridViewCartItem.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            this.dataGridViewCartItem.RowTemplate.Height = 32;
+            this.dataGridViewCartItem.Size = new System.Drawing.Size(300, 300);
+            this.dataGridViewCartItem.TabIndex = 41;
+            // 
             // PointOfSalePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -401,6 +554,7 @@
             this.tabPageManageSale.ResumeLayout(false);
             this.tabPageManageSale.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSale)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCartItem)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -427,5 +581,13 @@
         private System.Windows.Forms.PictureBox pictureProductPreview;
         private MaterialSkin.Controls.MaterialSingleLineTextField textSearchProduct;
         private MaterialSkin.Controls.MaterialRaisedButton btnSearchProduct;
+        private MaterialSkin.Controls.MaterialSingleLineTextField textQuantity;
+        private MaterialSkin.Controls.MaterialLabel labelQuantity;
+        private MaterialSkin.Controls.MaterialRaisedButton btnAddToCart;
+        private MaterialSkin.Controls.MaterialRaisedButton btnCheckOut;
+        private MaterialSkin.Controls.MaterialLabel labelSubTotalAmount;
+        private MaterialSkin.Controls.MaterialLabel labelSubtotal;
+        private MaterialSkin.Controls.MaterialFlatButton btnRemoveFromCart;
+        private System.Windows.Forms.DataGridView dataGridViewCartItem;
     }
 }
