@@ -8,7 +8,13 @@ namespace POSINV.Models
 {
     public class CartItemModel
     {
-        public ProductModel product { get; set; }
-        public int productQuantity { get; set; }
+        public int ProductId { get; set; }
+        public string ProductName { get; set; }
+        public decimal UnitPrice { get; set; }
+        public int Quantity { get; set; }
+        public decimal Amount
+        {
+            get { return UnitPrice * Quantity; }
+        }
     }
 }
