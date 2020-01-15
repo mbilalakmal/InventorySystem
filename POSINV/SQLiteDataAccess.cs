@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using POSINV.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -218,6 +219,42 @@ namespace POSINV
         private static string LoadConnectionString(string id = "Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
+        }
+
+
+        ///CartItem Model
+        
+        public static List<SaleModel> LoadSales()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string sql = @"SELECT * FROM SALE";
+
+                var output = cnn.Query<SaleModel>(sql, new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
+        public static List<SaleModel> LoadSearchedSale(string searchString)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string sql = @"SELECT * FROM SALE WHERE SALEID = @search";
+
+                var output = cnn.Query<SaleModel>(sql, new { search = searchString });
+                return output.ToList();
+            }
+        }
+
+        //save newly created product with brandId and categoryId
+        public static void SaveSale(SaleModel sale, List<CartItemModel> cartItems)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                //perform single commit, first store the sale, get saleId returned
+                //then store each cartItem
+                //then subtract quantity from product table
+            }
         }
 
     }

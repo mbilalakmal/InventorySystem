@@ -31,6 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PointOfSalePage));
             this.mtcSale = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPageAddSale = new System.Windows.Forms.TabPage();
+            this.pictureProductPreview = new System.Windows.Forms.PictureBox();
+            this.textSearchProduct = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.dataGridViewProduct = new System.Windows.Forms.DataGridView();
+            this.btnSearchProduct = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialDivider3 = new MaterialSkin.Controls.MaterialDivider();
             this.materialDivider2 = new MaterialSkin.Controls.MaterialDivider();
             this.materialDivider1 = new MaterialSkin.Controls.MaterialDivider();
@@ -47,6 +51,8 @@
             this.tabSManageSale = new MaterialSkin.Controls.MaterialTabSelector();
             this.mtcSale.SuspendLayout();
             this.tabPageAddSale.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureProductPreview)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProduct)).BeginInit();
             this.tabPageManageSale.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSale)).BeginInit();
             this.SuspendLayout();
@@ -72,6 +78,10 @@
             // tabPageAddSale
             // 
             this.tabPageAddSale.BackColor = System.Drawing.Color.White;
+            this.tabPageAddSale.Controls.Add(this.pictureProductPreview);
+            this.tabPageAddSale.Controls.Add(this.textSearchProduct);
+            this.tabPageAddSale.Controls.Add(this.dataGridViewProduct);
+            this.tabPageAddSale.Controls.Add(this.btnSearchProduct);
             this.tabPageAddSale.Controls.Add(this.materialDivider3);
             this.tabPageAddSale.Controls.Add(this.materialDivider2);
             this.tabPageAddSale.Controls.Add(this.materialDivider1);
@@ -82,6 +92,81 @@
             this.tabPageAddSale.Size = new System.Drawing.Size(934, 441);
             this.tabPageAddSale.TabIndex = 0;
             this.tabPageAddSale.Text = "Add Sale";
+            // 
+            // pictureProductPreview
+            // 
+            this.pictureProductPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureProductPreview.Location = new System.Drawing.Point(23, 61);
+            this.pictureProductPreview.Margin = new System.Windows.Forms.Padding(10);
+            this.pictureProductPreview.MaximumSize = new System.Drawing.Size(110, 110);
+            this.pictureProductPreview.MinimumSize = new System.Drawing.Size(64, 64);
+            this.pictureProductPreview.Name = "pictureProductPreview";
+            this.pictureProductPreview.Size = new System.Drawing.Size(96, 96);
+            this.pictureProductPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureProductPreview.TabIndex = 0;
+            this.pictureProductPreview.TabStop = false;
+            // 
+            // textSearchProduct
+            // 
+            this.textSearchProduct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textSearchProduct.Depth = 0;
+            this.textSearchProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textSearchProduct.Hint = "Product Name";
+            this.textSearchProduct.Location = new System.Drawing.Point(172, 134);
+            this.textSearchProduct.MaxLength = 32767;
+            this.textSearchProduct.MouseState = MaterialSkin.MouseState.HOVER;
+            this.textSearchProduct.Name = "textSearchProduct";
+            this.textSearchProduct.PasswordChar = '\0';
+            this.textSearchProduct.SelectedText = "";
+            this.textSearchProduct.SelectionLength = 0;
+            this.textSearchProduct.SelectionStart = 0;
+            this.textSearchProduct.Size = new System.Drawing.Size(185, 23);
+            this.textSearchProduct.TabIndex = 27;
+            this.textSearchProduct.TabStop = false;
+            this.textSearchProduct.UseSystemPasswordChar = false;
+            this.textSearchProduct.Click += new System.EventHandler(this.textSearchProduct_Click);
+            // 
+            // dataGridViewProduct
+            // 
+            this.dataGridViewProduct.AllowUserToAddRows = false;
+            this.dataGridViewProduct.AllowUserToDeleteRows = false;
+            this.dataGridViewProduct.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewProduct.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewProduct.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridViewProduct.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dataGridViewProduct.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewProduct.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridViewProduct.Location = new System.Drawing.Point(16, 185);
+            this.dataGridViewProduct.MultiSelect = false;
+            this.dataGridViewProduct.Name = "dataGridViewProduct";
+            this.dataGridViewProduct.ReadOnly = true;
+            this.dataGridViewProduct.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            this.dataGridViewProduct.RowTemplate.Height = 32;
+            this.dataGridViewProduct.Size = new System.Drawing.Size(420, 240);
+            this.dataGridViewProduct.TabIndex = 26;
+            this.dataGridViewProduct.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewProduct_DataBindingComplete);
+            this.dataGridViewProduct.Click += new System.EventHandler(this.dataGridViewProduct_Click);
+            // 
+            // btnSearchProduct
+            // 
+            this.btnSearchProduct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSearchProduct.AutoSize = true;
+            this.btnSearchProduct.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnSearchProduct.Depth = 0;
+            this.btnSearchProduct.Icon = null;
+            this.btnSearchProduct.Location = new System.Drawing.Point(363, 121);
+            this.btnSearchProduct.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnSearchProduct.Name = "btnSearchProduct";
+            this.btnSearchProduct.Primary = true;
+            this.btnSearchProduct.Size = new System.Drawing.Size(73, 36);
+            this.btnSearchProduct.TabIndex = 28;
+            this.btnSearchProduct.Text = "Search";
+            this.btnSearchProduct.UseVisualStyleBackColor = true;
+            this.btnSearchProduct.Click += new System.EventHandler(this.btnSearchProduct_Click);
             // 
             // materialDivider3
             // 
@@ -310,6 +395,9 @@
             this.Load += new System.EventHandler(this.PointOfSalePage_Load);
             this.mtcSale.ResumeLayout(false);
             this.tabPageAddSale.ResumeLayout(false);
+            this.tabPageAddSale.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureProductPreview)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProduct)).EndInit();
             this.tabPageManageSale.ResumeLayout(false);
             this.tabPageManageSale.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSale)).EndInit();
@@ -335,5 +423,9 @@
         private MaterialSkin.Controls.MaterialDivider materialDivider8;
         private MaterialSkin.Controls.MaterialDivider materialDivider9;
         private MaterialSkin.Controls.MaterialTabSelector tabSManageSale;
+        private System.Windows.Forms.DataGridView dataGridViewProduct;
+        private System.Windows.Forms.PictureBox pictureProductPreview;
+        private MaterialSkin.Controls.MaterialSingleLineTextField textSearchProduct;
+        private MaterialSkin.Controls.MaterialRaisedButton btnSearchProduct;
     }
 }
