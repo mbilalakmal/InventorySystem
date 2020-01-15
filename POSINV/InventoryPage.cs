@@ -60,6 +60,12 @@ namespace POSINV
             setProductPreview();
         }
 
+        //remove unnecessary columns from product DGV
+        private void dataGridViewProduct_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            dataGridViewProduct.Columns["Picture"].Visible = false;
+        }
+
         private void LoadBrandList()
         {
             brands = SQLiteDataAccess.LoadBrands();
@@ -575,17 +581,17 @@ namespace POSINV
         private void resetProductPreview()
         {
             //dispose of previous preview
+            /*
             if (pictureProductPreview.Image != null)
             {
                 pictureProductPreview.Image.Dispose();
                 pictureProductPreview.Image = null;
             }
+            */
+            pictureProductPreview.Image?.Dispose();
+            pictureProductPreview.Image = null;
         }
-
-        private void dataGridViewProduct_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            dataGridViewProduct.Columns["Picture"].Visible = false;
-        }
+        
         
     }
 }
