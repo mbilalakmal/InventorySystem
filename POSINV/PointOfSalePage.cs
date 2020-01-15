@@ -15,9 +15,11 @@ namespace POSINV
 {
     public partial class PointOfSalePage : MaterialForm
     {
+        //List<ProductModel> products = new List<ProductModel>();
         List<ProductModel> products = new List<ProductModel>();
 
-        List<CartItemModel> cartItems = new List<CartItemModel>();
+        //List<CartItemModel> cart = new List<CartItemModel>();
+        BindingList<CartItemModel> cart = new BindingList<CartItemModel>();
 
         public PointOfSalePage()
         {
@@ -35,7 +37,7 @@ namespace POSINV
             LoadProductList();
 
             //Load cart items
-            WireUpCartItemDataGridView();
+            WireUpCartDataGridView();
         }
 
         //load product objects from db
@@ -56,7 +58,6 @@ namespace POSINV
             setProductPreview();
         }
 
-
         //remove unnecessary columns from product DGV
         private void dataGridViewProduct_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
@@ -68,10 +69,16 @@ namespace POSINV
         }
 
         //populate the cartItems DGV
-        private void WireUpCartItemDataGridView()
+        private void WireUpCartDataGridView()
         {
-            dataGridViewCartItem.DataSource = null;
-            dataGridViewCartItem.DataSource = cartItems;
+            dataGridViewCart.DataSource = null;
+            dataGridViewCart.DataSource = cart;
+        }
+
+        //remove unnecessary columns from cart DGV
+        private void dataGridViewCart_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            dataGridViewCart.Columns["ProductId"].Visible = false;
         }
 
         private void PointOfSalePage_Load(object sender, EventArgs e)
@@ -85,7 +92,7 @@ namespace POSINV
 
             //get text from textSearch and trim leading and trailing whitespace
             string searchString = textSearchProduct.Text.Trim();
-
+            
             products = SQLiteDataAccess.LoadSearchedProducts(searchString);
             //sth
             WireUpProductDataGridView();
@@ -151,6 +158,11 @@ namespace POSINV
             MessageBox.Show(CanAddToCart().ToString());
 
             //if item is already in cart, increment quantity
+            if( CanAddToCart() == false)
+            {
+                return;
+            }
+            AddToCart();
         }
 
         private bool CanAddToCart()
@@ -170,6 +182,21 @@ namespace POSINV
 
         }
 
+        private void AddToCart()
+        {
+            ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow.DataBoundItem;
+
+            CartItemModel item = new CartItemModel
+            {
+                ProductId = product.ProductId,
+                ProductName = product.ProductName,
+                UnitPrice = product.ListPrice,
+                Quantity = int.TryParse(textQuantity.Text, out int number) ? number : 1
+            };
+            cart.Add(item);
+            //WireUpCartDataGridView();
+        }
+
         private void btnRemoveFromCart_Click(object sender, EventArgs e)
         {
             //check if a product is selected, revert quantity and total
@@ -180,8 +207,10 @@ namespace POSINV
         {
             //if product selected remove it from cart
 
-            CartItemModel cartItem = (CartItemModel)dataGridViewCartItem.CurrentRow?.DataBoundItem;
+            CartItemModel cartItem = (CartItemModel)dataGridViewCart.CurrentRow?.DataBoundItem;
             return cartItem != null;
         }
+
+        
     }
 }

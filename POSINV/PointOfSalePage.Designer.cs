@@ -56,14 +56,14 @@
             this.labelSubTotalAmount = new MaterialSkin.Controls.MaterialLabel();
             this.btnCheckOut = new MaterialSkin.Controls.MaterialRaisedButton();
             this.btnRemoveFromCart = new MaterialSkin.Controls.MaterialFlatButton();
-            this.dataGridViewCartItem = new System.Windows.Forms.DataGridView();
+            this.dataGridViewCart = new System.Windows.Forms.DataGridView();
             this.mtcSale.SuspendLayout();
             this.tabPageAddSale.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureProductPreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProduct)).BeginInit();
             this.tabPageManageSale.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSale)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCartItem)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCart)).BeginInit();
             this.SuspendLayout();
             // 
             // mtcSale
@@ -87,7 +87,7 @@
             // tabPageAddSale
             // 
             this.tabPageAddSale.BackColor = System.Drawing.Color.White;
-            this.tabPageAddSale.Controls.Add(this.dataGridViewCartItem);
+            this.tabPageAddSale.Controls.Add(this.dataGridViewCart);
             this.tabPageAddSale.Controls.Add(this.btnRemoveFromCart);
             this.tabPageAddSale.Controls.Add(this.btnCheckOut);
             this.tabPageAddSale.Controls.Add(this.labelSubTotalAmount);
@@ -512,26 +512,27 @@
             this.btnRemoveFromCart.UseVisualStyleBackColor = true;
             this.btnRemoveFromCart.Click += new System.EventHandler(this.btnRemoveFromCart_Click);
             // 
-            // dataGridViewCartItem
+            // dataGridViewCart
             // 
-            this.dataGridViewCartItem.AllowUserToAddRows = false;
-            this.dataGridViewCartItem.AllowUserToDeleteRows = false;
-            this.dataGridViewCartItem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dataGridViewCart.AllowUserToAddRows = false;
+            this.dataGridViewCart.AllowUserToDeleteRows = false;
+            this.dataGridViewCart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewCartItem.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewCartItem.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridViewCartItem.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dataGridViewCartItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCartItem.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridViewCartItem.Location = new System.Drawing.Point(618, 125);
-            this.dataGridViewCartItem.MaximumSize = new System.Drawing.Size(300, 600);
-            this.dataGridViewCartItem.MultiSelect = false;
-            this.dataGridViewCartItem.Name = "dataGridViewCartItem";
-            this.dataGridViewCartItem.ReadOnly = true;
-            this.dataGridViewCartItem.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            this.dataGridViewCartItem.RowTemplate.Height = 32;
-            this.dataGridViewCartItem.Size = new System.Drawing.Size(300, 300);
-            this.dataGridViewCartItem.TabIndex = 41;
+            this.dataGridViewCart.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewCart.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridViewCart.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dataGridViewCart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCart.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridViewCart.Location = new System.Drawing.Point(618, 125);
+            this.dataGridViewCart.MaximumSize = new System.Drawing.Size(300, 600);
+            this.dataGridViewCart.MultiSelect = false;
+            this.dataGridViewCart.Name = "dataGridViewCart";
+            this.dataGridViewCart.ReadOnly = true;
+            this.dataGridViewCart.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            this.dataGridViewCart.RowTemplate.Height = 32;
+            this.dataGridViewCart.Size = new System.Drawing.Size(300, 300);
+            this.dataGridViewCart.TabIndex = 41;
+            this.dataGridViewCart.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewCart_DataBindingComplete);
             // 
             // PointOfSalePage
             // 
@@ -554,7 +555,7 @@
             this.tabPageManageSale.ResumeLayout(false);
             this.tabPageManageSale.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSale)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCartItem)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCart)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -588,6 +589,6 @@
         private MaterialSkin.Controls.MaterialLabel labelSubTotalAmount;
         private MaterialSkin.Controls.MaterialLabel labelSubtotal;
         private MaterialSkin.Controls.MaterialFlatButton btnRemoveFromCart;
-        private System.Windows.Forms.DataGridView dataGridViewCartItem;
+        private System.Windows.Forms.DataGridView dataGridViewCart;
     }
 }
