@@ -150,6 +150,7 @@
       <DependentUpon>AddCategoryPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BrandModel.cs" />
+    <Compile Include="Models\CartItemModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Homepage.cs">
       <SubType>Form</SubType>
@@ -163,6 +164,7 @@
     <Compile Include="InventoryPage.Designer.cs">
       <DependentUpon>InventoryPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\SaleModel.cs" />
     <Compile Include="UpdateProductPage.cs">
       <SubType>Form</SubType>
     </Compile>

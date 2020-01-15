@@ -33,10 +33,16 @@ namespace POSINV
         //Squirrel update
         private async Task CheckForUpdates()
         {
-            using (var manager = new UpdateManager(@"C:\Users\Bilal\source\repos\POSINV\Releases") )
+            using (var manager = new UpdateManager(@"C:\Releases") )
             {
                 await manager.UpdateApp();
             }
+            /*
+            using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/mbilalakmal/InventoryManager"))
+            {
+                await mgr.Result.UpdateApp();
+            }
+            */
         }
 
         private void Homepage_Load(object sender, EventArgs e)
