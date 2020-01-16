@@ -7,19 +7,46 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace POSINV
 {
-    public partial class PointOfSalePage : MaterialForm
+    public partial class PointOfSalePage : MaterialForm, INotifyPropertyChanged
     {
         //List<ProductModel> products = new List<ProductModel>();
         List<ProductModel> products = new List<ProductModel>();
 
         //List<CartItemModel> cart = new List<CartItemModel>();
         BindingList<CartItemModel> cart = new BindingList<CartItemModel>();
+
+        //subTotal field bind to labelSubtotalAmount
+        private decimal subtotal;
+        
+        //public property for subtotal field
+        public string Subtotal
+        {
+            get
+            {
+                subtotal = 0;
+
+                foreach(var item in cart)
+                {
+                    subtotal += item.Amount;
+                }
+                return subtotal.ToString("C");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        //Notifies consumers of change in property | set null for all properties
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public PointOfSalePage()
         {
@@ -38,6 +65,15 @@ namespace POSINV
 
             //Load cart items
             WireUpCartDataGridView();
+
+            //bind labelSubtotalAmount to property
+            WireUpSubtotalAmount();
+            
+        }
+
+        private void WireUpSubtotalAmount()
+        {
+            labelSubTotalAmount.DataBindings.Add(new Binding("Text", this, "Subtotal"));
         }
 
         //load product objects from db
@@ -186,21 +222,47 @@ namespace POSINV
         {
             ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow.DataBoundItem;
 
-            CartItemModel item = new CartItemModel
+            //check if item already in cart, then update instead of create
+            CartItemModel cartItem = cart.FirstOrDefault<CartItemModel>(
+                x => x.ProductId == product.ProductId
+                );
+
+            if( cartItem != default(CartItemModel))
             {
-                ProductId = product.ProductId,
-                ProductName = product.ProductName,
-                UnitPrice = product.ListPrice,
-                Quantity = int.TryParse(textQuantity.Text, out int number) ? number : 1
-            };
-            cart.Add(item);
-            //WireUpCartDataGridView();
+                //update quantity
+                cartItem.Quantity += int.TryParse(textQuantity.Text, out int number) ? number : 1;
+            }
+            else
+            {
+                cartItem = new CartItemModel
+                {
+                    ProductId = product.ProductId,
+                    ProductName = product.ProductName,
+                    UnitPrice = product.ListPrice,
+                    Quantity = int.TryParse(textQuantity.Text, out int number) ? number : 1
+                };
+                cart.Add(cartItem);
+            }
+
+            //update total
+            NotifyPropertyChanged("Subtotal");
+
+            //decrement from product
+
+
         }
 
         private void btnRemoveFromCart_Click(object sender, EventArgs e)
         {
             //check if a product is selected, revert quantity and total
             MessageBox.Show(CanRemoveFromCart().ToString());
+
+            if(CanRemoveFromCart() == false)
+            {
+                return;
+            }
+            RemoveFromCart();
+
         }
 
         private bool CanRemoveFromCart()
@@ -211,6 +273,19 @@ namespace POSINV
             return cartItem != null;
         }
 
+        private void RemoveFromCart()
+        {
+            CartItemModel cartItem = (CartItemModel)dataGridViewCart.CurrentRow.DataBoundItem;
+            cart.Remove(cartItem);
+            NotifyPropertyChanged("Subtotal");
+        }
         
+        private void btnCheckOut_Click(object sender, EventArgs e)
+        {
+            //Ask For Misc Charges, add to subtotal
+            //Create Sale Item, Store in DB
+            //Create SaleDetail Items, Store in DB
+            //Update stock quantity of products
+        }
     }
 }

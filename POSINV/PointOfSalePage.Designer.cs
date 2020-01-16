@@ -31,6 +31,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PointOfSalePage));
             this.mtcSale = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPageAddSale = new System.Windows.Forms.TabPage();
+            this.dataGridViewCart = new System.Windows.Forms.DataGridView();
+            this.btnRemoveFromCart = new MaterialSkin.Controls.MaterialFlatButton();
+            this.btnCheckOut = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.labelSubTotalAmount = new MaterialSkin.Controls.MaterialLabel();
+            this.labelSubtotal = new MaterialSkin.Controls.MaterialLabel();
+            this.btnAddToCart = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.textQuantity = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.labelQuantity = new MaterialSkin.Controls.MaterialLabel();
             this.pictureProductPreview = new System.Windows.Forms.PictureBox();
             this.textSearchProduct = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.dataGridViewProduct = new System.Windows.Forms.DataGridView();
@@ -49,21 +57,13 @@
             this.materialDivider8 = new MaterialSkin.Controls.MaterialDivider();
             this.materialDivider9 = new MaterialSkin.Controls.MaterialDivider();
             this.tabSManageSale = new MaterialSkin.Controls.MaterialTabSelector();
-            this.textQuantity = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.labelQuantity = new MaterialSkin.Controls.MaterialLabel();
-            this.btnAddToCart = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.labelSubtotal = new MaterialSkin.Controls.MaterialLabel();
-            this.labelSubTotalAmount = new MaterialSkin.Controls.MaterialLabel();
-            this.btnCheckOut = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.btnRemoveFromCart = new MaterialSkin.Controls.MaterialFlatButton();
-            this.dataGridViewCart = new System.Windows.Forms.DataGridView();
             this.mtcSale.SuspendLayout();
             this.tabPageAddSale.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureProductPreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProduct)).BeginInit();
             this.tabPageManageSale.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSale)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCart)).BeginInit();
             this.SuspendLayout();
             // 
             // mtcSale
@@ -109,6 +109,146 @@
             this.tabPageAddSale.Size = new System.Drawing.Size(934, 441);
             this.tabPageAddSale.TabIndex = 0;
             this.tabPageAddSale.Text = "Add Sale";
+            // 
+            // dataGridViewCart
+            // 
+            this.dataGridViewCart.AllowUserToAddRows = false;
+            this.dataGridViewCart.AllowUserToDeleteRows = false;
+            this.dataGridViewCart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewCart.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewCart.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridViewCart.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dataGridViewCart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCart.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridViewCart.Location = new System.Drawing.Point(618, 125);
+            this.dataGridViewCart.MaximumSize = new System.Drawing.Size(300, 600);
+            this.dataGridViewCart.MultiSelect = false;
+            this.dataGridViewCart.Name = "dataGridViewCart";
+            this.dataGridViewCart.ReadOnly = true;
+            this.dataGridViewCart.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            this.dataGridViewCart.RowTemplate.Height = 32;
+            this.dataGridViewCart.Size = new System.Drawing.Size(300, 300);
+            this.dataGridViewCart.TabIndex = 41;
+            this.dataGridViewCart.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewCart_DataBindingComplete);
+            // 
+            // btnRemoveFromCart
+            // 
+            this.btnRemoveFromCart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRemoveFromCart.AutoSize = true;
+            this.btnRemoveFromCart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnRemoveFromCart.Depth = 0;
+            this.btnRemoveFromCart.Icon = null;
+            this.btnRemoveFromCart.Location = new System.Drawing.Point(760, 70);
+            this.btnRemoveFromCart.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnRemoveFromCart.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnRemoveFromCart.Name = "btnRemoveFromCart";
+            this.btnRemoveFromCart.Primary = false;
+            this.btnRemoveFromCart.Size = new System.Drawing.Size(155, 36);
+            this.btnRemoveFromCart.TabIndex = 40;
+            this.btnRemoveFromCart.Text = "Remove From Cart";
+            this.btnRemoveFromCart.UseVisualStyleBackColor = true;
+            this.btnRemoveFromCart.Click += new System.EventHandler(this.btnRemoveFromCart_Click);
+            // 
+            // btnCheckOut
+            // 
+            this.btnCheckOut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCheckOut.AutoSize = true;
+            this.btnCheckOut.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnCheckOut.Depth = 0;
+            this.btnCheckOut.Icon = null;
+            this.btnCheckOut.Location = new System.Drawing.Point(439, 364);
+            this.btnCheckOut.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnCheckOut.Name = "btnCheckOut";
+            this.btnCheckOut.Primary = true;
+            this.btnCheckOut.Size = new System.Drawing.Size(95, 36);
+            this.btnCheckOut.TabIndex = 39;
+            this.btnCheckOut.Text = "Check Out";
+            this.btnCheckOut.UseVisualStyleBackColor = true;
+            this.btnCheckOut.Click += new System.EventHandler(this.btnCheckOut_Click);
+            // 
+            // labelSubTotalAmount
+            // 
+            this.labelSubTotalAmount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelSubTotalAmount.AutoSize = true;
+            this.labelSubTotalAmount.Depth = 0;
+            this.labelSubTotalAmount.Font = new System.Drawing.Font("Roboto", 11F);
+            this.labelSubTotalAmount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labelSubTotalAmount.Location = new System.Drawing.Point(510, 339);
+            this.labelSubTotalAmount.Margin = new System.Windows.Forms.Padding(3);
+            this.labelSubTotalAmount.MouseState = MaterialSkin.MouseState.HOVER;
+            this.labelSubTotalAmount.Name = "labelSubTotalAmount";
+            this.labelSubTotalAmount.Size = new System.Drawing.Size(37, 19);
+            this.labelSubTotalAmount.TabIndex = 38;
+            this.labelSubTotalAmount.Text = "0.00";
+            this.labelSubTotalAmount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelSubtotal
+            // 
+            this.labelSubtotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelSubtotal.AutoSize = true;
+            this.labelSubtotal.Depth = 0;
+            this.labelSubtotal.Font = new System.Drawing.Font("Roboto", 11F);
+            this.labelSubtotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labelSubtotal.Location = new System.Drawing.Point(435, 339);
+            this.labelSubtotal.Margin = new System.Windows.Forms.Padding(3);
+            this.labelSubtotal.MouseState = MaterialSkin.MouseState.HOVER;
+            this.labelSubtotal.Name = "labelSubtotal";
+            this.labelSubtotal.Size = new System.Drawing.Size(69, 19);
+            this.labelSubtotal.TabIndex = 37;
+            this.labelSubtotal.Text = "Subtotal:";
+            this.labelSubtotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnAddToCart
+            // 
+            this.btnAddToCart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddToCart.AutoSize = true;
+            this.btnAddToCart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnAddToCart.Depth = 0;
+            this.btnAddToCart.Icon = null;
+            this.btnAddToCart.Location = new System.Drawing.Point(434, 293);
+            this.btnAddToCart.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnAddToCart.Name = "btnAddToCart";
+            this.btnAddToCart.Primary = true;
+            this.btnAddToCart.Size = new System.Drawing.Size(108, 36);
+            this.btnAddToCart.TabIndex = 35;
+            this.btnAddToCart.Text = "Add To Cart";
+            this.btnAddToCart.UseVisualStyleBackColor = true;
+            this.btnAddToCart.Click += new System.EventHandler(this.btnAddToCart_Click);
+            // 
+            // textQuantity
+            // 
+            this.textQuantity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textQuantity.Depth = 0;
+            this.textQuantity.Hint = "1";
+            this.textQuantity.Location = new System.Drawing.Point(439, 264);
+            this.textQuantity.MaxLength = 10;
+            this.textQuantity.MouseState = MaterialSkin.MouseState.HOVER;
+            this.textQuantity.Name = "textQuantity";
+            this.textQuantity.PasswordChar = '\0';
+            this.textQuantity.SelectedText = "";
+            this.textQuantity.SelectionLength = 0;
+            this.textQuantity.SelectionStart = 0;
+            this.textQuantity.Size = new System.Drawing.Size(108, 23);
+            this.textQuantity.TabIndex = 30;
+            this.textQuantity.TabStop = false;
+            this.textQuantity.UseSystemPasswordChar = false;
+            // 
+            // labelQuantity
+            // 
+            this.labelQuantity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelQuantity.AutoSize = true;
+            this.labelQuantity.Depth = 0;
+            this.labelQuantity.Font = new System.Drawing.Font("Roboto", 11F);
+            this.labelQuantity.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labelQuantity.Location = new System.Drawing.Point(435, 239);
+            this.labelQuantity.Margin = new System.Windows.Forms.Padding(3);
+            this.labelQuantity.MouseState = MaterialSkin.MouseState.HOVER;
+            this.labelQuantity.Name = "labelQuantity";
+            this.labelQuantity.Size = new System.Drawing.Size(74, 19);
+            this.labelQuantity.TabIndex = 29;
+            this.labelQuantity.Text = "Quantity *";
+            this.labelQuantity.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureProductPreview
             // 
@@ -395,145 +535,6 @@
             this.tabSManageSale.TabIndex = 2;
             this.tabSManageSale.Text = "materialTabSelector2";
             // 
-            // textQuantity
-            // 
-            this.textQuantity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textQuantity.Depth = 0;
-            this.textQuantity.Hint = "1";
-            this.textQuantity.Location = new System.Drawing.Point(439, 264);
-            this.textQuantity.MaxLength = 10;
-            this.textQuantity.MouseState = MaterialSkin.MouseState.HOVER;
-            this.textQuantity.Name = "textQuantity";
-            this.textQuantity.PasswordChar = '\0';
-            this.textQuantity.SelectedText = "";
-            this.textQuantity.SelectionLength = 0;
-            this.textQuantity.SelectionStart = 0;
-            this.textQuantity.Size = new System.Drawing.Size(108, 23);
-            this.textQuantity.TabIndex = 30;
-            this.textQuantity.TabStop = false;
-            this.textQuantity.UseSystemPasswordChar = false;
-            // 
-            // labelQuantity
-            // 
-            this.labelQuantity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelQuantity.AutoSize = true;
-            this.labelQuantity.Depth = 0;
-            this.labelQuantity.Font = new System.Drawing.Font("Roboto", 11F);
-            this.labelQuantity.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelQuantity.Location = new System.Drawing.Point(435, 239);
-            this.labelQuantity.Margin = new System.Windows.Forms.Padding(3);
-            this.labelQuantity.MouseState = MaterialSkin.MouseState.HOVER;
-            this.labelQuantity.Name = "labelQuantity";
-            this.labelQuantity.Size = new System.Drawing.Size(74, 19);
-            this.labelQuantity.TabIndex = 29;
-            this.labelQuantity.Text = "Quantity *";
-            this.labelQuantity.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnAddToCart
-            // 
-            this.btnAddToCart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddToCart.AutoSize = true;
-            this.btnAddToCart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnAddToCart.Depth = 0;
-            this.btnAddToCart.Icon = null;
-            this.btnAddToCart.Location = new System.Drawing.Point(434, 293);
-            this.btnAddToCart.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnAddToCart.Name = "btnAddToCart";
-            this.btnAddToCart.Primary = true;
-            this.btnAddToCart.Size = new System.Drawing.Size(108, 36);
-            this.btnAddToCart.TabIndex = 35;
-            this.btnAddToCart.Text = "Add To Cart";
-            this.btnAddToCart.UseVisualStyleBackColor = true;
-            this.btnAddToCart.Click += new System.EventHandler(this.btnAddToCart_Click);
-            // 
-            // labelSubtotal
-            // 
-            this.labelSubtotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelSubtotal.AutoSize = true;
-            this.labelSubtotal.Depth = 0;
-            this.labelSubtotal.Font = new System.Drawing.Font("Roboto", 11F);
-            this.labelSubtotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelSubtotal.Location = new System.Drawing.Point(435, 339);
-            this.labelSubtotal.Margin = new System.Windows.Forms.Padding(3);
-            this.labelSubtotal.MouseState = MaterialSkin.MouseState.HOVER;
-            this.labelSubtotal.Name = "labelSubtotal";
-            this.labelSubtotal.Size = new System.Drawing.Size(69, 19);
-            this.labelSubtotal.TabIndex = 37;
-            this.labelSubtotal.Text = "Subtotal:";
-            this.labelSubtotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelSubTotalAmount
-            // 
-            this.labelSubTotalAmount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelSubTotalAmount.AutoSize = true;
-            this.labelSubTotalAmount.Depth = 0;
-            this.labelSubTotalAmount.Font = new System.Drawing.Font("Roboto", 11F);
-            this.labelSubTotalAmount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelSubTotalAmount.Location = new System.Drawing.Point(552, 339);
-            this.labelSubTotalAmount.Margin = new System.Windows.Forms.Padding(3);
-            this.labelSubTotalAmount.MouseState = MaterialSkin.MouseState.HOVER;
-            this.labelSubTotalAmount.Name = "labelSubTotalAmount";
-            this.labelSubTotalAmount.Size = new System.Drawing.Size(37, 19);
-            this.labelSubTotalAmount.TabIndex = 38;
-            this.labelSubTotalAmount.Text = "0.00";
-            this.labelSubTotalAmount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnCheckOut
-            // 
-            this.btnCheckOut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCheckOut.AutoSize = true;
-            this.btnCheckOut.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnCheckOut.Depth = 0;
-            this.btnCheckOut.Icon = null;
-            this.btnCheckOut.Location = new System.Drawing.Point(439, 364);
-            this.btnCheckOut.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnCheckOut.Name = "btnCheckOut";
-            this.btnCheckOut.Primary = true;
-            this.btnCheckOut.Size = new System.Drawing.Size(95, 36);
-            this.btnCheckOut.TabIndex = 39;
-            this.btnCheckOut.Text = "Check Out";
-            this.btnCheckOut.UseVisualStyleBackColor = true;
-            // 
-            // btnRemoveFromCart
-            // 
-            this.btnRemoveFromCart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveFromCart.AutoSize = true;
-            this.btnRemoveFromCart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnRemoveFromCart.Depth = 0;
-            this.btnRemoveFromCart.Icon = null;
-            this.btnRemoveFromCart.Location = new System.Drawing.Point(760, 70);
-            this.btnRemoveFromCart.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnRemoveFromCart.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnRemoveFromCart.Name = "btnRemoveFromCart";
-            this.btnRemoveFromCart.Primary = false;
-            this.btnRemoveFromCart.Size = new System.Drawing.Size(155, 36);
-            this.btnRemoveFromCart.TabIndex = 40;
-            this.btnRemoveFromCart.Text = "Remove From Cart";
-            this.btnRemoveFromCart.UseVisualStyleBackColor = true;
-            this.btnRemoveFromCart.Click += new System.EventHandler(this.btnRemoveFromCart_Click);
-            // 
-            // dataGridViewCart
-            // 
-            this.dataGridViewCart.AllowUserToAddRows = false;
-            this.dataGridViewCart.AllowUserToDeleteRows = false;
-            this.dataGridViewCart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewCart.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewCart.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridViewCart.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dataGridViewCart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCart.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridViewCart.Location = new System.Drawing.Point(618, 125);
-            this.dataGridViewCart.MaximumSize = new System.Drawing.Size(300, 600);
-            this.dataGridViewCart.MultiSelect = false;
-            this.dataGridViewCart.Name = "dataGridViewCart";
-            this.dataGridViewCart.ReadOnly = true;
-            this.dataGridViewCart.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            this.dataGridViewCart.RowTemplate.Height = 32;
-            this.dataGridViewCart.Size = new System.Drawing.Size(300, 300);
-            this.dataGridViewCart.TabIndex = 41;
-            this.dataGridViewCart.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewCart_DataBindingComplete);
-            // 
             // PointOfSalePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -550,12 +551,12 @@
             this.mtcSale.ResumeLayout(false);
             this.tabPageAddSale.ResumeLayout(false);
             this.tabPageAddSale.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureProductPreview)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProduct)).EndInit();
             this.tabPageManageSale.ResumeLayout(false);
             this.tabPageManageSale.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSale)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCart)).EndInit();
             this.ResumeLayout(false);
 
         }
