@@ -94,6 +94,7 @@ namespace POSINV
         //remove unnecessary columns from product DGV
         private void dataGridViewProduct_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
+            dataGridViewProduct.Columns["ProductId"].Visible = false;
             dataGridViewProduct.Columns["Picture"].Visible = false;
             dataGridViewProduct.Columns["UpdatedOn"].Visible = false;
 
@@ -251,10 +252,26 @@ namespace POSINV
         
         private void btnCheckOut_Click(object sender, EventArgs e)
         {
-            //Ask For Misc Charges, add to subtotal
             //Create Sale Item, Store in DB
             //Create SaleDetail Items, Store in DB
             //Update stock quantity of products
+
+            if ( CanCheckOut() == true)
+            {
+                //create sale object
+                SaleModel sale = new SaleModel { MiscPrice = 0, SaleTotal = subtotal };
+                //Save sale & sale details
+                SQLiteDataAccess.SaveSale(sale, cart);
+
+                cart.Clear();   //reset cart
+                NotifyPropertyChanged("Subtotal"); //reset subtotal
+            }
+        }
+
+        private bool CanCheckOut()
+        {
+            ///Validate Misc Charges and that cart is not empty
+            return cart.Count != 0;
         }
 
         private void dataGridViewProduct_CurrentCellChanged(object sender, EventArgs e)
