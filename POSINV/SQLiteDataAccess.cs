@@ -142,7 +142,15 @@ namespace POSINV
             {
                 string sql = @"PRAGMA foreign_keys = ON;DELETE FROM PRODUCT WHERE PRODUCTID = @search";
 
-                cnn.Execute(sql, new { search = productId });
+                try
+                {
+                    cnn.Execute(sql, new { search = productId });
+                }
+                catch(Exception exp)
+                {
+                    System.Windows.Forms.MessageBox.Show(exp.Message);
+                }
+                
             }
         }
 
@@ -152,8 +160,15 @@ namespace POSINV
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"PRAGMA foreign_keys = ON;DELETE FROM BRAND WHERE BRANDID = @search";
-
-                cnn.Execute(sql, new { search = brandId });
+                try
+                {
+                    cnn.Execute(sql, new { search = brandId });
+                }
+                catch (Exception exp)
+                {
+                    System.Windows.Forms.MessageBox.Show(exp.Message);
+                }
+                
             }
         }
 
@@ -163,8 +178,15 @@ namespace POSINV
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"PRAGMA foreign_keys = ON;DELETE FROM CATEGORY WHERE CATEGORYID = @search";
-
-                cnn.Execute(sql, new { search = categoryId });
+                try
+                {
+                    cnn.Execute(sql, new { search = categoryId });
+                }
+                catch (Exception exp)
+                {
+                    System.Windows.Forms.MessageBox.Show(exp.Message);
+                }
+                
             }
         }
 
@@ -174,7 +196,7 @@ namespace POSINV
         {
             using (IDbConnection cnn = new SQLiteConnection( LoadConnectionString()))
             {
-                string sql = @"UPDATE OR IGNORE PRODUCT SET PRODUCTNAME = @name," + 
+                string sql = @"UPDATE PRODUCT SET PRODUCTNAME = @name," + 
                     " COSTPRICE = @cost, LISTPRICE = @list, QUANTITY = @quantity," +
                     " DESCRIPTION = @description, UPDATEDON = datetime(CURRENT_TIMESTAMP, 'localtime')," +
                     " BRANDID = @brand, CATEGORYID = @category," +
@@ -246,7 +268,7 @@ namespace POSINV
             }
         }
 
-        //save newly created product with brandId and categoryId
+        //save newly created sale along with cart items, and update product quantity
         public static void SaveSale(SaleModel sale, BindingList<CartItemModel> cart)
         {
             string saleSql = @"INSERT INTO SALE(SALEDATE, MISCPRICE, SALETOTAL) VALUES "+
@@ -267,10 +289,8 @@ namespace POSINV
                     try
                     {
                         //Store Sale, and return SaleId
-                        cnn.Execute(saleSql, new { misc = sale.MiscPrice, total = sale.SaleTotal });
-
-                        var queryResult = cnn.ExecuteScalar(idSql, new { name = "Sale" });
-                        int saleId = Convert.ToInt32(queryResult);
+                        cnn.Execute(saleSql, new { misc = sale.MiscPrice, total = sale.SaleTotal }, transaction: trans);
+                        int saleId = Convert.ToInt32(cnn.ExecuteScalar(idSql, new { name = "Sale" }, transaction: trans));
                         
                         //Store SaleDetail
                         foreach (var item in cart)
@@ -280,17 +300,14 @@ namespace POSINV
                                 product = item.ProductId,
                                 unit = item.UnitPrice,
                                 quantity = item.Quantity
-                            });
+                            }, transaction: trans);
 
                             cnn.Execute(productSql, new {
                                 quantity = item.Quantity,
                                 product = item.ProductId
-                            });
+                            }, transaction: trans);
 
                         }
-
-                        //Update Product
-
                         trans.Commit();
                     }
                     catch
@@ -299,9 +316,27 @@ namespace POSINV
                         throw;
                     }
                 }
-
             }
         }
+
+        //delete sale & sale detail items & update quantity
+        //TODO -- Update product quantity before deleting sale items
+        public static void DeleteSale(int saleId)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string sql = @"PRAGMA foreign_keys = ON;DELETE FROM SALE WHERE SALEID = @search";
+                try
+                {
+                    cnn.Execute(sql, new { search = saleId });
+                }
+                catch (Exception exp)
+                {
+                    System.Windows.Forms.MessageBox.Show(exp.Message);
+                }
+            }
+        }
+
 
     }
 
