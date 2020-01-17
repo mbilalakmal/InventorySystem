@@ -2,6 +2,7 @@
 using POSINV.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
@@ -221,8 +222,7 @@ namespace POSINV
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
         }
 
-
-        ///CartItem Model
+        // <--POS-->
         
         public static List<SaleModel> LoadSales()
         {
@@ -247,13 +247,51 @@ namespace POSINV
         }
 
         //save newly created product with brandId and categoryId
-        public static void SaveSale(SaleModel sale, List<CartItemModel> cartItems)
+        public static void SaveSale(SaleModel sale, BindingList<CartItemModel> cart)
         {
+            string saleSql = @"INSERT INTO SALE(SALEDATE, MISCPRICE, SALETOTAL) VALUES "+
+                "(datetime(CURRENT_TIMESTAMP, 'localtime'), @misc, @total)";
+
+            string idSql = @"SELECT SEQ FROM SQLITE_SEQUENCE WHERE NAME = @name";
+
+            string itemSql = @"INSERT INTO SALEDETAIL(SALEID, PRODUCTID, UNITPRICE, PRODUCTQUANTITY)" +
+                " VALUES (@sale, @product, @unit, @quantity)";
+
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                //perform single commit, first store the sale, get saleId returned
-                //then store each cartItem
-                //then subtract quantity from product table
+                cnn.Open();
+                using (IDbTransaction trans = cnn.BeginTransaction())
+                {
+                    try
+                    {
+                        //Store Sale, and return SaleId
+                        cnn.Execute(saleSql, new { misc = sale.MiscPrice, total = sale.SaleTotal });
+
+                        var queryResult = cnn.ExecuteScalar(idSql, new { name = "Sale" });
+                        int saleId = Convert.ToInt32(queryResult);
+                        
+                        //Store SaleDetail
+                        foreach (var item in cart)
+                        {
+                            cnn.Execute(itemSql, new {
+                                sale = saleId,
+                                product = item.ProductId,
+                                unit = item.UnitPrice,
+                                quantity = item.Quantity
+                            });
+                        }
+
+                        //Update Product
+
+                        trans.Commit();
+                    }
+                    catch
+                    {
+                        trans.Rollback();
+                        throw;
+                    }
+                }
+
             }
         }
 
