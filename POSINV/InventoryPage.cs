@@ -340,7 +340,7 @@ namespace POSINV
 
             ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow.DataBoundItem;
 
-            if ( confirmDeleteItem( product.ProductName ) == true )
+            if ( ConfirmDeleteItem( product.ProductName ) == true )
             {
                 SQLiteDataAccess.DeleteProduct( product.ProductId );
                 
@@ -363,7 +363,7 @@ namespace POSINV
 
             BrandModel brand = (BrandModel)dataGridViewBrand.CurrentRow.DataBoundItem;
 
-            if ( confirmDeleteItem( brand.BrandName ) == true)
+            if ( ConfirmDeleteItem( brand.BrandName ) == true)
             {
                 SQLiteDataAccess.DeleteBrand( brand.BrandId );
                 
@@ -394,7 +394,7 @@ namespace POSINV
 
             CategoryModel category = (CategoryModel)dataGridViewCategory.CurrentRow.DataBoundItem;
 
-            if (confirmDeleteItem( category.CategoryName ) == true)
+            if (ConfirmDeleteItem( category.CategoryName ) == true)
             {
                 SQLiteDataAccess.DeleteCategory( category.CategoryId );
 
@@ -410,7 +410,7 @@ namespace POSINV
 
         }
 
-        private bool confirmDeleteItem(string itemName)
+        private bool ConfirmDeleteItem(string itemName)
         {
             string confirmText = string.Format("Delete {0} Permenantly?", itemName);
             string confirmCaption = "Confirm Delete";
