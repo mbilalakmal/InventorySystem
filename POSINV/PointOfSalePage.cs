@@ -4,12 +4,9 @@ using POSINV.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace POSINV
@@ -31,12 +28,11 @@ namespace POSINV
             get
             {
                 subtotal = 0;
-
                 foreach(var item in cart)
                 {
                     subtotal += item.Amount;
                 }
-                return subtotal.ToString("C");
+                return subtotal.ToString("C", CultureInfo.CreateSpecificCulture("ur-PK"));
             }
         }
 
@@ -71,6 +67,7 @@ namespace POSINV
             
         }
 
+        //bind Subtotal property to label
         private void WireUpSubtotalAmount()
         {
             labelSubTotalAmount.DataBindings.Add(new Binding("Text", this, "Subtotal"));
@@ -116,12 +113,7 @@ namespace POSINV
         {
             dataGridViewCart.Columns["ProductId"].Visible = false;
         }
-
-        private void PointOfSalePage_Load(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void btnSearchProduct_Click(object sender, EventArgs e)
         {
             //search for products with (LIKE) in db and update datagridview
@@ -130,7 +122,7 @@ namespace POSINV
             string searchString = textSearchProduct.Text.Trim();
             
             products = SQLiteDataAccess.LoadSearchedProducts(searchString);
-            //sth
+
             WireUpProductDataGridView();
 
             //reset the text
@@ -142,98 +134,61 @@ namespace POSINV
         {
             resetProductPreview();
 
-            //If no row is selected, return
-            if (dataGridViewProduct.CurrentRow == null)
+            ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow?.DataBoundItem;
+
+            if ( product != default(ProductModel))
             {
-                return;
+                pictureProductPreview.Image = ProductModel.ByteToImage(product.Picture);
             }
-            //get product of current row
-            ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow.DataBoundItem;
-
-            //set current preview
-            pictureProductPreview.Image = ProductModel.ByteToImage(product.Picture);
-
         }
 
         private void resetProductPreview()
         {
             //dispose of previous preview
-            /*
-            if (pictureProductPreview.Image != null)
-            {
-                pictureProductPreview.Image.Dispose();
-                pictureProductPreview.Image = null;
-            }
-            */
             pictureProductPreview.Image?.Dispose();
             pictureProductPreview.Image = null;
         }
 
-        private void dataGridViewProduct_Click(object sender, EventArgs e)
-        {
-            //set Image of current row in preview picturebox
-            setProductPreview();
-        }
-
-        private void textSearchProduct_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnAddToCart_Click(object sender, EventArgs e)
         {
-            //check if a product is selected and quantity is within limit
-            /*
-            if ( CanAddToCart())
+            ///Validate product selection and quantity
+            if ( CanAddToCart() == true)
             {
-                //create cartItem and add it to cart
-                //update total price etc and quanityt
-
+                AddToCart();
             }
-            */
-            MessageBox.Show(CanAddToCart().ToString());
-
-            //if item is already in cart, increment quantity
-            if( CanAddToCart() == false)
-            {
-                return;
-            }
-            AddToCart();
         }
 
         private bool CanAddToCart()
         {
-            //if product selected and q>0 & q<= p.quantity return true
-
+            ///Check if a product is selected and quantity is valid (0-Product.Quantity]
             ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow?.DataBoundItem;
 
-            if (int.TryParse(textQuantity.Text, out int quantity))
-            {
-                if ( quantity > 0 && quantity <= product?.Quantity)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return int.TryParse(textQuantity.Text, out int quantity) ?
+                (quantity > 0 && quantity <= product?.Quantity) : false;
 
         }
 
         private void AddToCart()
         {
+            ///If item is already in cart, update quantity otherwise add it to cart
             ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow.DataBoundItem;
 
-            //check if item already in cart, then update instead of create
+            //check if item already in cart
             CartItemModel cartItem = cart.FirstOrDefault<CartItemModel>(
                 x => x.ProductId == product.ProductId
                 );
 
             if( cartItem != default(CartItemModel))
             {
-                //update quantity
+                //reset product quantity | add previous item quantity back
+                product.Quantity += cartItem.Quantity;
+
+                //Update quantity of existing cartItem
                 cartItem.Quantity += int.TryParse(textQuantity.Text, out int number) ? number : 1;
             }
             else
             {
+                //create a new cartItem & Add it to cart
                 cartItem = new CartItemModel
                 {
                     ProductId = product.ProductId,
@@ -244,30 +199,34 @@ namespace POSINV
                 cart.Add(cartItem);
             }
 
-            //update total
+            //update Subtotal
             NotifyPropertyChanged("Subtotal");
 
             //decrement from product
+            product.Quantity -= cartItem.Quantity;
+            //refresh productList <--REPLACE WITH BETTER-->
+            WireUpProductDataGridView();
+            
+            ResetTextQuantity();    //textQuantity.Text = 1
+        }
 
-
+        private void ResetTextQuantity()
+        {
+            textQuantity.Text = (1).ToString();
         }
 
         private void btnRemoveFromCart_Click(object sender, EventArgs e)
         {
-            //check if a product is selected, revert quantity and total
-            MessageBox.Show(CanRemoveFromCart().ToString());
-
-            if(CanRemoveFromCart() == false)
+            ///Validate CartItem Selection
+            if ( CanRemoveFromCart() == true )
             {
-                return;
+                RemoveFromCart();
             }
-            RemoveFromCart();
-
         }
 
         private bool CanRemoveFromCart()
         {
-            //if product selected remove it from cart
+            ///Checks if a cartItem is selected
 
             CartItemModel cartItem = (CartItemModel)dataGridViewCart.CurrentRow?.DataBoundItem;
             return cartItem != null;
@@ -275,9 +234,19 @@ namespace POSINV
 
         private void RemoveFromCart()
         {
+            //Remove Item from cart, update Subtotal, and increment product quantity
             CartItemModel cartItem = (CartItemModel)dataGridViewCart.CurrentRow.DataBoundItem;
             cart.Remove(cartItem);
+
             NotifyPropertyChanged("Subtotal");
+
+            //Get the relevant product and reset quantity
+            ProductModel product = products.First(
+                x => x.ProductId == cartItem.ProductId
+                );
+            product.Quantity += cartItem.Quantity;
+            WireUpProductDataGridView();
+
         }
         
         private void btnCheckOut_Click(object sender, EventArgs e)
@@ -286,6 +255,11 @@ namespace POSINV
             //Create Sale Item, Store in DB
             //Create SaleDetail Items, Store in DB
             //Update stock quantity of products
+        }
+
+        private void dataGridViewProduct_CurrentCellChanged(object sender, EventArgs e)
+        {
+            setProductPreview();    //change preview Image to current Product's
         }
     }
 }

@@ -228,10 +228,11 @@
             this.textQuantity.PasswordChar = '\0';
             this.textQuantity.SelectedText = "";
             this.textQuantity.SelectionLength = 0;
-            this.textQuantity.SelectionStart = 0;
+            this.textQuantity.SelectionStart = 1;
             this.textQuantity.Size = new System.Drawing.Size(108, 23);
             this.textQuantity.TabIndex = 30;
             this.textQuantity.TabStop = false;
+            this.textQuantity.Text = "1";
             this.textQuantity.UseSystemPasswordChar = false;
             // 
             // labelQuantity
@@ -281,7 +282,6 @@
             this.textSearchProduct.TabIndex = 27;
             this.textSearchProduct.TabStop = false;
             this.textSearchProduct.UseSystemPasswordChar = false;
-            this.textSearchProduct.Click += new System.EventHandler(this.textSearchProduct_Click);
             // 
             // dataGridViewProduct
             // 
@@ -303,8 +303,8 @@
             this.dataGridViewProduct.RowTemplate.Height = 32;
             this.dataGridViewProduct.Size = new System.Drawing.Size(400, 300);
             this.dataGridViewProduct.TabIndex = 26;
+            this.dataGridViewProduct.CurrentCellChanged += new System.EventHandler(this.dataGridViewProduct_CurrentCellChanged);
             this.dataGridViewProduct.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewProduct_DataBindingComplete);
-            this.dataGridViewProduct.Click += new System.EventHandler(this.dataGridViewProduct_Click);
             // 
             // btnSearchProduct
             // 
@@ -547,7 +547,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Process Sales";
-            this.Load += new System.EventHandler(this.PointOfSalePage_Load);
             this.mtcSale.ResumeLayout(false);
             this.tabPageAddSale.ResumeLayout(false);
             this.tabPageAddSale.PerformLayout();
