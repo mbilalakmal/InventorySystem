@@ -117,7 +117,6 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Home";
-            this.Load += new System.EventHandler(this.Homepage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -45,11 +45,6 @@ namespace POSINV
             */
         }
 
-        private void Homepage_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnPointOfSale_Click(object sender, EventArgs e)
         {
             using (var form = new PointOfSalePage())
