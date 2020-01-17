@@ -57,6 +57,8 @@
             this.materialDivider8 = new MaterialSkin.Controls.MaterialDivider();
             this.materialDivider9 = new MaterialSkin.Controls.MaterialDivider();
             this.tabSManageSale = new MaterialSkin.Controls.MaterialTabSelector();
+            this.textMisc = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.labelMisc = new MaterialSkin.Controls.MaterialLabel();
             this.mtcSale.SuspendLayout();
             this.tabPageAddSale.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCart)).BeginInit();
@@ -87,6 +89,8 @@
             // tabPageAddSale
             // 
             this.tabPageAddSale.BackColor = System.Drawing.Color.White;
+            this.tabPageAddSale.Controls.Add(this.textMisc);
+            this.tabPageAddSale.Controls.Add(this.labelMisc);
             this.tabPageAddSale.Controls.Add(this.dataGridViewCart);
             this.tabPageAddSale.Controls.Add(this.btnRemoveFromCart);
             this.tabPageAddSale.Controls.Add(this.btnCheckOut);
@@ -128,7 +132,7 @@
             this.dataGridViewCart.ReadOnly = true;
             this.dataGridViewCart.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dataGridViewCart.RowTemplate.Height = 32;
-            this.dataGridViewCart.Size = new System.Drawing.Size(300, 300);
+            this.dataGridViewCart.Size = new System.Drawing.Size(300, 233);
             this.dataGridViewCart.TabIndex = 41;
             this.dataGridViewCart.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewCart_DataBindingComplete);
             // 
@@ -157,7 +161,7 @@
             this.btnCheckOut.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnCheckOut.Depth = 0;
             this.btnCheckOut.Icon = null;
-            this.btnCheckOut.Location = new System.Drawing.Point(439, 364);
+            this.btnCheckOut.Location = new System.Drawing.Point(820, 364);
             this.btnCheckOut.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCheckOut.Name = "btnCheckOut";
             this.btnCheckOut.Primary = true;
@@ -174,7 +178,7 @@
             this.labelSubTotalAmount.Depth = 0;
             this.labelSubTotalAmount.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelSubTotalAmount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelSubTotalAmount.Location = new System.Drawing.Point(510, 339);
+            this.labelSubTotalAmount.Location = new System.Drawing.Point(689, 381);
             this.labelSubTotalAmount.Margin = new System.Windows.Forms.Padding(3);
             this.labelSubTotalAmount.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelSubTotalAmount.Name = "labelSubTotalAmount";
@@ -190,7 +194,7 @@
             this.labelSubtotal.Depth = 0;
             this.labelSubtotal.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelSubtotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelSubtotal.Location = new System.Drawing.Point(435, 339);
+            this.labelSubtotal.Location = new System.Drawing.Point(614, 381);
             this.labelSubtotal.Margin = new System.Windows.Forms.Padding(3);
             this.labelSubtotal.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelSubtotal.Name = "labelSubtotal";
@@ -535,6 +539,41 @@
             this.tabSManageSale.TabIndex = 2;
             this.tabSManageSale.Text = "materialTabSelector2";
             // 
+            // textMisc
+            // 
+            this.textMisc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.textMisc.Depth = 0;
+            this.textMisc.Hint = "0";
+            this.textMisc.Location = new System.Drawing.Point(439, 389);
+            this.textMisc.MaxLength = 10;
+            this.textMisc.MouseState = MaterialSkin.MouseState.HOVER;
+            this.textMisc.Name = "textMisc";
+            this.textMisc.PasswordChar = '\0';
+            this.textMisc.SelectedText = "";
+            this.textMisc.SelectionLength = 0;
+            this.textMisc.SelectionStart = 1;
+            this.textMisc.Size = new System.Drawing.Size(108, 23);
+            this.textMisc.TabIndex = 43;
+            this.textMisc.TabStop = false;
+            this.textMisc.Text = "0";
+            this.textMisc.UseSystemPasswordChar = false;
+            // 
+            // labelMisc
+            // 
+            this.labelMisc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelMisc.AutoSize = true;
+            this.labelMisc.Depth = 0;
+            this.labelMisc.Font = new System.Drawing.Font("Roboto", 11F);
+            this.labelMisc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labelMisc.Location = new System.Drawing.Point(435, 364);
+            this.labelMisc.Margin = new System.Windows.Forms.Padding(3);
+            this.labelMisc.MouseState = MaterialSkin.MouseState.HOVER;
+            this.labelMisc.Name = "labelMisc";
+            this.labelMisc.Size = new System.Drawing.Size(111, 19);
+            this.labelMisc.TabIndex = 42;
+            this.labelMisc.Text = "Misc Charges *";
+            this.labelMisc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // PointOfSalePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -590,5 +629,7 @@
         private MaterialSkin.Controls.MaterialLabel labelSubtotal;
         private MaterialSkin.Controls.MaterialFlatButton btnRemoveFromCart;
         private System.Windows.Forms.DataGridView dataGridViewCart;
+        private MaterialSkin.Controls.MaterialSingleLineTextField textMisc;
+        private MaterialSkin.Controls.MaterialLabel labelMisc;
     }
 }
