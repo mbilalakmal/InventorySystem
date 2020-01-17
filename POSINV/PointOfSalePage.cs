@@ -320,5 +320,45 @@ namespace POSINV
         {
             setProductPreview();    //change preview Image to current Product's
         }
+
+        private void btnDeleteSale_Click(object sender, EventArgs e)
+        {
+            ///check if sale can be deleted
+            if ( CanDeleteSale() == true)
+            {
+                DeleteSale();
+            }
+        }
+
+        private bool CanDeleteSale()
+        {
+            return dataGridViewSale.CurrentRow != null;
+        }
+
+        private void DeleteSale()
+        {
+            ///Delete From DB & DGV
+            SaleModel sale = (SaleModel)dataGridViewSale.CurrentRow.DataBoundItem;
+
+            //Confirm
+            if (ConfirmDeleteItem(sale.SaleId.ToString()) == true)
+            {
+                SQLiteDataAccess.DeleteSale(sale.SaleId);
+                sales.Remove(sale);
+                WireUpSaleDataGridView();
+            }
+        }
+
+        private bool ConfirmDeleteItem(string itemName)
+        {
+            string confirmText = string.Format("Delete {0} Permenantly?", itemName);
+            string confirmCaption = "Confirm Delete";
+
+            var confirmDelete = MessageBox.Show(confirmText, confirmCaption, MessageBoxButtons.YesNo);
+
+            return (confirmDelete == DialogResult.Yes);
+        }
+
+
     }
 }
