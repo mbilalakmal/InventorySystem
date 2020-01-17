@@ -13,10 +13,10 @@ namespace POSINV
 {
     public partial class PointOfSalePage : MaterialForm, INotifyPropertyChanged
     {
-        //List<ProductModel> products = new List<ProductModel>();
-        List<ProductModel> products = new List<ProductModel>();
+        List<SaleModel> sales = new List<SaleModel>();
 
-        //List<CartItemModel> cart = new List<CartItemModel>();
+        List<ProductModel> products = new List<ProductModel>();
+        
         BindingList<CartItemModel> cart = new BindingList<CartItemModel>();
 
         //subTotal field bind to labelSubtotalAmount
@@ -64,6 +64,9 @@ namespace POSINV
 
             //bind labelSubtotalAmount to property
             WireUpSubtotalAmount();
+
+            //Load Previous Sales
+            LoadSaleList();
             
         }
 
@@ -71,6 +74,21 @@ namespace POSINV
         private void WireUpSubtotalAmount()
         {
             labelSubTotalAmount.DataBindings.Add(new Binding("Text", this, "Subtotal"));
+        }
+
+        //load sale objects from db
+        private void LoadSaleList()
+        {
+            sales = SQLiteDataAccess.LoadSales();
+
+            WireUpSaleDataGridView();
+        }
+
+        //populate sale DGV
+        private void WireUpSaleDataGridView()
+        {
+            dataGridViewSale.DataSource = null;
+            dataGridViewSale.DataSource = sales;
         }
 
         //load product objects from db
