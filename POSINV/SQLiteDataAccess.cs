@@ -257,6 +257,8 @@ namespace POSINV
             string itemSql = @"INSERT INTO SALEDETAIL(SALEID, PRODUCTID, UNITPRICE, PRODUCTQUANTITY)" +
                 " VALUES (@sale, @product, @unit, @quantity)";
 
+            string productSql = @"UPDATE PRODUCT SET QUANTITY = QUANTITY - @quantity WHERE PRODUCTID = @product";
+
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 cnn.Open();
@@ -279,6 +281,12 @@ namespace POSINV
                                 unit = item.UnitPrice,
                                 quantity = item.Quantity
                             });
+
+                            cnn.Execute(productSql, new {
+                                quantity = item.Quantity,
+                                product = item.ProductId
+                            });
+
                         }
 
                         //Update Product
