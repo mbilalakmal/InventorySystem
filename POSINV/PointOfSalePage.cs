@@ -213,7 +213,7 @@ namespace POSINV
 
         private void ResetTextQuantity()
         {
-            textQuantity.Text = (1).ToString();
+            textQuantity.Text = 1.ToString();
         }
 
         private void btnRemoveFromCart_Click(object sender, EventArgs e)
@@ -258,19 +258,43 @@ namespace POSINV
 
             if ( CanCheckOut() == true)
             {
+                //get Misc Charges
+                decimal misc = decimal.Parse(textMisc.Text);
+
                 //create sale object
-                SaleModel sale = new SaleModel { MiscPrice = 0, SaleTotal = subtotal };
+                SaleModel sale = new SaleModel { MiscPrice = misc, SaleTotal = subtotal + misc };
                 //Save sale & sale details
                 SQLiteDataAccess.SaveSale(sale, cart);
 
                 cart.Clear();   //reset cart
+                
                 NotifyPropertyChanged("Subtotal"); //reset subtotal
+
+                ResetTextMisc();    //MiscCharges = 0
             }
+        }
+
+        private void ResetTextMisc()
+        {
+            textMisc.Text = 0.ToString();
         }
 
         private bool CanCheckOut()
         {
             ///Validate Misc Charges and that cart is not empty
+            
+            if ( decimal.TryParse(textMisc.Text, out decimal misc))
+            {
+                if ( misc < 0 || misc > 10000)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
             return cart.Count != 0;
         }
 
