@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InventoryPage));
             this.mtcInventory = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPageAddProduct = new System.Windows.Forms.TabPage();
@@ -152,7 +152,6 @@
             this.tabPageAddProduct.Size = new System.Drawing.Size(934, 441);
             this.tabPageAddProduct.TabIndex = 0;
             this.tabPageAddProduct.Text = "Add Product";
-            this.tabPageAddProduct.Click += new System.EventHandler(this.tabPageAddProduct_Click);
             // 
             // materialDivider3
             // 
@@ -314,7 +313,6 @@
             this.labelBrand.TabIndex = 13;
             this.labelBrand.Text = "Brand *";
             this.labelBrand.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelBrand.Click += new System.EventHandler(this.labelBrand_Click);
             // 
             // comboCategory
             // 
@@ -327,7 +325,6 @@
             this.comboCategory.Name = "comboCategory";
             this.comboCategory.Size = new System.Drawing.Size(154, 21);
             this.comboCategory.TabIndex = 12;
-            this.comboCategory.SelectedIndexChanged += new System.EventHandler(this.comboCategory_SelectedIndexChanged);
             // 
             // comboBrand
             // 
@@ -340,7 +337,6 @@
             this.comboBrand.Name = "comboBrand";
             this.comboBrand.Size = new System.Drawing.Size(130, 21);
             this.comboBrand.TabIndex = 11;
-            this.comboBrand.SelectedIndexChanged += new System.EventHandler(this.comboBrand_SelectedIndexChanged);
             // 
             // textDescription
             // 
@@ -504,7 +500,6 @@
             this.textName.TabIndex = 2;
             this.textName.TabStop = false;
             this.textName.UseSystemPasswordChar = false;
-            this.textName.Click += new System.EventHandler(this.textName_Click);
             // 
             // tabSAddProduct
             // 
@@ -537,7 +532,6 @@
             this.labelName.TabIndex = 0;
             this.labelName.Text = "Product Name *";
             this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelName.Click += new System.EventHandler(this.labelName_Click);
             // 
             // tabPageManageProduct
             // 
@@ -992,8 +986,8 @@
             // 
             this.dataGridViewCategory.AllowUserToAddRows = false;
             this.dataGridViewCategory.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.dataGridViewCategory.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dataGridViewCategory.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -1066,7 +1060,6 @@
             this.openFilePicture.Filter = "\"Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif" +
     "; *.png;\"";
             this.openFilePicture.Title = "Select A Picture For The Product";
-            this.openFilePicture.FileOk += new System.ComponentModel.CancelEventHandler(this.openFilePicture_FileOk);
             // 
             // InventoryPage
             // 
@@ -1082,7 +1075,6 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Manage Inventory";
-            this.Load += new System.EventHandler(this.InventoryPage_Load);
             this.mtcInventory.ResumeLayout(false);
             this.tabPageAddProduct.ResumeLayout(false);
             this.tabPageAddProduct.PerformLayout();

@@ -116,31 +116,6 @@ namespace POSINV
             dataGridViewCategory.DataSource = categories;
         }
 
-        private void InventoryPage_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBrand_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboCategory_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPageAddProduct_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelBrand_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnAddPicture_Click(object sender, EventArgs e)
         {
             //dispose of previous image to release memory
@@ -157,19 +132,7 @@ namespace POSINV
             }
             
         }
-
-        private void labelName_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textName_Click(object sender, EventArgs e)
-        {
-
-        }
-
         
-
         private void btnSaveProduct_Click(object sender, EventArgs e)
         {
             //Create ProductModel Object And Save In DB
@@ -307,11 +270,6 @@ namespace POSINV
                 pictureProduct.Image.Dispose();
                 pictureProduct.Image = null;
             }
-        }
-
-        private void openFilePicture_FileOk(object sender, CancelEventArgs e)
-        {
-
         }
 
         private void resetProductInputs()
@@ -580,14 +538,6 @@ namespace POSINV
 
         private void resetProductPreview()
         {
-            //dispose of previous preview
-            /*
-            if (pictureProductPreview.Image != null)
-            {
-                pictureProductPreview.Image.Dispose();
-                pictureProductPreview.Image = null;
-            }
-            */
             pictureProductPreview.Image?.Dispose();
             pictureProductPreview.Image = null;
         }
