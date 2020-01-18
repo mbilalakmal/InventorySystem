@@ -14,7 +14,7 @@ namespace POSINV
 {
     public partial class AddCategoryPage : MaterialForm
     {
-        public string categoryName { get; private set; }
+        public CategoryModel Category { get; private set; }
 
         public AddCategoryPage()
         {
@@ -29,26 +29,35 @@ namespace POSINV
             );
         }
 
-        private void AddCategoryPage_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnAddCategory_Click(object sender, EventArgs e)
         {
-            categoryName = textName.Text.Trim();
-
-            if (categoryName.Length == 0)
-            {   //problem
-                MessageBox.Show("Category Name can not be empty");
-                return;
+            if (CanSaveCategory() == true)
+            {
+                try
+                {
+                    Category = new CategoryModel
+                    { CategoryName = textName.Text.Trim() };
+                    Category.CategoryId = SQLiteDataAccess.SaveCategory(Category.CategoryName);
+                    DialogResult = DialogResult.OK;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "FAILED TO SAVE!");
+                    DialogResult = DialogResult.Abort;
+                }
+            }
+            else
+            {
+                DialogResult = DialogResult.Abort;
             }
 
-            //Add This To DB
-            SQLiteDataAccess.SaveCategory(categoryName);
-
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            Close();
         }
+
+        private bool CanSaveCategory()
+        {
+            return string.IsNullOrWhiteSpace(textName.Text) != true;
+        }
+
     }
 }

@@ -14,7 +14,7 @@ namespace POSINV
 {
     public partial class AddBrandPage : MaterialForm
     {
-        public string brandName { get; private set; }
+        public BrandModel Brand { get; private set; }
 
         public AddBrandPage()
         {
@@ -29,26 +29,35 @@ namespace POSINV
             );
         }
 
-        private void AddBrandPage_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnAddBrand_Click(object sender, EventArgs e)
         {
-            brandName = textName.Text.Trim();
-
-            if ( brandName.Length == 0 )
-            {   //problem
-                MessageBox.Show("Brand Name can not be empty");
-                return;
+            if ( CanSaveBrand() == true)
+            {
+                try
+                {
+                    Brand = new BrandModel
+                    { BrandName = textName.Text.Trim() };
+                    Brand.BrandId = SQLiteDataAccess.SaveBrand(Brand.BrandName);
+                    DialogResult = DialogResult.OK;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "FAILED TO SAVE!");
+                    DialogResult = DialogResult.Abort;
+                }
+            }
+            else
+            {
+                DialogResult = DialogResult.Abort;
             }
 
-            //Add This To DB
-            SQLiteDataAccess.SaveBrand(brandName);
-
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            Close();
         }
+
+        private bool CanSaveBrand()
+        {
+            return string.IsNullOrWhiteSpace(textName.Text) != true;
+        }
+
     }
 }

@@ -74,6 +74,7 @@
             this.btnAddBrand.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddBrand.AutoSize = true;
+            this.btnAddBrand.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnAddBrand.Depth = 0;
             this.btnAddBrand.Icon = null;
             this.btnAddBrand.Location = new System.Drawing.Point(19, 146);
@@ -82,7 +83,7 @@
             this.btnAddBrand.Name = "btnAddBrand";
             this.btnAddBrand.Padding = new System.Windows.Forms.Padding(10);
             this.btnAddBrand.Primary = true;
-            this.btnAddBrand.Size = new System.Drawing.Size(154, 36);
+            this.btnAddBrand.Size = new System.Drawing.Size(104, 36);
             this.btnAddBrand.TabIndex = 5;
             this.btnAddBrand.Text = "Save Brand";
             this.btnAddBrand.UseVisualStyleBackColor = true;
@@ -106,7 +107,6 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add Brand";
-            this.Load += new System.EventHandler(this.AddBrandPage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
