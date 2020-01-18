@@ -14,7 +14,7 @@ namespace POSINV
 {
     public partial class UpdateCategoryPage : MaterialForm
     {
-        public CategoryModel category { get; private set; }
+        public CategoryModel Category { get; private set; }
 
         public UpdateCategoryPage(CategoryModel categoryOld)
         {
@@ -28,31 +28,39 @@ namespace POSINV
                 Primary.Teal500, Primary.Teal700, Primary.Teal100, Accent.Teal400, TextShade.WHITE
             );
 
-            category = categoryOld;
+            Category = categoryOld;
 
-            textName.Text = category.CategoryName;
-        }
-
-        private void UpdateCategoryPage_Load(object sender, EventArgs e)
-        {
-
+            textName.Text = Category.CategoryName;
         }
 
         private void btnUpdateCategory_Click(object sender, EventArgs e)
         {
-            //check if name is ok then update
-            category.CategoryName = textName.Text.Trim();
-
-            if( category.CategoryName.Length == 0)
-            {   //problem
-                MessageBox.Show("Category Name can not be empty");
-                return;
+            if (CanSaveCategory() == true)
+            {
+                Category.CategoryName = textName.Text.Trim();
+                try
+                {
+                    SQLiteDataAccess.UpdateCategory(Category);
+                    DialogResult = DialogResult.OK;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "FAILED TO SAVE!");
+                    DialogResult = DialogResult.Abort;
+                }
             }
-            //update in db, combobox and datagrid
-            SQLiteDataAccess.UpdateCategory(category);
+            else
+            {
+                DialogResult = DialogResult.Abort;
+            }
 
-            DialogResult = DialogResult.OK;
             Close();
         }
+
+        private bool CanSaveCategory()
+        {
+            return string.IsNullOrWhiteSpace(textName.Text) != true;
+        }
+
     }
 }
