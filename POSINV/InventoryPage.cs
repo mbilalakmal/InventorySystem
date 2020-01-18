@@ -59,10 +59,12 @@ namespace POSINV
 
             setProductPreview();
         }
-
-        //remove unnecessary columns from product DGV
+        
         private void dataGridViewProduct_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
+            /// <summary>
+            /// Remove Extra Columns
+            /// </summary>
             dataGridViewProduct.Columns["Picture"].Visible = false;
         }
 
@@ -118,119 +120,128 @@ namespace POSINV
 
         private void btnAddPicture_Click(object sender, EventArgs e)
         {
-            //dispose of previous image to release memory
-            if( pictureProduct.Image != null)
-            {
-                pictureProduct.Image.Dispose();
-                pictureProduct.Image = null;
-            }
+            ResetProductPicture();  //remove previous picture
 
             //if a picture file is selected, display it
             if (openFilePicture.ShowDialog() == DialogResult.OK)
             {
                 pictureProduct.Load(openFilePicture.FileName);
             }
-            
         }
         
         private void btnSaveProduct_Click(object sender, EventArgs e)
         {
-            //Create ProductModel Object And Save In DB
-            ProductModel product = new ProductModel();
-
-            //check Name
-            if( string.IsNullOrWhiteSpace(textName.Text))
+            /// <summary>
+            /// Validate fields. Save in DB and refresh DGV
+            /// </summary>
+            
+            if ( CanSaveProduct() == true)
             {
-                //problem
-                MessageBox.Show("Product Name can not be empty");
-                return;
+                SaveProduct();
             }
-            //get Name
-            product.ProductName = textName.Text.Trim();
+            
+        }
 
-            if( decimal.TryParse(textCost.Text, out decimal cost))
+        private bool CanSaveProduct()
+        {
+            /// <summary>
+            /// Validates all product fields and return true
+            /// </summary>
+
+            //ProductName must not be empty
+            if ( string.IsNullOrWhiteSpace(textName.Text))
             {
-                product.CostPrice = cost;
+                return false;
+            }
+
+            //CostPrice must be a positive real number
+            if (decimal.TryParse(textCost.Text, out decimal cost))
+            {
+                if (cost < 0)
+                {
+                    return false;
+                }
             }
             else
             {
-                //problem
-                MessageBox.Show("Cost Price must be a valid decimal value");
-                return;
+                return false;
             }
 
-            if( decimal.TryParse(textList.Text, out decimal list))
+            //ListPrice must be a positive real number
+            if (decimal.TryParse(textList.Text, out decimal list))
             {
-                product.ListPrice = list;
+                if (list < 0)
+                {
+                    return false;
+                }
             }
             else
             {
-                //problem
-                MessageBox.Show("List Price must be a valid decimal value");
-                return;
+                return false;
             }
 
-            if( uint.TryParse(textQuantity.Text, out uint quantity))
+            //Quantity must be a natural number
+            if (uint.TryParse(textQuantity.Text, out _) == false)
             {
-                product.Quantity = (int) quantity;
-            }
-            else
-            {
-                //problem
-                MessageBox.Show("Quantity must be a natural number");
-                return;
+                return false;
             }
 
-            product.Description = textDescription.Text.Trim();
-
-            BrandModel brand = (BrandModel) comboBrand.SelectedItem;
-            CategoryModel category = (CategoryModel) comboCategory.SelectedItem;
-
-            int brandId = 0;
-            if( brand != null )
+            //Brand must be valid
+            if ( (BrandModel)comboBrand.SelectedItem == default(BrandModel) )
             {
-                brandId = brand.BrandId;
-            }
-            else
-            {
-                //problem
-                MessageBox.Show("Please select a valid Brand");
-                return;
+                return false;
             }
 
-            int categoryId = 0;
-            if( category != null)
+            //Category must be valid
+            if ( (CategoryModel)comboCategory.SelectedItem == default(CategoryModel))
             {
-                categoryId = category.CategoryId;
-            }
-            else
-            {
-                //problem
-                MessageBox.Show("Please select a valid Category");
-                return;
+                return false;
             }
 
-            //get picture from picture box
-            if( pictureProduct.Image != null)
+            return true;
+        }
+
+        private void SaveProduct()
+        {
+            //get Image from picturebox
+            byte[] picture = null;
+            if (pictureProduct.Image != null)
             {
-                //convert image to byte[] and store in productModel
-                byte[] picture = ProductModel.ImageToByte(
+                picture = ProductModel.ImageToByte(
                     pictureProduct.Image, pictureProduct.Image.RawFormat
-                    );
-                product.Picture = picture;
+                );
             }
 
-            //Add This To DB
-            SQLiteDataAccess.SaveProduct(product, brandId, categoryId);
+            //get Brand & Category IDs
+            var brand = (BrandModel)comboBrand.SelectedItem;
+            var category = (CategoryModel)comboCategory.SelectedItem;
 
-            //Show Message "Product Stored"
-            MessageBox.Show("Product Added Successfully");
+            ProductModel product = new ProductModel
+            {
+                ProductName = textName.Text.Trim(),
+                CostPrice = decimal.Parse(textCost.Text),
+                ListPrice = decimal.Parse(textList.Text),
+                Quantity = int.Parse(textQuantity.Text),
+                Description = textDescription.Text.Trim(),
+                UpdatedOn = DateTime.Now, 
+                BrandName = brand.BrandName,
+                CategoryName = category.CategoryName,
+                Picture = picture
+            };
 
-            //Reset Inputs
-            resetProductInputs();
+            //Add To DB & Refresh DGV
+            try
+            {
+                product.ProductId = SQLiteDataAccess.SaveProduct(product, brand.BrandId, category.CategoryId);
+                products.Add(product);
+                WireUpProductDataGridView();
+                ResetProductInputs();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "FAILED TO SAVE!");
+            }
 
-            //reload Product Data Grid View     --CHANGE WITH list insertion and rewireing
-            LoadProductList();                //--NOT NEEDED
         }
 
         private void btnAddBrand_Click(object sender, EventArgs e)
@@ -238,12 +249,12 @@ namespace POSINV
             using (var form = new AddBrandPage())
             {
                 var result = form.ShowDialog();
-                if(result == DialogResult.OK)
+                if (result == DialogResult.OK)
                 {
                     //reload list to include this brand
                     LoadBrandList();
-                    comboBrand.Text = form.brandName;
-                    
+                    comboBrand.Text = form.Brand.BrandName;
+
                 }
             }
         }
@@ -257,22 +268,17 @@ namespace POSINV
                 {
                     //reload list to include this category
                     LoadCategoryList();
-                    comboCategory.Text = form.categoryName;
+                    comboCategory.Text = form.Category.CategoryName;
                 }
             }
         }
 
         private void pictureProduct_Click(object sender, EventArgs e)
         {
-            //Remove Picture
-            if (pictureProduct.Image != null)
-            {
-                pictureProduct.Image.Dispose();
-                pictureProduct.Image = null;
-            }
+            ResetProductPicture();  //remove picture
         }
 
-        private void resetProductInputs()
+        private void ResetProductInputs()
         {
             textName.ResetText();
             textCost.ResetText();
@@ -281,12 +287,13 @@ namespace POSINV
             textDescription.ResetText();
             //comboBrand.ResetText();
             //comboCategory.ResetText();
+            ResetProductPicture();
+        }
 
-            if (pictureProduct.Image != null)
-            {
-                pictureProduct.Image.Dispose();
-                pictureProduct.Image = null;
-            }
+        private void ResetProductPicture()
+        {
+            pictureProduct.Image?.Dispose();
+            pictureProduct.Image = null;
         }
 
         private void btnSearchProduct_Click(object sender, EventArgs e)
@@ -329,190 +336,198 @@ namespace POSINV
 
         private void btnDeleteProduct_Click(object sender, EventArgs e)
         {
-            ///Deletes selected row's product and after confirmation
-            ///deletes from DB, List, and refreshes DataGrid
-
-            //check if dgv is empty
-            if (dataGridViewProduct.CurrentRow == null)
+            ///validates product selection then deletes from DB and List
+            if ( CanDeleteProduct() == true )
             {
-                return;
+                //Get the relevant product
+                ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow.DataBoundItem;
+                DeleteProduct(product);
             }
+        }
 
-            ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow.DataBoundItem;
+        private bool CanDeleteProduct()
+        {
+            ///Checks if a valid product is selected
+            return dataGridViewProduct.CurrentRow != null;
+        }
 
-            if ( ConfirmDeleteItem( product.ProductName ) == true )
+        private void DeleteProduct(ProductModel product)
+        {
+            ///Deletes given product from DB & list
+            if ( ConfirmDeleteItem(product.ProductName) == true )
             {
-                SQLiteDataAccess.DeleteProduct( product.ProductId );
-                
-                products.Remove(product);
-
-                WireUpProductDataGridView();
+                try
+                {
+                    SQLiteDataAccess.DeleteProduct(product.ProductId);
+                    products.Remove(product);
+                    WireUpProductDataGridView();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "FAILED TO DELETE!");
+                }
             }
         }
         
         private void btnDeleteBrand_Click(object sender, EventArgs e)
         {
-            ///Deletes selected row's brand and after confirmation
-            ///deletes from DB, List, and refreshes DataGrid and ComboBox
-
-            //check if dgv is empty
-            if (dataGridViewBrand.CurrentRow == null)
+            ///validates brand selection then deletes from DB and List
+            if (CanDeleteBrand() == true)
             {
-                return;
+                //Get the relevant brand
+                BrandModel brand = (BrandModel)dataGridViewBrand.CurrentRow.DataBoundItem;
+                DeleteBrand(brand);
             }
+        }
 
-            BrandModel brand = (BrandModel)dataGridViewBrand.CurrentRow.DataBoundItem;
+        private bool CanDeleteBrand()
+        {
+            ///Checks if a valid brand is selected
+            return dataGridViewBrand.CurrentRow != null;
+        }
 
-            if ( ConfirmDeleteItem( brand.BrandName ) == true)
+        private void DeleteBrand(BrandModel brand)
+        {
+            ///Deletes given product from DB & list
+            if (ConfirmDeleteItem(brand.BrandName) == true)
             {
-                SQLiteDataAccess.DeleteBrand( brand.BrandId );
-                
-                brands.Remove(brand);
-
-                LoadBrandList();
-                
-                //remove deleted from products and rewire
-                products.RemoveAll(
-                    product => product.BrandName == brand.BrandName
-                );
-
-                WireUpProductDataGridView();
+                try
+                {
+                    SQLiteDataAccess.DeleteBrand(brand.BrandId);
+                    LoadBrandList();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "FAILED TO DELETE!");
+                }
             }
-
         }
 
         private void btnDeleteCategory_Click(object sender, EventArgs e)
         {
-            ///Deletes selected row's category and after confirmation
-            ///deletes from DB, List, and refreshes DataGrid and ComboBox
-
-            //check if dgv is empty
-            if (dataGridViewCategory.CurrentRow == null)
+            ///validates category selection then deletes from DB and List
+            if (CanDeleteCategory() == true)
             {
-                return;
+                //Get the relevant category
+                CategoryModel category = (CategoryModel)dataGridViewCategory.CurrentRow.DataBoundItem;
+                DeleteCategory(category);
             }
+        }
 
-            CategoryModel category = (CategoryModel)dataGridViewCategory.CurrentRow.DataBoundItem;
+        private bool CanDeleteCategory()
+        {
+            ///Checks if a valid category is selected
+            return dataGridViewCategory.CurrentRow != null;
+        }
 
-            if (ConfirmDeleteItem( category.CategoryName ) == true)
+        private void DeleteCategory(CategoryModel category)
+        {
+            ///Deletes given category from DB & list
+            if (ConfirmDeleteItem(category.CategoryName) == true)
             {
-                SQLiteDataAccess.DeleteCategory( category.CategoryId );
-
-                LoadCategoryList();
-
-                //remove deleted from products and rewire
-                products.RemoveAll(
-                    product => product.CategoryName == category.CategoryName
-                );
-
-                WireUpProductDataGridView();
+                try
+                {
+                    SQLiteDataAccess.DeleteCategory(category.CategoryId);
+                    LoadCategoryList();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "FAILED TO DELETE!");
+                }
             }
-
         }
 
         private bool ConfirmDeleteItem(string itemName)
         {
+            /// <summary>
+            /// Confirms delete action from user via a MessageBox and returns a <see cref="bool"/>
+            /// </summary>
             string confirmText = string.Format("Delete {0} Permenantly?", itemName);
             string confirmCaption = "Confirm Delete";
 
-            var confirmDelete = MessageBox.Show(confirmText, confirmCaption, MessageBoxButtons.YesNo);
-
+            DialogResult confirmDelete = MessageBox.Show(confirmText, confirmCaption, MessageBoxButtons.YesNo);
             return (confirmDelete == DialogResult.Yes);
         }
-
-        private void btnUpdateCategory_Click(object sender, EventArgs e)
+        
+        private void btnUpdateProduct_Click(object sender, EventArgs e)
         {
-            //check if dgv is empty
-            if (dataGridViewCategory.CurrentRow == null)
+            ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow?.DataBoundItem;
+
+            if ( product != default(ProductModel))
             {
-                return;
-            }
-
-            CategoryModel category = (CategoryModel)dataGridViewCategory.CurrentRow.DataBoundItem;
-
-            //select products which have the same category name
-            var updatedProducts = products.Where(
-                product => product.CategoryName.Equals(category.CategoryName)
-                ).ToList();
-
-            using ( var form = new UpdateCategoryPage(category) )
-            {
-                var result = form.ShowDialog();
-                if (result == DialogResult.OK)
+                using (var form = new UpdateProductPage(product, brands, categories))
                 {
-                    //reload list to include this category
-                    LoadCategoryList();
-
-                    //update products in datagridview
-                    updatedProducts.ForEach(
-                        product => product.CategoryName = category.CategoryName
-                        );
-
-                    //wireup datagrid
-                    WireUpProductDataGridView();
-
+                    var result = form.ShowDialog();
+                    
+                    WireUpProductDataGridView();    //refresh product DGV
+                    LoadBrandList();    //refresh brands
+                    LoadCategoryList(); //refresh categories
                 }
             }
         }
 
         private void btnUpdateBrand_Click(object sender, EventArgs e)
         {
-            //check if dgv is empty
-            if (dataGridViewBrand.CurrentRow == null)
+            BrandModel brand = (BrandModel)dataGridViewBrand.CurrentRow?.DataBoundItem;
+
+            if ( brand != default(BrandModel))
             {
-                return;
-            }
-
-            BrandModel brand = (BrandModel)dataGridViewBrand.CurrentRow.DataBoundItem;
-
-            //select products which have the same brand name
-            var updatedProducts = products.Where(
-                product => product.BrandName.Equals(brand.BrandName)
+                var updatedProducts = products.Where(
+                    product => product.BrandName.Equals(brand.BrandName)
                 ).ToList();
 
-            using (var form = new UpdateBrandPage(brand))
-            {
-                var result = form.ShowDialog();
-                if (result == DialogResult.OK)
+                using (var form = new UpdateBrandPage(brand))
                 {
-                    //reload list to include this brand
-                    LoadBrandList();
+                    var result = form.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        //reload list to include this brand
+                        LoadBrandList();
 
-                    //update products in datagridview
-                    updatedProducts.ForEach(
-                        product => product.BrandName = brand.BrandName
+                        //update products in datagridview
+                        updatedProducts.ForEach(
+                            product => product.BrandName = brand.BrandName
+                        );
+                        
+                        WireUpProductDataGridView();    //refresh product DGV
+                    }
+                }
+
+            }
+            
+        }
+
+        private void btnUpdateCategory_Click(object sender, EventArgs e)
+        {
+            CategoryModel category = (CategoryModel)dataGridViewCategory.CurrentRow?.DataBoundItem;
+
+            if (category != default(CategoryModel))
+            {
+                var updatedProducts = products.Where(
+                    product => product.BrandName.Equals(category.CategoryName)
+                ).ToList();
+
+                using (var form = new UpdateCategoryPage(category))
+                {
+                    var result = form.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        //reload list to include this category
+                        LoadCategoryList();
+
+                        //update products in datagridview
+                        updatedProducts.ForEach(
+                            product => product.CategoryName.Equals(category.CategoryName)
                         );
 
-                    //wireup datagrid
-                    WireUpProductDataGridView();
-
+                        WireUpProductDataGridView();    //refresh product DGV
+                    }
                 }
+
             }
+            
         }
-
-        private void btnUpdateProduct_Click(object sender, EventArgs e)
-        {
-            //check if dgv is empty
-            if (dataGridViewProduct.CurrentRow == null)
-            {
-                return;
-            }
-
-            ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow.DataBoundItem;
-
-            using (var form = new UpdateProductPage(product, brands, categories))
-            {
-                var result = form.ShowDialog();
-
-                //refresh the product
-                LoadProductList();
-
-                LoadBrandList();
-                LoadCategoryList();
-            }
-
-        }
-
+        
         private void dataGridViewProduct_Click(object sender, EventArgs e)
         {
             //set Image of current row in preview picturebox
@@ -521,19 +536,14 @@ namespace POSINV
 
         private void setProductPreview()
         {
-            resetProductPreview();
-            
-            //If no row is selected, return
-            if (dataGridViewProduct.CurrentRow == null)
+            resetProductPreview();  //remove previous image
+
+            ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow?.DataBoundItem;
+            if ( product != default(ProductModel))  //if a valid row is selected
             {
-                return;
+                pictureProductPreview.Image = ProductModel.ByteToImage(product.Picture);
             }
-            //get product of current row
-            ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow.DataBoundItem;
-            
-            //set current preview
-            pictureProductPreview.Image = ProductModel.ByteToImage(product.Picture);
-            
+
         }
 
         private void resetProductPreview()
@@ -541,7 +551,6 @@ namespace POSINV
             pictureProductPreview.Image?.Dispose();
             pictureProductPreview.Image = null;
         }
-        
         
     }
 }
