@@ -12,14 +12,19 @@ using System.Threading.Tasks;
 
 namespace POSINV
 {
+    /// <summary>
+    /// Provides static functions to access SQLite database
+    /// </summary>
     public class SQLiteDataAccess
     {
         
+        /// <summary>
+        /// Load all Products from DB
+        /// </summary>
+        /// <param name="OrderBy"></param>
+        /// <returns></returns>
         public static List<ProductModel> LoadProducts(String OrderBy = "PRODUCTNAME")
         {
-            /// <summary>
-            /// Load All Products From DB
-            /// </summary>
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"SELECT * FROM PRODUCT NATURAL JOIN BRAND NATURAL JOIN CATEGORY";
@@ -29,11 +34,9 @@ namespace POSINV
             }
         }
         
+        //TO BE DELTED
         public static List<ProductModel> LoadSearchedProducts(String searchString)
         {
-            /// <summary>
-            /// Load Products by matching Product Names with given string
-            /// </summary>
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"SELECT * FROM PRODUCT NATURAL JOIN " +
@@ -43,12 +46,13 @@ namespace POSINV
                 return output.ToList();
             }
         }
-        
+
+        /// <summary>
+        /// Load all Brands from DB
+        /// </summary>
+        /// <returns></returns>
         public static List<BrandModel> LoadBrands()
         {
-            /// <summary>
-            /// Load All Brands From DB
-            /// </summary>
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"SELECT * FROM BRAND";
@@ -57,12 +61,10 @@ namespace POSINV
                 return output.ToList();
             }
         }
-        
+
+        //TO BE DELETED
         public static List<BrandModel> LoadSearchedBrands(string searchString)
         {
-            /// <summary>
-            /// Load Brands by matching Brand Names with given string
-            /// </summary>
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"SELECT * FROM BRAND WHERE BRANDNAME LIKE @search";
@@ -72,11 +74,12 @@ namespace POSINV
             }
         }
         
+        /// <summary>
+        /// Load all Categories from DB
+        /// </summary>
+        /// <returns></returns>
         public static List<CategoryModel> LoadCategories()
         {
-            /// <summary>
-            /// Load All Brands From DB
-            /// </summary>
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"SELECT * FROM CATEGORY";
@@ -86,11 +89,9 @@ namespace POSINV
             }
         }
         
+        //TO BE DELETED
         public static List<CategoryModel> LoadSearchedCategories(string searchString)
         {
-            /// <summary>
-            /// Load Categories by matching Category Names with given string
-            /// </summary>
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"SELECT * FROM CATEGORY WHERE CATEGORYNAME LIKE @search";
@@ -100,11 +101,15 @@ namespace POSINV
             }
         }
 
+        /// <summary>
+        /// Save a new Product. Also returns the ID of the stored row
+        /// </summary>
+        /// <param name="product"></param>
+        /// <param name="brandId"></param>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
         public static int SaveProduct(ProductModel product, int brandId, int categoryId)
         {
-            /// <summary>
-            /// Save New Product to DB
-            /// </summary>
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string idSql = @"SELECT SEQ FROM SQLITE_SEQUENCE WHERE NAME = @name";
@@ -133,12 +138,14 @@ namespace POSINV
 
             }
         }
-        
+
+        /// <summary>
+        /// Save a new Brand. Also returns the ID of the stored row
+        /// </summary>
+        /// <param name="brandName"></param>
+        /// <returns></returns>
         public static int SaveBrand(string brandName)
         {
-            /// <summary>
-            /// Save New Brand to DB and return BrandId
-            /// </summary>
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string idSql = @"SELECT SEQ FROM SQLITE_SEQUENCE WHERE NAME = @name";
@@ -153,11 +160,13 @@ namespace POSINV
             }
         }
 
+        /// <summary>
+        /// Save a new Category. Also returns the ID of the stored row
+        /// </summary>
+        /// <param name="categoryName"></param>
+        /// <returns></returns>
         public static int SaveCategory(string categoryName)
         {
-            /// <summary>
-            /// Save New Category to DB
-            /// </summary>
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string idSql = @"SELECT SEQ FROM SQLITE_SEQUENCE WHERE NAME = @name";
@@ -172,11 +181,12 @@ namespace POSINV
             }
         }
 
+        /// <summary>
+        /// Delete Product with given Product ID. Throws exception if any constraint is failed
+        /// </summary>
+        /// <param name="productId"></param>
         public static void DeleteProduct(int productId)
         {
-            /// <summary>
-            /// Delete Product with given Product ID. Throws exception if references exist in Sale Items
-            /// </summary>
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"PRAGMA foreign_keys = ON;DELETE FROM PRODUCT WHERE PRODUCTID = @search";
@@ -184,12 +194,13 @@ namespace POSINV
                     cnn.Execute(sql, new { search = productId });
             }
         }
-        
+
+        /// <summary>
+        /// Delete Brand with given Brand ID. Throws exception if any constraint is failed
+        /// </summary>
+        /// <param name="brandId"></param>
         public static void DeleteBrand(int brandId)
         {
-            /// <summary>
-            /// Delete Brand with given Brand ID. Throws exception if references exist in Products
-            /// </summary>
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"PRAGMA foreign_keys = ON;DELETE FROM BRAND WHERE BRANDID = @search";
@@ -198,12 +209,13 @@ namespace POSINV
                 
             }
         }
-        
+
+        /// <summary>
+        /// Delete Category with given Category ID. Throws exception if any constraint is failed
+        /// </summary>
+        /// <param name="categoryId"></param>
         public static void DeleteCategory(int categoryId)
         {
-            /// <summary>
-            /// Delete Category with given Category ID. Throws exception if references exist in Products
-            /// </summary>
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"PRAGMA foreign_keys = ON;DELETE FROM CATEGORY WHERE CATEGORYID = @search";
@@ -211,12 +223,15 @@ namespace POSINV
                 cnn.Execute(sql, new { search = categoryId });
             }
         }
-        
+
+        /// <summary>
+        /// Update Product column(s). Throws exception if any constraint is failed
+        /// </summary>
+        /// <param name="product"></param>
+        /// <param name="brandId"></param>
+        /// <param name="categoryId"></param>
         public static void UpdateProduct(ProductModel product, int brandId, int categoryId)
         {
-            /// <summary>
-            /// Update Product Column(s). Throws Exception if Product Name is not unique
-            /// </summary>
             using (IDbConnection cnn = new SQLiteConnection( LoadConnectionString()))
             {
                 string sql = @"UPDATE PRODUCT SET PRODUCTNAME = @name," + 
@@ -239,12 +254,13 @@ namespace POSINV
                 });
             }
         }
-        
+
+        /// <summary>
+        /// Update Brand column(s). Throws exception if any constraint is failed
+        /// </summary>
+        /// <param name="brand"></param>
         public static void UpdateBrand(BrandModel brand)
         {
-            /// <summary>
-            /// Update Brand Column(s). Throws Exception if Brand Name is not unique
-            /// </summary>
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"UPDATE BRAND SET BRANDNAME = @name WHERE BRANDID = @id";
@@ -253,11 +269,12 @@ namespace POSINV
             }
         }
         
+        /// <summary>
+        /// Update Category column(s). Throws exception if any constraint is failed
+        /// </summary>
+        /// <param name="category"></param>
         public static void UpdateCategory(CategoryModel category)
         {
-            /// <summary>
-            /// Update Category Column(s). Throws Exception if Category Name is not unique
-            /// </summary>
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"UPDATE CATEGORY SET CATEGORYNAME = @name WHERE CATEGORYID = @id";
@@ -268,11 +285,12 @@ namespace POSINV
         
         // <--POS-->
         
+        /// <summary>
+        /// Load All Sales from DB
+        /// </summary>
+        /// <returns>List of SaleModel</returns>
         public static List<SaleModel> LoadSales()
         {
-            /// <summary>
-            /// Load All Sales from DB
-            /// </summary>
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"SELECT * FROM SALE";
@@ -282,11 +300,9 @@ namespace POSINV
             }
         }
 
+        //TO BE REMOVED
         public static List<SaleModel> LoadSearchedSale(string searchString)
         {
-            /// <summary>
-            /// Load Sale by matching Sale ID
-            /// </summary>
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 string sql = @"SELECT * FROM SALE WHERE SALEID = @search";
@@ -296,11 +312,14 @@ namespace POSINV
             }
         }
         
+        /// <summary>
+        /// Save a new Sale to DB. Also saves Sale Items and updates Products' quantities
+        /// </summary>
+        /// <param name="sale"></param>
+        /// <param name="cart"></param>
+        /// <returns></returns>
         public static int SaveSale(SaleModel sale, BindingList<CartItemModel> cart)
         {
-            /// <summary>
-            /// Save New Sale to DB. Also stores Sale Items & Updates Products' quantities
-            /// </summary>
             string saleSql = @"INSERT INTO SALE(SALEDATE, MISCPRICE, SALETOTAL) VALUES "+
                 "(datetime(CURRENT_TIMESTAMP, 'localtime'), @misc, @total)";
 
@@ -352,11 +371,12 @@ namespace POSINV
             }
         }
         
+        /// <summary>
+        /// Delete Sale by matching sale ID. Also deletes Sale Items and updates Products' quantities
+        /// </summary>
+        /// <param name="saleId"></param>
         public static void DeleteSale(int saleId)
         {
-            /// <summary>
-            /// Delete Sale by matching Sale ID. Also deletes Sale Items & Updates Products' quantities
-            /// </summary>
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 cnn.Open();
@@ -402,12 +422,13 @@ namespace POSINV
 
         }
 
-
+        /// <summary>
+        /// Returns the connection string specified by the id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private static string LoadConnectionString(string id = "Default")
         {
-            /// <summary>
-            /// Returns the connection string from config
-            /// </summary>
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
         }
 
