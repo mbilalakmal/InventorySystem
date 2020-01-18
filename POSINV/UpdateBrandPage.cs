@@ -14,7 +14,7 @@ namespace POSINV
 {
     public partial class UpdateBrandPage : MaterialForm
     {
-        public BrandModel brand { get; private set; }
+        public BrandModel Brand { get; private set; }
 
         public UpdateBrandPage(BrandModel brandOld)
         {
@@ -28,27 +28,40 @@ namespace POSINV
                 Primary.Teal500, Primary.Teal700, Primary.Teal100, Accent.Teal400, TextShade.WHITE
             );
 
-            brand = brandOld;
+            Brand = brandOld;
 
-            textName.Text = brand.BrandName;
+            textName.Text = Brand.BrandName;
 
         }
 
         private void btnUpdateBrand_Click(object sender, EventArgs e)
         {
-            //check if name is ok then update
-            brand.BrandName = textName.Text.Trim();
-
-            if ( brand.BrandName.Length == 0)
-            {   //problem
-                MessageBox.Show("Brand Name can not be empty");
-                return;
+            if (CanSaveBrand() == true)
+            {
+                Brand.BrandName = textName.Text.Trim();
+                try
+                {
+                    SQLiteDataAccess.UpdateBrand(Brand);
+                    DialogResult = DialogResult.OK;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "FAILED TO SAVE!");
+                    DialogResult = DialogResult.Abort;
+                }
             }
-            //update in db, combobox and datagrid
-            SQLiteDataAccess.UpdateBrand(brand);
+            else
+            {
+                DialogResult = DialogResult.Abort;
+            }
 
-            DialogResult = DialogResult.OK;
             Close();
         }
+
+        private bool CanSaveBrand()
+        {
+            return string.IsNullOrWhiteSpace(textName.Text) != true;
+        }
+
     }
 }
