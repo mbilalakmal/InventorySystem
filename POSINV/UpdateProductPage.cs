@@ -14,11 +14,11 @@ namespace POSINV
 {
     public partial class UpdateProductPage : MaterialForm
     {
-        public ProductModel product { get; private set; }
+        public ProductModel Product { get; private set; }
 
-        public List<BrandModel> brands { get; private set; }
+        public List<BrandModel> Brands { get; private set; }
 
-        public List<CategoryModel> categories { get; private set; }
+        public List<CategoryModel> Categories { get; private set; }
 
         public UpdateProductPage(ProductModel productOld, List<BrandModel> brands, List<CategoryModel> categories)
         {
@@ -32,9 +32,9 @@ namespace POSINV
                 Primary.Teal500, Primary.Teal700, Primary.Teal100, Accent.Teal400, TextShade.WHITE
             );
 
-            product = productOld;
-            this.brands = brands;
-            this.categories = categories;
+            Product = productOld;
+            Brands = brands;
+            Categories = categories;
 
             //Load comboboxes first
             WireUpBrandComboBox();
@@ -50,7 +50,7 @@ namespace POSINV
             comboBrand.DataSource = null;
             comboBrand.ValueMember = "brandId";
             comboBrand.DisplayMember = "brandName";
-            comboBrand.DataSource = brands;
+            comboBrand.DataSource = Brands;
         }
 
         private void WireUpCategoryComboBox()
@@ -58,37 +58,40 @@ namespace POSINV
             comboCategory.DataSource = null;
             comboCategory.ValueMember = "categoryId";
             comboCategory.DisplayMember = "categoryName";
-            comboCategory.DataSource = categories;
+            comboCategory.DataSource = Categories;
         }
 
         private void FillInputFields()
         {
-            textName.Text = product.ProductName;
-            textCost.Text = product.CostPrice.ToString();
-            textList.Text = product.ListPrice.ToString();
-            textQuantity.Text = product.Quantity.ToString();
-            textDescription.Text = product.Description;
+            /// <summary>
+            /// Fill input fields with old product
+            /// </summary>
+            textName.Text = Product.ProductName;
+            textCost.Text = Product.CostPrice.ToString();
+            textList.Text = Product.ListPrice.ToString();
+            textQuantity.Text = Product.Quantity.ToString();
+            textDescription.Text = Product.Description;
 
-            comboBrand.Text = product.BrandName;
-            comboCategory.Text = product.CategoryName;
+            comboBrand.Text = Product.BrandName;
+            comboCategory.Text = Product.CategoryName;
 
-            if( product.Picture != null)
+            if( Product.Picture != null)
             {
-                pictureProduct.Image = ProductModel.ByteToImage(product.Picture);
+                pictureProduct.Image = ProductModel.ByteToImage(Product.Picture);
             }
 
         }
 
         private void LoadBrandList()
         {
-            brands = SQLiteDataAccess.LoadBrands();
+            Brands = SQLiteDataAccess.LoadBrands();
             //display brands in combo box
             WireUpBrandComboBox();
         }
 
         private void LoadCategoryList()
         {
-            categories = SQLiteDataAccess.LoadCategories();
+            Categories = SQLiteDataAccess.LoadCategories();
             //display categories in combo box
             WireUpCategoryComboBox();
         }
@@ -100,10 +103,9 @@ namespace POSINV
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    //reload list
+                    //reload list to include this brand
                     LoadBrandList();
-
-                    comboBrand.Text = form.brandName;
+                    comboBrand.Text = form.Brand.BrandName;
 
                 }
             }
@@ -116,10 +118,9 @@ namespace POSINV
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    //reload list
+                    //reload list to include this category
                     LoadCategoryList();
-
-                    comboCategory.Text = form.categoryName;
+                    comboCategory.Text = form.Category.CategoryName;
                 }
             }
         }
@@ -127,11 +128,8 @@ namespace POSINV
         private void btnAddPicture_Click(object sender, EventArgs e)
         {
             //dispose of previous image
-            if( pictureProduct.Image != null)
-            {
-                pictureProduct.Image.Dispose();
-                pictureProduct.Image = null;
-            }
+            pictureProduct.Image?.Dispose();
+            pictureProduct.Image = null;
 
             //if picture file is selected, display it
             if (openFilePicture.ShowDialog() == DialogResult.OK)
@@ -144,104 +142,140 @@ namespace POSINV
         private void pictureProduct_Click(object sender, EventArgs e)
         {
             //Remove Picture
-            if ( pictureProduct.Image != null)
-            {
-                pictureProduct.Image.Dispose();
-                pictureProduct.Image = null;
-            }
+            pictureProduct.Image?.Dispose();
+            pictureProduct.Image = null;
         }
 
         private void btnSaveProduct_Click(object sender, EventArgs e)
         {
-            //Change ProductModel And Update in DB
-
-            ProductModel productUpdated = new ProductModel();
-
-            //set ID same as old
-            productUpdated.ProductId = product.ProductId;
-
-            //Name
-            if( string.IsNullOrWhiteSpace(textName.Text))
+            if ( CanUpdateProduct() == true)
             {
-                MessageBox.Show("Product Name can not be empty");
-                return;
+                UpdateProduct();
             }
-            productUpdated.ProductName = textName.Text.Trim();
+        }
 
-            //Cost
-            if( decimal.TryParse(textCost.Text, out decimal cost))
+        private bool CanUpdateProduct()
+        {
+            /// <summary>
+            /// Validates all product fields and return true
+            /// </summary>
+
+            //ProductName must not be empty
+            if (string.IsNullOrWhiteSpace(textName.Text))
             {
-                productUpdated.CostPrice = cost;
+                return false;
+            }
+
+            //CostPrice must be a positive real number
+            if (decimal.TryParse(textCost.Text, out decimal cost))
+            {
+                if (cost < 0)
+                {
+                    return false;
+                }
             }
             else
             {
-                MessageBox.Show("Cost Price must be a valid decimal value");
-                return;
+                return false;
             }
 
-            //List
+            //ListPrice must be a positive real number
             if (decimal.TryParse(textList.Text, out decimal list))
             {
-                productUpdated.ListPrice = list;
+                if (list < 0)
+                {
+                    return false;
+                }
             }
             else
             {
-                MessageBox.Show("List Price must be a valid decimal value");
-                return;
+                return false;
             }
 
-            //Quantity
-            if (uint.TryParse(textQuantity.Text, out uint quantity))
+            //Quantity must be a natural number
+            if (uint.TryParse(textQuantity.Text, out _) == false)
             {
-                productUpdated.Quantity = (int)quantity;
-            }
-            else
-            {
-                //problem
-                MessageBox.Show("Quantity must be a natural number");
-                return;
+                return false;
             }
 
-            //Description
-            productUpdated.Description = textDescription.Text.Trim();
-
-            BrandModel brand = (BrandModel)comboBrand.SelectedItem;
-            CategoryModel category = (CategoryModel)comboCategory.SelectedItem;
-
-            int brandId = 0, categoryId = 0;
-
-            if(brand == null)
+            //Brand must be valid
+            if ((BrandModel)comboBrand.SelectedItem == default(BrandModel))
             {
-                MessageBox.Show("Please select a valid Brand");
-                return;
+                return false;
             }
-            brandId = brand.BrandId;
 
-            if(category == null)
+            //Category must be valid
+            if ((CategoryModel)comboCategory.SelectedItem == default(CategoryModel))
             {
-                MessageBox.Show("Please select a valid Category");
-                return;
+                return false;
             }
-            categoryId = category.CategoryId;
 
-            //get picture from pictureBox
-            if( pictureProduct.Image != null)
+            return true;
+        }
+
+        private void UpdateProduct()
+        {
+            //get Image from picturebox
+            byte[] picture = null;
+            if (pictureProduct.Image != null)
             {
-                byte[] picture = ProductModel.ImageToByte(
+                picture = ProductModel.ImageToByte(
                     pictureProduct.Image, pictureProduct.Image.RawFormat
-                    );
-                productUpdated.Picture = picture;
+                );
             }
 
-            //Add to DB
-            SQLiteDataAccess.UpdateProduct(productUpdated, brandId, categoryId);
+            //get Brand & Category ID
+            var brand = (BrandModel)comboBrand.SelectedItem;
+            var category = (CategoryModel)comboCategory.SelectedItem;
 
-            product = productUpdated;
+            ProductModel product = new ProductModel
+            {
+                ProductId = Product.ProductId,
+                ProductName = textName.Text.Trim(),
+                CostPrice = decimal.Parse(textCost.Text),
+                ListPrice = decimal.Parse(textList.Text),
+                Quantity = int.Parse(textQuantity.Text),
+                Description = textDescription.Text.Trim(),
+                UpdatedOn = DateTime.Now,
+                BrandName = brand.BrandName,
+                CategoryName = category.CategoryName,
+                Picture = picture
+            };
 
-            //close form
-            DialogResult = DialogResult.OK;
+            //Update In DB, if successful assign to oldProduct
+            try
+            {
+                SQLiteDataAccess.UpdateProduct(
+                    product, brand.BrandId, category.CategoryId);
+
+                //copy each attribute back to Product from product
+                CopyBackProperties(product);
+
+                DialogResult = DialogResult.OK;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "FAILED TO UPDATE!");
+                DialogResult = DialogResult.Abort;
+            }
+
             Close();
 
         }
+
+        private void CopyBackProperties(ProductModel product)
+        {
+            Product.ProductName = product.ProductName;
+            Product.CostPrice = product.CostPrice;
+            Product.ListPrice = product.ListPrice;
+            Product.Quantity = product.Quantity;
+            Product.Description = product.Description;
+            Product.UpdatedOn = product.UpdatedOn;
+            Product.BrandName = product.BrandName;
+            Product.CategoryName = product.CategoryName;
+            Product.Picture = product.Picture;
+        }
+
     }
 }
