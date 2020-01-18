@@ -140,11 +140,6 @@ namespace POSINV
         {
             dataGridViewCart.Columns["ProductId"].Visible = false;
         }
-        
-        private void btnSearchProduct_Click(object sender, EventArgs e)
-        {
-            textSearchProduct.ResetText();
-        }
 
         //display selected product's picture if any
         private void setProductPreview()
@@ -353,7 +348,7 @@ namespace POSINV
 
         private void DeleteSale()
         {
-            ///Delete From DB & DGV
+            //Delete From DB & DGV
             SaleModel sale = (SaleModel)dataGridViewSale.CurrentRow.DataBoundItem;
 
             //Confirm
@@ -391,6 +386,28 @@ namespace POSINV
                 ).ToList()
             );
 
+        }
+
+        private void textSearchSale_TextChanged(object sender, EventArgs e)
+        {
+            //fluid search
+            dataGridViewSale.DataSource = new BindingList<SaleModel>(
+                Sales.Where(
+                    sale => sale.SaleId.ToString().Contains( textSearchSale.Text )
+                ).ToList()
+            );
+        }
+
+
+
+        private void btnSearchProduct_Click(object sender, EventArgs e)
+        {
+            textSearchProduct.ResetText();
+        }
+
+        private void btnSearchSale_Click(object sender, EventArgs e)
+        {
+            textSearchSale.ResetText();
         }
     }
 }

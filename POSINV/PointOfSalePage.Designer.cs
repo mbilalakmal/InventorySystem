@@ -488,6 +488,7 @@
             this.textSearchSale.TabIndex = 10;
             this.textSearchSale.TabStop = false;
             this.textSearchSale.UseSystemPasswordChar = false;
+            this.textSearchSale.TextChanged += new System.EventHandler(this.textSearchSale_TextChanged);
             // 
             // btnSearchSale
             // 
@@ -500,10 +501,11 @@
             this.btnSearchSale.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSearchSale.Name = "btnSearchSale";
             this.btnSearchSale.Primary = true;
-            this.btnSearchSale.Size = new System.Drawing.Size(73, 36);
+            this.btnSearchSale.Size = new System.Drawing.Size(63, 36);
             this.btnSearchSale.TabIndex = 9;
-            this.btnSearchSale.Text = "Search";
+            this.btnSearchSale.Text = "Clear";
             this.btnSearchSale.UseVisualStyleBackColor = true;
+            this.btnSearchSale.Click += new System.EventHandler(this.btnSearchSale_Click);
             // 
             // dataGridViewSale
             // 
