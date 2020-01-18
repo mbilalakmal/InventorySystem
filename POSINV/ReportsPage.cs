@@ -14,6 +14,9 @@ namespace POSINV
 {
     public partial class ReportsPage : MaterialForm
     {
+        /// <summary>
+        /// This Form is for generating different reports and summaries based on sales
+        /// </summary>
         public ReportsPage()
         {
             InitializeComponent();

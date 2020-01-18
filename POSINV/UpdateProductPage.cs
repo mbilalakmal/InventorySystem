@@ -14,12 +14,27 @@ namespace POSINV
 {
     public partial class UpdateProductPage : MaterialForm
     {
+        /// <summary>
+        /// Product object which is received and updated in this form
+        /// </summary>
         public ProductModel Product { get; private set; }
 
+        /// <summary>
+        /// List of all brands used to populate the combobox
+        /// </summary>
         public List<BrandModel> Brands { get; private set; }
 
+        /// <summary>
+        /// List of all categories used to populate the combobox
+        /// </summary>
         public List<CategoryModel> Categories { get; private set; }
 
+        /// <summary>
+        /// This Form is for updating an existing product. The change is reflected in database and UI
+        /// </summary>
+        /// <param name="productOld"></param>
+        /// <param name="brands"></param>
+        /// <param name="categories"></param>
         public UpdateProductPage(ProductModel productOld, List<BrandModel> brands, List<CategoryModel> categories)
         {
             InitializeComponent();
@@ -63,9 +78,7 @@ namespace POSINV
 
         private void FillInputFields()
         {
-            /// <summary>
-            /// Fill input fields with old product
-            /// </summary>
+            // Fill input fields with old product
             textName.Text = Product.ProductName;
             textCost.Text = Product.CostPrice.ToString();
             textList.Text = Product.ListPrice.ToString();
@@ -156,9 +169,7 @@ namespace POSINV
 
         private bool CanUpdateProduct()
         {
-            /// <summary>
-            /// Validates all product fields and return true
-            /// </summary>
+            // Validates all product fields and return true
 
             //ProductName must not be empty
             if (string.IsNullOrWhiteSpace(textName.Text))
@@ -266,6 +277,7 @@ namespace POSINV
 
         private void CopyBackProperties(ProductModel product)
         {
+            //Copies properties from updated to original
             Product.ProductName = product.ProductName;
             Product.CostPrice = product.CostPrice;
             Product.ListPrice = product.ListPrice;
