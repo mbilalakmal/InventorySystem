@@ -12,6 +12,9 @@ using System.Windows.Forms;
 
 namespace POSINV
 {
+    /// <summary>
+    /// Material form for InventoryPage
+    /// </summary>
     public partial class InventoryPage : MaterialForm
     {
         List<BrandModel> brands = new List<BrandModel>();
@@ -20,8 +23,9 @@ namespace POSINV
 
         List<ProductModel> products = new List<ProductModel>();
 
-        //private readonly object product;
-
+        /// <summary>
+        /// This Form is for managing products, brands, and categories. All CRUD operations are available
+        /// </summary>
         public InventoryPage()
         {
             InitializeComponent();
@@ -34,13 +38,13 @@ namespace POSINV
                 Primary.Teal500, Primary.Teal700, Primary.Teal100, Accent.Teal400, TextShade.WHITE
             );
 
-            //load brands
+            //Load brands
             LoadBrandList();
 
-            //load categories
+            //Load categories
             LoadCategoryList();
 
-            //load products
+            //Load products
             LoadProductList();
         }
 
@@ -48,7 +52,7 @@ namespace POSINV
         {
             products = SQLiteDataAccess.LoadProducts();
 
-            //display products in datagridview
+            //Display products in datagridview
             WireUpProductDataGridView();
         }
 
@@ -62,9 +66,7 @@ namespace POSINV
         
         private void dataGridViewProduct_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            /// <summary>
-            /// Remove Extra Columns
-            /// </summary>
+            //Remove extra columns from DGV
             dataGridViewProduct.Columns["Picture"].Visible = false;
         }
 
@@ -72,10 +74,10 @@ namespace POSINV
         {
             brands = SQLiteDataAccess.LoadBrands();
 
-            //display brands in combo box
+            //Display brands in combo box
             WireUpBrandComboBox();
 
-            //display brands in datagridview
+            //Display brands in datagridview
             WireUpBrandDataGridView();
         }
 
@@ -97,10 +99,10 @@ namespace POSINV
         {
             categories = SQLiteDataAccess.LoadCategories();
 
-            //display categories in combo box
+            //Display categories in combo box
             WireUpCategoryComboBox();
 
-            //display categories in datagridview
+            //Display categories in datagridview
             WireUpCategoryDataGridView();
         }
 
@@ -120,9 +122,9 @@ namespace POSINV
 
         private void btnAddPicture_Click(object sender, EventArgs e)
         {
-            ResetProductPicture();  //remove previous picture
+            ResetProductPicture();  //Remove previous picture
 
-            //if a picture file is selected, display it
+            //If a picture file is selected, display it
             if (openFilePicture.ShowDialog() == DialogResult.OK)
             {
                 pictureProduct.Load(openFilePicture.FileName);
@@ -131,9 +133,7 @@ namespace POSINV
         
         private void btnSaveProduct_Click(object sender, EventArgs e)
         {
-            /// <summary>
-            /// Validate fields. Save in DB and refresh DGV
-            /// </summary>
+            //Validate fields, save in DB, and refresh DGV
             
             if ( CanSaveProduct() == true)
             {
@@ -144,9 +144,7 @@ namespace POSINV
 
         private bool CanSaveProduct()
         {
-            /// <summary>
-            /// Validates all product fields and return true
-            /// </summary>
+            //Validates all product fields and return true
 
             //ProductName must not be empty
             if ( string.IsNullOrWhiteSpace(textName.Text))
@@ -203,7 +201,7 @@ namespace POSINV
 
         private void SaveProduct()
         {
-            //get Image from picturebox
+            //Get Image from picturebox
             byte[] picture = null;
             if (pictureProduct.Image != null)
             {
@@ -212,7 +210,7 @@ namespace POSINV
                 );
             }
 
-            //get Brand & Category IDs
+            //Get Brand & Category
             var brand = (BrandModel)comboBrand.SelectedItem;
             var category = (CategoryModel)comboCategory.SelectedItem;
 
@@ -251,7 +249,7 @@ namespace POSINV
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    //reload list to include this brand
+                    //Reload list to include this brand
                     LoadBrandList();
                     comboBrand.Text = form.Brand.BrandName;
 
@@ -266,7 +264,7 @@ namespace POSINV
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    //reload list to include this category
+                    //Reload list to include this category
                     LoadCategoryList();
                     comboCategory.Text = form.Category.CategoryName;
                 }
@@ -275,11 +273,13 @@ namespace POSINV
 
         private void pictureProduct_Click(object sender, EventArgs e)
         {
-            ResetProductPicture();  //remove picture
+            ResetProductPicture();  //Remove picture
         }
 
         private void ResetProductInputs()
         {
+            //Reset all input fields
+
             textName.ResetText();
             textCost.ResetText();
             textList.ResetText();
@@ -298,6 +298,8 @@ namespace POSINV
 
         private void btnSearchProduct_Click(object sender, EventArgs e)
         {
+            //REPLACE THIS WITH TEXT RESET AFTER BINDINGLIST
+
             //search for products with (LIKE) in db and update datagridview
 
             //get text from textSearch and trim leading and trailing whitespace
@@ -313,6 +315,8 @@ namespace POSINV
 
         private void btnSearchBrand_Click(object sender, EventArgs e)
         {
+            //REPLACE THIS WITH TEXT RESET AFTER BINDINGLIST
+
             string searchString = textSearchBrand.Text.Trim();
 
             brands = SQLiteDataAccess.LoadSearchedBrands(searchString);
@@ -324,6 +328,8 @@ namespace POSINV
 
         private void btnSearchCategory_Click(object sender, EventArgs e)
         {
+            //REPLACE THIS WITH TEXT RESET AFTER BINDINGLIST
+
             string searchString = textSearchCategory.Text.Trim();
 
             categories = SQLiteDataAccess.LoadSearchedCategories(searchString);
@@ -336,7 +342,7 @@ namespace POSINV
 
         private void btnDeleteProduct_Click(object sender, EventArgs e)
         {
-            ///validates product selection then deletes from DB and List
+            //Validates product selection then deletes from DB and List
             if ( CanDeleteProduct() == true )
             {
                 //Get the relevant product
@@ -347,13 +353,13 @@ namespace POSINV
 
         private bool CanDeleteProduct()
         {
-            ///Checks if a valid product is selected
+            //Checks if a valid product is selected
             return dataGridViewProduct.CurrentRow != null;
         }
 
         private void DeleteProduct(ProductModel product)
         {
-            ///Deletes given product from DB & list
+            //Deletes given product from DB & list
             if ( ConfirmDeleteItem(product.ProductName) == true )
             {
                 try
@@ -371,7 +377,7 @@ namespace POSINV
         
         private void btnDeleteBrand_Click(object sender, EventArgs e)
         {
-            ///validates brand selection then deletes from DB and List
+            //Validates brand selection then deletes from DB and List
             if (CanDeleteBrand() == true)
             {
                 //Get the relevant brand
@@ -382,13 +388,13 @@ namespace POSINV
 
         private bool CanDeleteBrand()
         {
-            ///Checks if a valid brand is selected
+            //Checks if a valid brand is selected
             return dataGridViewBrand.CurrentRow != null;
         }
 
         private void DeleteBrand(BrandModel brand)
         {
-            ///Deletes given product from DB & list
+            //Deletes given product from DB & list
             if (ConfirmDeleteItem(brand.BrandName) == true)
             {
                 try
@@ -405,7 +411,7 @@ namespace POSINV
 
         private void btnDeleteCategory_Click(object sender, EventArgs e)
         {
-            ///validates category selection then deletes from DB and List
+            //Validates category selection then deletes from DB and List
             if (CanDeleteCategory() == true)
             {
                 //Get the relevant category
@@ -416,13 +422,13 @@ namespace POSINV
 
         private bool CanDeleteCategory()
         {
-            ///Checks if a valid category is selected
+            //Checks if a valid category is selected
             return dataGridViewCategory.CurrentRow != null;
         }
 
         private void DeleteCategory(CategoryModel category)
         {
-            ///Deletes given category from DB & list
+            //Deletes given category from DB & list
             if (ConfirmDeleteItem(category.CategoryName) == true)
             {
                 try
@@ -439,9 +445,8 @@ namespace POSINV
 
         private bool ConfirmDeleteItem(string itemName)
         {
-            /// <summary>
-            /// Confirms delete action from user via a MessageBox and returns a <see cref="bool"/>
-            /// </summary>
+            //Confirms delete action from user via a MessageBox
+
             string confirmText = string.Format("Delete {0} Permenantly?", itemName);
             string confirmCaption = "Confirm Delete";
 
@@ -451,6 +456,8 @@ namespace POSINV
         
         private void btnUpdateProduct_Click(object sender, EventArgs e)
         {
+            //Opens updateProductPage for a selected product
+
             ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow?.DataBoundItem;
 
             if ( product != default(ProductModel))
@@ -459,9 +466,9 @@ namespace POSINV
                 {
                     var result = form.ShowDialog();
                     
-                    WireUpProductDataGridView();    //refresh product DGV
-                    LoadBrandList();    //refresh brands
-                    LoadCategoryList(); //refresh categories
+                    WireUpProductDataGridView();    //Refresh product DGV
+                    LoadBrandList();                //Refresh brands
+                    LoadCategoryList();             //Refresh categories
                 }
             }
         }
@@ -481,15 +488,15 @@ namespace POSINV
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        //reload list to include this brand
+                        //Reload list to include this brand
                         LoadBrandList();
 
-                        //update products in datagridview
+                        //Rpdate products in datagridview
                         updatedProducts.ForEach(
                             product => product.BrandName = brand.BrandName
                         );
                         
-                        WireUpProductDataGridView();    //refresh product DGV
+                        WireUpProductDataGridView();    //Refresh product DGV
                     }
                 }
 
@@ -512,15 +519,15 @@ namespace POSINV
                     var result = form.ShowDialog();
                     if (result == DialogResult.OK)
                     {
-                        //reload list to include this category
+                        //Reload list to include this category
                         LoadCategoryList();
 
-                        //update products in datagridview
+                        //Update products in datagridview
                         updatedProducts.ForEach(
                             product => product.CategoryName.Equals(category.CategoryName)
                         );
 
-                        WireUpProductDataGridView();    //refresh product DGV
+                        WireUpProductDataGridView();    //Refresh product DGV
                     }
                 }
 
@@ -530,16 +537,16 @@ namespace POSINV
         
         private void dataGridViewProduct_Click(object sender, EventArgs e)
         {
-            //set Image of current row in preview picturebox
+            //Set image of current row in preview picturebox
             setProductPreview();
         }
 
         private void setProductPreview()
         {
-            resetProductPreview();  //remove previous image
+            resetProductPreview();  //Remove previous image
 
             ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow?.DataBoundItem;
-            if ( product != default(ProductModel))  //if a valid row is selected
+            if ( product != default(ProductModel))  //If a valid row is selected
             {
                 pictureProductPreview.Image = ProductModel.ByteToImage(product.Picture);
             }
