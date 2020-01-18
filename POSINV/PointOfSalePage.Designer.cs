@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PointOfSalePage));
             this.mtcSale = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPageAddSale = new System.Windows.Forms.TabPage();
+            this.textMisc = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.labelMisc = new MaterialSkin.Controls.MaterialLabel();
             this.dataGridViewCart = new System.Windows.Forms.DataGridView();
             this.btnRemoveFromCart = new MaterialSkin.Controls.MaterialFlatButton();
             this.btnCheckOut = new MaterialSkin.Controls.MaterialRaisedButton();
@@ -57,8 +59,6 @@
             this.materialDivider8 = new MaterialSkin.Controls.MaterialDivider();
             this.materialDivider9 = new MaterialSkin.Controls.MaterialDivider();
             this.tabSManageSale = new MaterialSkin.Controls.MaterialTabSelector();
-            this.textMisc = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.labelMisc = new MaterialSkin.Controls.MaterialLabel();
             this.mtcSale.SuspendLayout();
             this.tabPageAddSale.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCart)).BeginInit();
@@ -113,6 +113,41 @@
             this.tabPageAddSale.Size = new System.Drawing.Size(934, 441);
             this.tabPageAddSale.TabIndex = 0;
             this.tabPageAddSale.Text = "Add Sale";
+            // 
+            // textMisc
+            // 
+            this.textMisc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.textMisc.Depth = 0;
+            this.textMisc.Hint = "0";
+            this.textMisc.Location = new System.Drawing.Point(439, 389);
+            this.textMisc.MaxLength = 10;
+            this.textMisc.MouseState = MaterialSkin.MouseState.HOVER;
+            this.textMisc.Name = "textMisc";
+            this.textMisc.PasswordChar = '\0';
+            this.textMisc.SelectedText = "";
+            this.textMisc.SelectionLength = 0;
+            this.textMisc.SelectionStart = 0;
+            this.textMisc.Size = new System.Drawing.Size(108, 23);
+            this.textMisc.TabIndex = 43;
+            this.textMisc.TabStop = false;
+            this.textMisc.Text = "0";
+            this.textMisc.UseSystemPasswordChar = false;
+            // 
+            // labelMisc
+            // 
+            this.labelMisc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelMisc.AutoSize = true;
+            this.labelMisc.Depth = 0;
+            this.labelMisc.Font = new System.Drawing.Font("Roboto", 11F);
+            this.labelMisc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labelMisc.Location = new System.Drawing.Point(435, 364);
+            this.labelMisc.Margin = new System.Windows.Forms.Padding(3);
+            this.labelMisc.MouseState = MaterialSkin.MouseState.HOVER;
+            this.labelMisc.Name = "labelMisc";
+            this.labelMisc.Size = new System.Drawing.Size(111, 19);
+            this.labelMisc.TabIndex = 42;
+            this.labelMisc.Text = "Misc Charges *";
+            this.labelMisc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dataGridViewCart
             // 
@@ -232,7 +267,7 @@
             this.textQuantity.PasswordChar = '\0';
             this.textQuantity.SelectedText = "";
             this.textQuantity.SelectionLength = 0;
-            this.textQuantity.SelectionStart = 1;
+            this.textQuantity.SelectionStart = 0;
             this.textQuantity.Size = new System.Drawing.Size(108, 23);
             this.textQuantity.TabIndex = 30;
             this.textQuantity.TabStop = false;
@@ -286,6 +321,7 @@
             this.textSearchProduct.TabIndex = 27;
             this.textSearchProduct.TabStop = false;
             this.textSearchProduct.UseSystemPasswordChar = false;
+            this.textSearchProduct.TextChanged += new System.EventHandler(this.textSearchProduct_TextChanged);
             // 
             // dataGridViewProduct
             // 
@@ -321,9 +357,9 @@
             this.btnSearchProduct.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSearchProduct.Name = "btnSearchProduct";
             this.btnSearchProduct.Primary = true;
-            this.btnSearchProduct.Size = new System.Drawing.Size(73, 36);
+            this.btnSearchProduct.Size = new System.Drawing.Size(63, 36);
             this.btnSearchProduct.TabIndex = 28;
-            this.btnSearchProduct.Text = "Search";
+            this.btnSearchProduct.Text = "Clear";
             this.btnSearchProduct.UseVisualStyleBackColor = true;
             this.btnSearchProduct.Click += new System.EventHandler(this.btnSearchProduct_Click);
             // 
@@ -539,41 +575,6 @@
             this.tabSManageSale.Size = new System.Drawing.Size(928, 48);
             this.tabSManageSale.TabIndex = 2;
             this.tabSManageSale.Text = "materialTabSelector2";
-            // 
-            // textMisc
-            // 
-            this.textMisc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.textMisc.Depth = 0;
-            this.textMisc.Hint = "0";
-            this.textMisc.Location = new System.Drawing.Point(439, 389);
-            this.textMisc.MaxLength = 10;
-            this.textMisc.MouseState = MaterialSkin.MouseState.HOVER;
-            this.textMisc.Name = "textMisc";
-            this.textMisc.PasswordChar = '\0';
-            this.textMisc.SelectedText = "";
-            this.textMisc.SelectionLength = 0;
-            this.textMisc.SelectionStart = 1;
-            this.textMisc.Size = new System.Drawing.Size(108, 23);
-            this.textMisc.TabIndex = 43;
-            this.textMisc.TabStop = false;
-            this.textMisc.Text = "0";
-            this.textMisc.UseSystemPasswordChar = false;
-            // 
-            // labelMisc
-            // 
-            this.labelMisc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelMisc.AutoSize = true;
-            this.labelMisc.Depth = 0;
-            this.labelMisc.Font = new System.Drawing.Font("Roboto", 11F);
-            this.labelMisc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelMisc.Location = new System.Drawing.Point(435, 364);
-            this.labelMisc.Margin = new System.Windows.Forms.Padding(3);
-            this.labelMisc.MouseState = MaterialSkin.MouseState.HOVER;
-            this.labelMisc.Name = "labelMisc";
-            this.labelMisc.Size = new System.Drawing.Size(111, 19);
-            this.labelMisc.TabIndex = 42;
-            this.labelMisc.Text = "Misc Charges *";
-            this.labelMisc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // PointOfSalePage
             // 

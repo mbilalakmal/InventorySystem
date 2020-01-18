@@ -2,8 +2,8 @@
 using MaterialSkin.Controls;
 using POSINV.Models;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -16,10 +16,8 @@ namespace POSINV
         BindingList<SaleModel> Sales;
 
         BindingList<ProductModel> Products;
-
-        List<ProductModel> products = new List<ProductModel>();
         
-        BindingList<CartItemModel> cart = new BindingList<CartItemModel>();
+        BindingList<CartItemModel> Cart = new BindingList<CartItemModel>();
 
         //subTotal field bind to labelSubtotalAmount
         private decimal subtotal;
@@ -30,7 +28,7 @@ namespace POSINV
             get
             {
                 subtotal = 0;
-                foreach(var item in cart)
+                foreach(var item in Cart)
                 {
                     subtotal += item.Amount;
                 }
@@ -95,7 +93,7 @@ namespace POSINV
         //load product objects from db
         private void LoadProductList()
         {
-            products = SQLiteDataAccess.LoadProducts();
+            //products = SQLiteDataAccess.LoadProducts();
 
             Products = new BindingList<ProductModel>(SQLiteDataAccess.LoadProducts());
 
@@ -127,7 +125,7 @@ namespace POSINV
         private void WireUpCartDataGridView()
         {
             dataGridViewCart.DataSource = null;
-            dataGridViewCart.DataSource = cart;
+            dataGridViewCart.DataSource = Cart;
         }
 
         //remove unnecessary columns from cart DGV
@@ -138,16 +136,6 @@ namespace POSINV
         
         private void btnSearchProduct_Click(object sender, EventArgs e)
         {
-            //search for products with (LIKE) in db and update datagridview
-
-            //get text from textSearch and trim leading and trailing whitespace
-            string searchString = textSearchProduct.Text.Trim();
-            
-            products = SQLiteDataAccess.LoadSearchedProducts(searchString);
-
-            WireUpProductDataGridView();
-
-            //reset the text
             textSearchProduct.ResetText();
         }
 
@@ -196,7 +184,7 @@ namespace POSINV
             ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow.DataBoundItem;
 
             //check if item already in cart
-            CartItemModel cartItem = cart.FirstOrDefault<CartItemModel>(
+            CartItemModel cartItem = Cart.FirstOrDefault<CartItemModel>(
                 x => x.ProductId == product.ProductId
                 );
 
@@ -218,7 +206,7 @@ namespace POSINV
                     UnitPrice = product.ListPrice,
                     Quantity = int.TryParse(textQuantity.Text, out int number) ? number : 1
                 };
-                cart.Add(cartItem);
+                Cart.Add(cartItem);
             }
 
             //update Subtotal
@@ -227,7 +215,7 @@ namespace POSINV
             //decrement from product
             product.Quantity -= cartItem.Quantity;
             //refresh productList <--REPLACE WITH BETTER-->
-            WireUpProductDataGridView();
+            //WireUpProductDataGridView();
             
             ResetTextQuantity();    //textQuantity.Text = 1
         }
@@ -258,16 +246,16 @@ namespace POSINV
         {
             //Remove Item from cart, update Subtotal, and increment product quantity
             CartItemModel cartItem = (CartItemModel)dataGridViewCart.CurrentRow.DataBoundItem;
-            cart.Remove(cartItem);
+            Cart.Remove(cartItem);
 
             NotifyPropertyChanged("Subtotal");
 
             //Get the relevant product and reset quantity
-            ProductModel product = products.First(
+            ProductModel product = Products.First(
                 x => x.ProductId == cartItem.ProductId
-                );
+            );
             product.Quantity += cartItem.Quantity;
-            WireUpProductDataGridView();
+            //WireUpProductDataGridView();
 
         }
         
@@ -288,7 +276,7 @@ namespace POSINV
 
         private void CleanUpSale()
         {
-            cart.Clear();   //clear cart items
+            Cart.Clear();   //clear cart items
             textMisc.Text = 0.ToString();   //reset Misc
             NotifyPropertyChanged("Subtotal");  //reset subtotal
         }
@@ -309,7 +297,7 @@ namespace POSINV
                 return false;
             }
 
-            return cart.Count != 0;
+            return Cart.Count != 0;
         }
 
         private void CheckOut()
@@ -328,7 +316,7 @@ namespace POSINV
             //Add to DB, if success add to BindingList
             try
             {
-                sale.SaleId = SQLiteDataAccess.SaveSale(sale, cart);
+                sale.SaleId = SQLiteDataAccess.SaveSale(sale, Cart);
                 Sales.Add(sale);
             }
             catch (Exception ex)
@@ -387,6 +375,15 @@ namespace POSINV
             return (confirmDelete == DialogResult.Yes);
         }
 
+        private void textSearchProduct_TextChanged(object sender, EventArgs e)
+        {
+            //fluid search
+            dataGridViewProduct.DataSource = new BindingList<ProductModel>(
+                Products.Where(
+                    product => product.ProductName.ToUpper().Contains( textSearchProduct.Text.ToUpper() )
+                ).ToList()
+            );
 
+        }
     }
 }
