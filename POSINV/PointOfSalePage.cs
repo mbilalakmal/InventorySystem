@@ -69,7 +69,7 @@ namespace POSINV
             //Load cart items
             WireUpCartDataGridView();
 
-            //bind labelSubtotalAmount to property
+            //Bind labelSubtotalAmount to property
             WireUpSubtotalAmount();
 
             //Load Previous Sales
@@ -77,38 +77,36 @@ namespace POSINV
             
         }
 
-        //bind Subtotal property to label
+        //Bind Subtotal property to label
         private void WireUpSubtotalAmount()
         {
             labelSubTotalAmount.DataBindings.Add(new Binding("Text", this, "Subtotal"));
         }
 
-        //load sale objects from db
+        //Load sale objects from db
         private void LoadSaleList()
         {
             Sales = new BindingList<SaleModel>(SQLiteDataAccess.LoadSales());
             WireUpSaleDataGridView();
         }
 
-        //populate sale DGV
+        //Populate sale DGV
         private void WireUpSaleDataGridView()
         {
             dataGridViewSale.DataSource = null;
             dataGridViewSale.DataSource = Sales;
         }
 
-        //load product objects from db
+        //Load product objects from db
         private void LoadProductList()
         {
-            //products = SQLiteDataAccess.LoadProducts();
-
             Products = new BindingList<ProductModel>(SQLiteDataAccess.LoadProducts());
 
-            //display products in datagridview
+            //Display products in datagridview
             WireUpProductDataGridView();
         }
 
-        //populate the DGV
+        //Populate the Products DGV
         private void WireUpProductDataGridView()
         {
             dataGridViewProduct.DataSource = null;
@@ -117,31 +115,31 @@ namespace POSINV
             setProductPreview();
         }
 
-        //remove unnecessary columns from product DGV
+        //Remove unnecessary columns from product DGV
         private void dataGridViewProduct_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             dataGridViewProduct.Columns["ProductId"].Visible = false;
             dataGridViewProduct.Columns["Picture"].Visible = false;
             dataGridViewProduct.Columns["UpdatedOn"].Visible = false;
 
-            //also remove cost price because of customer
+            //Also remove cost price because of customer
             dataGridViewProduct.Columns["CostPrice"].Visible = false;
         }
 
-        //populate the cartItems DGV
+        //Populate the Cart DGV
         private void WireUpCartDataGridView()
         {
             dataGridViewCart.DataSource = null;
             dataGridViewCart.DataSource = Cart;
         }
 
-        //remove unnecessary columns from cart DGV
+        //Remove unnecessary columns from cart DGV
         private void dataGridViewCart_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             dataGridViewCart.Columns["ProductId"].Visible = false;
         }
 
-        //display selected product's picture if any
+        //Display selected product's picture if any
         private void setProductPreview()
         {
             resetProductPreview();
@@ -156,14 +154,14 @@ namespace POSINV
 
         private void resetProductPreview()
         {
-            //dispose of previous preview
+            //Dispose of previous preview
             pictureProductPreview.Image?.Dispose();
             pictureProductPreview.Image = null;
         }
 
         private void btnAddToCart_Click(object sender, EventArgs e)
         {
-            ///Validate product selection and quantity
+            //Validate product selection and quantity
             if ( CanAddToCart() == true)
             {
                 AddToCart();
@@ -172,7 +170,7 @@ namespace POSINV
 
         private bool CanAddToCart()
         {
-            ///Check if a product is selected and quantity is valid (0-Product.Quantity]
+            //Check if a product is selected and quantity is valid (0-Product.Quantity]
             ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow?.DataBoundItem;
 
             return int.TryParse(textQuantity.Text, out int quantity) ?
@@ -182,7 +180,7 @@ namespace POSINV
 
         private void AddToCart()
         {
-            ///If item is already in cart, update quantity otherwise add it to cart
+            //If item is already in cart, update quantity otherwise add it to cart
             ProductModel product = (ProductModel)dataGridViewProduct.CurrentRow.DataBoundItem;
 
             //check if item already in cart
@@ -216,10 +214,8 @@ namespace POSINV
 
             //decrement from product
             product.Quantity -= cartItem.Quantity;
-            //refresh productList <--REPLACE WITH BETTER-->
-            //WireUpProductDataGridView();
-            
-            ResetTextQuantity();    //textQuantity.Text = 1
+
+            ResetTextQuantity();
         }
 
         private void ResetTextQuantity()
@@ -229,7 +225,7 @@ namespace POSINV
 
         private void btnRemoveFromCart_Click(object sender, EventArgs e)
         {
-            ///Validate CartItem Selection
+            //Validate cart item selection
             if ( CanRemoveFromCart() == true )
             {
                 RemoveFromCart();
@@ -238,7 +234,7 @@ namespace POSINV
 
         private bool CanRemoveFromCart()
         {
-            ///Checks if a cartItem is selected
+            //Checks if a cartItem is selected
 
             CartItemModel cartItem = (CartItemModel)dataGridViewCart.CurrentRow?.DataBoundItem;
             return cartItem != null;
@@ -257,35 +253,30 @@ namespace POSINV
                 x => x.ProductId == cartItem.ProductId
             );
             product.Quantity += cartItem.Quantity;
-            //WireUpProductDataGridView();
 
         }
         
         private void btnCheckOut_Click(object sender, EventArgs e)
         {
-            //Create Sale Item, Store in DB
-            //Create SaleDetail Items, Store in DB
-            //Update stock quantity of products
-
             if ( CanCheckOut() == true)
             {
 
-                CheckOut();
-                //Reset Cart, Subtotal, & Misc
-                CleanUpSale();
+                CheckOut();     //Store Sale to DB
+
+                CleanUpSale();  //Reset cart, subtotal, & misc
             }
         }
 
         private void CleanUpSale()
         {
-            Cart.Clear();   //clear cart items
-            textMisc.Text = 0.ToString();   //reset Misc
-            NotifyPropertyChanged("Subtotal");  //reset subtotal
+            Cart.Clear();                       //clear cart items
+            textMisc.Text = 0.ToString();       //Reset Misc
+            NotifyPropertyChanged("Subtotal");  //Reset subtotal
         }
 
         private bool CanCheckOut()
         {
-            ///Validate Misc Charges and that cart is not empty
+            //Validate Misc Charges and that cart is not empty
             
             if ( decimal.TryParse(textMisc.Text, out decimal misc))
             {
@@ -304,10 +295,10 @@ namespace POSINV
 
         private void CheckOut()
         {
-            //get Misc Charges
+            //Get Misc Charges
             decimal misc = decimal.Parse(textMisc.Text);
 
-            //create sale object
+            //Create sale object
             SaleModel sale = new SaleModel
             {
                 SaleDate = DateTime.Now,
@@ -315,7 +306,7 @@ namespace POSINV
                 SaleTotal = subtotal + misc
             };
 
-            //Add to DB, if success add to BindingList
+            //Add to DB, if successful add to BindingList
             try
             {
                 sale.SaleId = SQLiteDataAccess.SaveSale(sale, Cart);
@@ -334,7 +325,7 @@ namespace POSINV
 
         private void btnDeleteSale_Click(object sender, EventArgs e)
         {
-            ///check if sale can be deleted
+            //Check if sale can be deleted
             if ( CanDeleteSale() == true)
             {
                 DeleteSale();
@@ -348,16 +339,19 @@ namespace POSINV
 
         private void DeleteSale()
         {
-            //Delete From DB & DGV
+            //Get relevant sale object
             SaleModel sale = (SaleModel)dataGridViewSale.CurrentRow.DataBoundItem;
 
-            //Confirm
+            //Confirm from user
             if (ConfirmDeleteItem(sale.SaleId.ToString()) == true)
             {
                 try
                 {
                     SQLiteDataAccess.DeleteSale(sale.SaleId);
                     Sales.Remove(sale);
+
+                    //Must reload the product DGV to get new quantities
+                    LoadProductList();
                 }
                 catch (Exception ex)
                 {
@@ -369,17 +363,18 @@ namespace POSINV
 
         private bool ConfirmDeleteItem(string itemName)
         {
+            //Returns True If User Accepts Delete Dialog
+
             string confirmText = string.Format("Delete {0} Permenantly?", itemName);
             string confirmCaption = "Confirm Delete";
 
             var confirmDelete = MessageBox.Show(confirmText, confirmCaption, MessageBoxButtons.YesNo);
-
             return (confirmDelete == DialogResult.Yes);
         }
 
         private void textSearchProduct_TextChanged(object sender, EventArgs e)
         {
-            //fluid search
+            //Fluid Search
             dataGridViewProduct.DataSource = new BindingList<ProductModel>(
                 Products.Where(
                     product => product.ProductName.ToUpper().Contains( textSearchProduct.Text.ToUpper() )
@@ -390,23 +385,23 @@ namespace POSINV
 
         private void textSearchSale_TextChanged(object sender, EventArgs e)
         {
-            //fluid search
+            //Fluid Search
             dataGridViewSale.DataSource = new BindingList<SaleModel>(
                 Sales.Where(
                     sale => sale.SaleId.ToString().Contains( textSearchSale.Text )
                 ).ToList()
             );
         }
-
-
-
+        
         private void btnSearchProduct_Click(object sender, EventArgs e)
         {
+            //Reset Search Text
             textSearchProduct.ResetText();
         }
 
         private void btnSearchSale_Click(object sender, EventArgs e)
         {
+            //Reset Search Text
             textSearchSale.ResetText();
         }
     }
