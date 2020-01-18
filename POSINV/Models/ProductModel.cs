@@ -1,21 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace POSINV
 {
-    public class ProductModel
+    public class ProductModel: INotifyPropertyChanged
     {
+        //backing filed for Quantity
+        private int quantity;
+
         public int ProductId { get; set; }
         public string ProductName { get; set; }
 
         public decimal CostPrice { get; set; }
         public decimal ListPrice { get; set; }
-        public int Quantity { get; set; }
+
+        public int Quantity
+        {
+            get
+            {
+                return quantity;
+            }
+            set
+            {
+                if (value != quantity)
+                {
+                    quantity = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         public DateTime UpdatedOn { get; set; }
         public string Description { get; set; }
@@ -60,6 +80,14 @@ namespace POSINV
             Image image = new Bitmap(ms);
             return image;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
     }
 
 }
