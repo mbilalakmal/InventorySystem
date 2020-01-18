@@ -12,10 +12,20 @@ using System.Windows.Forms;
 
 namespace POSINV
 {
+    /// <summary>
+    /// Material form for UpdateBrandPage
+    /// </summary>
     public partial class UpdateBrandPage : MaterialForm
     {
+        /// <summary>
+        /// Brand object which is received and updated in this form
+        /// </summary>
         public BrandModel Brand { get; private set; }
 
+        /// <summary>
+        /// This Form is for updating an existing brand. The change is reflected in database and UI
+        /// </summary>
+        /// <param name="brandOld"></param>
         public UpdateBrandPage(BrandModel brandOld)
         {
             InitializeComponent();

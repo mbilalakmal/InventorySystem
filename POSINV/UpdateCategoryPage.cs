@@ -12,10 +12,20 @@ using System.Windows.Forms;
 
 namespace POSINV
 {
+    /// <summary>
+    /// Material form for UpdateCategoryPage
+    /// </summary>
     public partial class UpdateCategoryPage : MaterialForm
     {
+        /// <summary>
+        /// Category object which is received and updated in this form
+        /// </summary>
         public CategoryModel Category { get; private set; }
 
+        /// <summary>
+        /// This Form is for updating an existing category. The change is reflected in database and UI
+        /// </summary>
+        /// <param name="categoryOld"></param>
         public UpdateCategoryPage(CategoryModel categoryOld)
         {
             InitializeComponent();
