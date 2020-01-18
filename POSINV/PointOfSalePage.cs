@@ -13,7 +13,9 @@ namespace POSINV
 {
     public partial class PointOfSalePage : MaterialForm, INotifyPropertyChanged
     {
-        List<SaleModel> sales = new List<SaleModel>();
+        BindingList<SaleModel> Sales;
+
+        BindingList<ProductModel> Products;
 
         List<ProductModel> products = new List<ProductModel>();
         
@@ -79,8 +81,7 @@ namespace POSINV
         //load sale objects from db
         private void LoadSaleList()
         {
-            sales = SQLiteDataAccess.LoadSales();
-
+            Sales = new BindingList<SaleModel>(SQLiteDataAccess.LoadSales());
             WireUpSaleDataGridView();
         }
 
@@ -88,13 +89,15 @@ namespace POSINV
         private void WireUpSaleDataGridView()
         {
             dataGridViewSale.DataSource = null;
-            dataGridViewSale.DataSource = sales;
+            dataGridViewSale.DataSource = Sales;
         }
 
         //load product objects from db
         private void LoadProductList()
         {
             products = SQLiteDataAccess.LoadProducts();
+
+            Products = new BindingList<ProductModel>(SQLiteDataAccess.LoadProducts());
 
             //display products in datagridview
             WireUpProductDataGridView();
@@ -104,7 +107,7 @@ namespace POSINV
         private void WireUpProductDataGridView()
         {
             dataGridViewProduct.DataSource = null;
-            dataGridViewProduct.DataSource = products;
+            dataGridViewProduct.DataSource = Products;
 
             setProductPreview();
         }
@@ -276,25 +279,18 @@ namespace POSINV
 
             if ( CanCheckOut() == true)
             {
-                //get Misc Charges
-                decimal misc = decimal.Parse(textMisc.Text);
 
-                //create sale object
-                SaleModel sale = new SaleModel { MiscPrice = misc, SaleTotal = subtotal + misc };
-                //Save sale & sale details
-                SQLiteDataAccess.SaveSale(sale, cart);
-
-                cart.Clear();   //reset cart
-                
-                NotifyPropertyChanged("Subtotal"); //reset subtotal
-
-                ResetTextMisc();    //MiscCharges = 0
+                CheckOut();
+                //Reset Cart, Subtotal, & Misc
+                CleanUpSale();
             }
         }
 
-        private void ResetTextMisc()
+        private void CleanUpSale()
         {
-            textMisc.Text = 0.ToString();
+            cart.Clear();   //clear cart items
+            textMisc.Text = 0.ToString();   //reset Misc
+            NotifyPropertyChanged("Subtotal");  //reset subtotal
         }
 
         private bool CanCheckOut()
@@ -314,6 +310,31 @@ namespace POSINV
             }
 
             return cart.Count != 0;
+        }
+
+        private void CheckOut()
+        {
+            //get Misc Charges
+            decimal misc = decimal.Parse(textMisc.Text);
+
+            //create sale object
+            SaleModel sale = new SaleModel
+            {
+                SaleDate = DateTime.Now,
+                MiscPrice = misc,
+                SaleTotal = subtotal + misc
+            };
+
+            //Add to DB, if success add to BindingList
+            try
+            {
+                sale.SaleId = SQLiteDataAccess.SaveSale(sale, cart);
+                Sales.Add(sale);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "FAILED TO SAVE!");
+            }
         }
 
         private void dataGridViewProduct_CurrentCellChanged(object sender, EventArgs e)
@@ -343,10 +364,17 @@ namespace POSINV
             //Confirm
             if (ConfirmDeleteItem(sale.SaleId.ToString()) == true)
             {
-                SQLiteDataAccess.DeleteSale(sale.SaleId);
-                sales.Remove(sale);
-                WireUpSaleDataGridView();
+                try
+                {
+                    SQLiteDataAccess.DeleteSale(sale.SaleId);
+                    Sales.Remove(sale);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "FAILED TO DELETE!");
+                }
             }
+
         }
 
         private bool ConfirmDeleteItem(string itemName)
