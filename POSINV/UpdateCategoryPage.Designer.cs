@@ -106,7 +106,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Update Category";
-            this.Load += new System.EventHandler(this.UpdateCategoryPage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
