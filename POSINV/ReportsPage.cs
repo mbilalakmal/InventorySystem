@@ -26,10 +26,5 @@ namespace POSINV
                 Primary.Teal500, Primary.Teal700, Primary.Teal100, Accent.Teal400, TextShade.WHITE
                 );
         }
-
-        private void ReportsPage_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

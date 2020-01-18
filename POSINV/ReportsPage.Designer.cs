@@ -40,7 +40,6 @@
             this.Name = "ReportsPage";
             this.ShowInTaskbar = false;
             this.Text = "Reports";
-            this.Load += new System.EventHandler(this.ReportsPage_Load);
             this.ResumeLayout(false);
 
         }
