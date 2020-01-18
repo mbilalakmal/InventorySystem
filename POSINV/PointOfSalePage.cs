@@ -18,11 +18,12 @@ namespace POSINV
         BindingList<ProductModel> Products;
         
         BindingList<CartItemModel> Cart = new BindingList<CartItemModel>();
-
-        //subTotal field bind to labelSubtotalAmount
-        private decimal subtotal;
         
-        //public property for subtotal field
+        private decimal subtotal;   //bind to labelSubtotalAmount
+        
+        /// <summary>
+        /// Public property for subtotal field
+        /// </summary>
         public string Subtotal
         {
             get
@@ -36,6 +37,9 @@ namespace POSINV
             }
         }
 
+        /// <summary>
+        /// Event for handling changes in properties
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
         //Notifies consumers of change in property | set null for all properties
@@ -44,6 +48,9 @@ namespace POSINV
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        /// <summary>
+        /// This Form is for processing new sales, viewing and updating previous sales
+        /// </summary>
         public PointOfSalePage()
         {
             InitializeComponent();
