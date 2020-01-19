@@ -4,10 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace POSINV
@@ -20,8 +17,8 @@ namespace POSINV
         List<BrandModel> brands = new List<BrandModel>();
 
         List<CategoryModel> categories = new List<CategoryModel>();
-
-        List<ProductModel> products = new List<ProductModel>();
+        
+        BindingList<ProductModel> Products;
 
         /// <summary>
         /// This Form is for managing products, brands, and categories. All CRUD operations are available
@@ -50,7 +47,7 @@ namespace POSINV
 
         private void LoadProductList()
         {
-            products = SQLiteDataAccess.LoadProducts();
+            Products = new BindingList<ProductModel>(SQLiteDataAccess.LoadProducts());
 
             //Display products in datagridview
             WireUpProductDataGridView();
@@ -59,7 +56,7 @@ namespace POSINV
         private void WireUpProductDataGridView()
         {
             dataGridViewProduct.DataSource = null;
-            dataGridViewProduct.DataSource = products;
+            dataGridViewProduct.DataSource = Products;
 
             setProductPreview();
         }
@@ -231,8 +228,8 @@ namespace POSINV
             try
             {
                 product.ProductId = SQLiteDataAccess.SaveProduct(product, brand.BrandId, category.CategoryId);
-                products.Add(product);
-                WireUpProductDataGridView();
+                Products.Add(product);
+
                 ResetProductInputs();
             }
             catch (Exception ex)
@@ -305,9 +302,9 @@ namespace POSINV
             //get text from textSearch and trim leading and trailing whitespace
             string searchString = textSearchProduct.Text.Trim();
 
-            products = SQLiteDataAccess.LoadSearchedProducts(searchString);
+            //products = SQLiteDataAccess.LoadSearchedProducts(searchString);
             //sth
-            WireUpProductDataGridView();
+            //WireUpProductDataGridView();
 
             //reset the text
             textSearchProduct.ResetText();
@@ -365,8 +362,7 @@ namespace POSINV
                 try
                 {
                     SQLiteDataAccess.DeleteProduct(product.ProductId);
-                    products.Remove(product);
-                    WireUpProductDataGridView();
+                    Products.Remove(product);
                 }
                 catch (Exception ex)
                 {
@@ -466,7 +462,6 @@ namespace POSINV
                 {
                     var result = form.ShowDialog();
                     
-                    WireUpProductDataGridView();    //Refresh product DGV
                     LoadBrandList();                //Refresh brands
                     LoadCategoryList();             //Refresh categories
                 }
@@ -479,7 +474,7 @@ namespace POSINV
 
             if ( brand != default(BrandModel))
             {
-                var updatedProducts = products.Where(
+                var updatedProducts = Products.Where(
                     product => product.BrandName.Equals(brand.BrandName)
                 ).ToList();
 
@@ -496,7 +491,6 @@ namespace POSINV
                             product => product.BrandName = brand.BrandName
                         );
                         
-                        WireUpProductDataGridView();    //Refresh product DGV
                     }
                 }
 
@@ -510,8 +504,8 @@ namespace POSINV
 
             if (category != default(CategoryModel))
             {
-                var updatedProducts = products.Where(
-                    product => product.BrandName.Equals(category.CategoryName)
+                var updatedProducts = Products.Where(
+                    product => product.CategoryName.Equals(category.CategoryName)
                 ).ToList();
 
                 using (var form = new UpdateCategoryPage(category))
@@ -524,10 +518,9 @@ namespace POSINV
 
                         //Update products in datagridview
                         updatedProducts.ForEach(
-                            product => product.CategoryName.Equals(category.CategoryName)
+                            product => product.CategoryName = category.CategoryName
                         );
-
-                        WireUpProductDataGridView();    //Refresh product DGV
+                        
                     }
                 }
 
