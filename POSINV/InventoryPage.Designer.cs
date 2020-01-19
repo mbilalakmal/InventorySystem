@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InventoryPage));
             this.mtcInventory = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPageAddProduct = new System.Windows.Forms.TabPage();
@@ -638,6 +638,7 @@
             this.textSearchProduct.TabIndex = 7;
             this.textSearchProduct.TabStop = false;
             this.textSearchProduct.UseSystemPasswordChar = false;
+            this.textSearchProduct.TextChanged += new System.EventHandler(this.textSearchProduct_TextChanged);
             // 
             // btnSearchProduct
             // 
@@ -650,9 +651,9 @@
             this.btnSearchProduct.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSearchProduct.Name = "btnSearchProduct";
             this.btnSearchProduct.Primary = true;
-            this.btnSearchProduct.Size = new System.Drawing.Size(73, 36);
+            this.btnSearchProduct.Size = new System.Drawing.Size(63, 36);
             this.btnSearchProduct.TabIndex = 8;
-            this.btnSearchProduct.Text = "Search";
+            this.btnSearchProduct.Text = "Clear";
             this.btnSearchProduct.UseVisualStyleBackColor = true;
             this.btnSearchProduct.Click += new System.EventHandler(this.btnSearchProduct_Click);
             // 
@@ -986,8 +987,8 @@
             // 
             this.dataGridViewCategory.AllowUserToAddRows = false;
             this.dataGridViewCategory.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.dataGridViewCategory.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.dataGridViewCategory.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));

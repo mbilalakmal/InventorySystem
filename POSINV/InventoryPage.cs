@@ -295,18 +295,7 @@ namespace POSINV
 
         private void btnSearchProduct_Click(object sender, EventArgs e)
         {
-            //REPLACE THIS WITH TEXT RESET AFTER BINDINGLIST
-
-            //search for products with (LIKE) in db and update datagridview
-
-            //get text from textSearch and trim leading and trailing whitespace
-            string searchString = textSearchProduct.Text.Trim();
-
-            //products = SQLiteDataAccess.LoadSearchedProducts(searchString);
-            //sth
-            //WireUpProductDataGridView();
-
-            //reset the text
+            //Reset the text
             textSearchProduct.ResetText();
         }
 
@@ -551,6 +540,15 @@ namespace POSINV
             pictureProductPreview.Image?.Dispose();
             pictureProductPreview.Image = null;
         }
-        
+
+        private void textSearchProduct_TextChanged(object sender, EventArgs e)
+        {
+            //Fluid search
+            dataGridViewProduct.DataSource = new BindingList<ProductModel>(
+                Products.Where(
+                    product => product.ProductName.ToUpper().Contains(textSearchProduct.Text.ToUpper())
+                ).ToList()
+            );
+        }
     }
 }
