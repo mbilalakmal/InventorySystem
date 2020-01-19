@@ -4,6 +4,8 @@ using POSINV.Models;
 using System;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing;
+using System.Drawing.Printing;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -263,8 +265,93 @@ namespace POSINV
 
                 CheckOut();     //Store Sale to DB
 
+                //PrintReceipt
+                if (ConfirmPrintReceipt())
+                {
+                    PrintReceipt();
+                }
+
                 CleanUpSale();  //Reset cart, subtotal, & misc
             }
+        }
+
+        private bool ConfirmPrintReceipt()
+        {
+            //Print receipt of currently processed sale - includes cart items + misc charges
+
+            string confirmText = string.Format("Do You Want To Print Sale: 1");
+            string confirmCaption = "Print Receipt";
+
+            DialogResult confirmPrint = MessageBox.Show(confirmText, confirmCaption, MessageBoxButtons.YesNo);
+            return (confirmPrint == DialogResult.Yes);
+        }
+
+        private void PrintReceipt()
+        {
+            using (var printDialog = new PrintDialog())
+            {
+                PrintDocument printDocument = new PrintDocument();
+                printDialog.Document = printDocument;   //add the document to the dialog box
+                printDocument.PrintPage += new PrintPageEventHandler(CreateReceipt);
+
+                //Ask user for print destination
+                var dialogResult = printDialog.ShowDialog();
+
+                if (dialogResult == DialogResult.OK)
+                {
+                    printDocument.Print();  //start the printing process
+                }
+
+            }
+
+        }
+
+        private void CreateReceipt(object sender, PrintPageEventArgs e)
+        {
+            //This function descirbes the graphics object that is printed as invoice
+
+            //Needs Sale object(ID, SaleDate, MiscPrice, SaleTotal) and
+            //cart items(ProductName, UnitPrice, Quantity, Amount)
+
+            SaleModel sale = Sales.Last();
+            BindingList<CartItemModel> cart = Cart;
+
+            Graphics graphics = e.Graphics;
+
+            Font font = new Font("Courier New", 12);
+
+            float fontHeight = font.GetHeight();
+
+            int startX = 10;
+            int startY = 10;
+            int offset = 40;
+
+            graphics.DrawString(
+                "YAD RAKH KAKA, BATTERY SIRF OSAKA",
+                new Font("Courier New", 18),
+                new SolidBrush(Color.Black),
+                startX,
+                startY    
+            );
+
+            string columns = "Product".PadRight(15) + "Price".PadRight(10) + "Quantity".PadRight(10) + "Amount";
+
+            graphics.DrawString(
+                columns, font, new SolidBrush(Color.Black), startX, startY + offset
+            );
+
+            offset += (int)fontHeight;  //Consistent spacing
+
+            graphics.DrawString(
+                "----------------------------------",
+                font, new SolidBrush(Color.Black), startX, startY + offset
+            );
+
+            offset += (int)fontHeight;  //Consistent spacing
+
+            //Cart items here -- FOREACH
+
+
         }
 
         private void CleanUpSale()
