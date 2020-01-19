@@ -33,19 +33,6 @@ namespace POSINV
                 return output.ToList();
             }
         }
-        
-        //TO BE DELTED
-        public static List<ProductModel> LoadSearchedProducts(String searchString)
-        {
-            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
-            {
-                string sql = @"SELECT * FROM PRODUCT NATURAL JOIN " +
-                    "BRAND NATURAL JOIN CATEGORY WHERE PRODUCTNAME LIKE @search";
-
-                var output = cnn.Query<ProductModel>(sql, new { search = '%' + searchString + '%' } );
-                return output.ToList();
-            }
-        }
 
         /// <summary>
         /// Load all Brands from DB
@@ -61,18 +48,6 @@ namespace POSINV
                 return output.ToList();
             }
         }
-
-        //TO BE DELETED
-        public static List<BrandModel> LoadSearchedBrands(string searchString)
-        {
-            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
-            {
-                string sql = @"SELECT * FROM BRAND WHERE BRANDNAME LIKE @search";
-
-                var output = cnn.Query<BrandModel>(sql, new { search = '%' + searchString + '%' });
-                return output.ToList();
-            }
-        }
         
         /// <summary>
         /// Load all Categories from DB
@@ -85,18 +60,6 @@ namespace POSINV
                 string sql = @"SELECT * FROM CATEGORY";
 
                 var output = cnn.Query<CategoryModel>(sql, new DynamicParameters());
-                return output.ToList();
-            }
-        }
-        
-        //TO BE DELETED
-        public static List<CategoryModel> LoadSearchedCategories(string searchString)
-        {
-            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
-            {
-                string sql = @"SELECT * FROM CATEGORY WHERE CATEGORYNAME LIKE @search";
-
-                var output = cnn.Query<CategoryModel>(sql, new { search = '%' + searchString + '%' });
                 return output.ToList();
             }
         }
@@ -296,18 +259,6 @@ namespace POSINV
                 string sql = @"SELECT * FROM SALE";
 
                 var output = cnn.Query<SaleModel>(sql, new DynamicParameters());
-                return output.ToList();
-            }
-        }
-
-        //TO BE REMOVED
-        public static List<SaleModel> LoadSearchedSale(string searchString)
-        {
-            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
-            {
-                string sql = @"SELECT * FROM SALE WHERE SALEID = @search";
-
-                var output = cnn.Query<SaleModel>(sql, new { search = searchString });
                 return output.ToList();
             }
         }
