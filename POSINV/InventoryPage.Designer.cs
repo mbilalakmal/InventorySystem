@@ -803,6 +803,7 @@
             this.textSearchBrand.TabIndex = 10;
             this.textSearchBrand.TabStop = false;
             this.textSearchBrand.UseSystemPasswordChar = false;
+            this.textSearchBrand.TextChanged += new System.EventHandler(this.textSearchBrand_TextChanged);
             // 
             // btnSearchBrand
             // 
@@ -965,6 +966,7 @@
             this.textSearchCategory.TabIndex = 10;
             this.textSearchCategory.TabStop = false;
             this.textSearchCategory.UseSystemPasswordChar = false;
+            this.textSearchCategory.TextChanged += new System.EventHandler(this.textSearchCategory_TextChanged);
             // 
             // btnSearchCategory
             // 

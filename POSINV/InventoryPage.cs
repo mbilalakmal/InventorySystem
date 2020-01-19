@@ -14,11 +14,11 @@ namespace POSINV
     /// </summary>
     public partial class InventoryPage : MaterialForm
     {
-        List<CategoryModel> categories = new List<CategoryModel>();
-        
         BindingList<ProductModel> Products;
 
         List<BrandModel> Brands;
+
+        List<CategoryModel> Categories;
 
         /// <summary>
         /// This Form is for managing products, brands, and categories. All CRUD operations are available
@@ -96,7 +96,7 @@ namespace POSINV
 
         private void LoadCategoryList()
         {
-            categories = SQLiteDataAccess.LoadCategories();
+            Categories = SQLiteDataAccess.LoadCategories();
 
             //Display categories in combo box
             WireUpCategoryComboBox();
@@ -110,13 +110,13 @@ namespace POSINV
             comboCategory.DataSource = null;
             comboCategory.ValueMember = "categoryId";
             comboCategory.DisplayMember = "categoryName";
-            comboCategory.DataSource = categories;
+            comboCategory.DataSource = Categories;
         }
 
         private void WireUpCategoryDataGridView()
         {
             dataGridViewCategory.DataSource = null;
-            dataGridViewCategory.DataSource = categories;
+            dataGridViewCategory.DataSource = Categories;
         }
 
         private void btnAddPicture_Click(object sender, EventArgs e)
@@ -297,35 +297,20 @@ namespace POSINV
 
         private void btnSearchProduct_Click(object sender, EventArgs e)
         {
-            //Reset the text
+            //Reset search text
             textSearchProduct.ResetText();
         }
 
         private void btnSearchBrand_Click(object sender, EventArgs e)
         {
-            //REPLACE THIS WITH TEXT RESET AFTER BINDINGLIST
-
-            string searchString = textSearchBrand.Text.Trim();
-
-            //brands = SQLiteDataAccess.LoadSearchedBrands(searchString);
-
-            WireUpBrandDataGridView();
-
+            //Reset search text
             textSearchBrand.ResetText();
         }
 
         private void btnSearchCategory_Click(object sender, EventArgs e)
         {
-            //REPLACE THIS WITH TEXT RESET AFTER BINDINGLIST
-
-            string searchString = textSearchCategory.Text.Trim();
-
-            categories = SQLiteDataAccess.LoadSearchedCategories(searchString);
-
-            WireUpCategoryDataGridView();
-
+            //reset search text
             textSearchCategory.ResetText();
-
         }
 
         private void btnDeleteProduct_Click(object sender, EventArgs e)
@@ -449,7 +434,7 @@ namespace POSINV
 
             if ( product != default(ProductModel))
             {
-                using (var form = new UpdateProductPage(product, Brands, categories))
+                using (var form = new UpdateProductPage(product, Brands, Categories))
                 {
                     var result = form.ShowDialog();
                     
@@ -540,6 +525,11 @@ namespace POSINV
             pictureProductPreview.Image = null;
         }
 
+        private void dataGridViewProduct_CurrentCellChanged(object sender, EventArgs e)
+        {
+            setProductPreview();    //change preview Image to current Product's
+        }
+
         private void textSearchProduct_TextChanged(object sender, EventArgs e)
         {
             //Fluid search
@@ -550,9 +540,26 @@ namespace POSINV
             );
         }
 
-        private void dataGridViewProduct_CurrentCellChanged(object sender, EventArgs e)
+        private void textSearchBrand_TextChanged(object sender, EventArgs e)
         {
-            setProductPreview();    //change preview Image to current Product's
+            //Fluid search
+            dataGridViewBrand.DataSource = new List<BrandModel>(
+                Brands.Where(
+                    brand => brand.BrandName.ToUpper().Contains(textSearchBrand.Text.ToUpper())
+                )
+            );
         }
+
+        private void textSearchCategory_TextChanged(object sender, EventArgs e)
+        {
+            //Fluid search
+            dataGridViewCategory.DataSource = new List<CategoryModel>(
+                Categories.Where(
+                    category => category.CategoryName.ToUpper().Contains(textSearchCategory.Text.ToUpper())
+                )
+            );
+        }
+
+
     }
 }
