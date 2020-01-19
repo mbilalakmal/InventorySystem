@@ -815,9 +815,9 @@
             this.btnSearchBrand.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSearchBrand.Name = "btnSearchBrand";
             this.btnSearchBrand.Primary = true;
-            this.btnSearchBrand.Size = new System.Drawing.Size(73, 36);
+            this.btnSearchBrand.Size = new System.Drawing.Size(63, 36);
             this.btnSearchBrand.TabIndex = 9;
-            this.btnSearchBrand.Text = "Search";
+            this.btnSearchBrand.Text = "Clear";
             this.btnSearchBrand.UseVisualStyleBackColor = true;
             this.btnSearchBrand.Click += new System.EventHandler(this.btnSearchBrand_Click);
             // 
@@ -977,9 +977,9 @@
             this.btnSearchCategory.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSearchCategory.Name = "btnSearchCategory";
             this.btnSearchCategory.Primary = true;
-            this.btnSearchCategory.Size = new System.Drawing.Size(73, 36);
+            this.btnSearchCategory.Size = new System.Drawing.Size(63, 36);
             this.btnSearchCategory.TabIndex = 9;
-            this.btnSearchCategory.Text = "Search";
+            this.btnSearchCategory.Text = "Clear";
             this.btnSearchCategory.UseVisualStyleBackColor = true;
             this.btnSearchCategory.Click += new System.EventHandler(this.btnSearchCategory_Click);
             // 
