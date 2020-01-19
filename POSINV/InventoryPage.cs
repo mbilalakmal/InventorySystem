@@ -14,11 +14,11 @@ namespace POSINV
     /// </summary>
     public partial class InventoryPage : MaterialForm
     {
-        List<BrandModel> brands = new List<BrandModel>();
-
         List<CategoryModel> categories = new List<CategoryModel>();
         
         BindingList<ProductModel> Products;
+
+        List<BrandModel> Brands;
 
         /// <summary>
         /// This Form is for managing products, brands, and categories. All CRUD operations are available
@@ -69,7 +69,9 @@ namespace POSINV
 
         private void LoadBrandList()
         {
-            brands = SQLiteDataAccess.LoadBrands();
+            //brands = SQLiteDataAccess.LoadBrands();
+
+            Brands = SQLiteDataAccess.LoadBrands();
 
             //Display brands in combo box
             WireUpBrandComboBox();
@@ -83,13 +85,13 @@ namespace POSINV
             comboBrand.DataSource = null;
             comboBrand.ValueMember = "brandId";
             comboBrand.DisplayMember = "brandName";
-            comboBrand.DataSource = brands;
+            comboBrand.DataSource = Brands;
         }
 
         private void WireUpBrandDataGridView()
         {
             dataGridViewBrand.DataSource = null;
-            dataGridViewBrand.DataSource = brands;
+            dataGridViewBrand.DataSource = Brands;
         }
 
         private void LoadCategoryList()
@@ -305,7 +307,7 @@ namespace POSINV
 
             string searchString = textSearchBrand.Text.Trim();
 
-            brands = SQLiteDataAccess.LoadSearchedBrands(searchString);
+            //brands = SQLiteDataAccess.LoadSearchedBrands(searchString);
 
             WireUpBrandDataGridView();
 
@@ -447,7 +449,7 @@ namespace POSINV
 
             if ( product != default(ProductModel))
             {
-                using (var form = new UpdateProductPage(product, brands, categories))
+                using (var form = new UpdateProductPage(product, Brands, categories))
                 {
                     var result = form.ShowDialog();
                     
@@ -476,7 +478,9 @@ namespace POSINV
                         //Reload list to include this brand
                         LoadBrandList();
 
-                        //Rpdate products in datagridview
+                        comboBrand.Text = brand.BrandName;
+
+                        //Update products in datagridview
                         updatedProducts.ForEach(
                             product => product.BrandName = brand.BrandName
                         );
