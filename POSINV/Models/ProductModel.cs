@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace POSINV
 {
@@ -15,8 +11,16 @@ namespace POSINV
     /// </summary>
     public class ProductModel: INotifyPropertyChanged
     {
-        //backing filed for Quantity
+        //backing fields
+        private string productName;
+        private decimal costPrice;
+        private decimal listPrice;
         private int quantity;
+        private DateTime updatedOn;
+        private string description;
+        private string brandName;
+        private string categoryName;
+        private byte[] picture;
 
         /// <summary>
         /// Unique integer ID
@@ -26,17 +30,59 @@ namespace POSINV
         /// <summary>
         /// Unique name for the product
         /// </summary>
-        public string ProductName { get; set; }
+        public string ProductName
+        {
+            get
+            {
+                return productName;
+            }
+            set
+            {
+                if (value != productName)
+                {
+                    productName = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         /// <summary>
         /// Cost price of the product - Hidden from customer
         /// </summary>
-        public decimal CostPrice { get; set; }
+        public decimal CostPrice
+        {
+            get
+            {
+                return costPrice;
+            }
+            set
+            {
+                if (value != costPrice)
+                {
+                    costPrice = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         /// <summary>
         /// Selling Price of the product - Included in Sale total and invoice
         /// </summary>
-        public decimal ListPrice { get; set; }
+        public decimal ListPrice
+        {
+            get
+            {
+                return listPrice;
+            }
+            set
+            {
+                if (value != listPrice)
+                {
+                    listPrice = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         /// <summary>
         /// Quantity available in stock
@@ -60,31 +106,98 @@ namespace POSINV
         /// <summary>
         /// DateTime of last stock update
         /// </summary>
-        public DateTime UpdatedOn { get; set; }
+        public DateTime UpdatedOn
+        {
+            get
+            {
+                return updatedOn;
+            }
+            set
+            {
+                if (value != updatedOn)
+                {
+                    updatedOn = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         /// <summary>
         /// Optional description - Color, Size, Material
         /// </summary>
-        public string Description { get; set; }
+        public string Description
+        {
+            get
+            {
+                return description;
+            }
+            set
+            {
+                if (value != description)
+                {
+                    description = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
         
         /// <summary>
         /// Brand name of the product
         /// </summary>
-        public string BrandName { get; set; }
+        public string BrandName
+        {
+            get
+            {
+                return brandName;
+            }
+            set
+            {
+                if (value != brandName)
+                {
+                    brandName = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         /// <summary>
         /// Category name of the product
         /// </summary>
-        public string CategoryName { get; set; }
+        public string CategoryName
+        {
+            get
+            {
+                return categoryName;
+            }
+            set
+            {
+                if (value != categoryName)
+                {
+                    categoryName = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         /// <summary>
         /// Picture of the product represented in byte array
         /// </summary>
-        public byte[] Picture { get; set; }
-
-        //Converts image object of given format to byte array
-
-
+        public byte[] Picture
+        {
+            get
+            {
+                return picture;
+            }
+            set
+            {
+                if (value != picture)
+                {
+                    picture = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        
         /// <summary>
         /// Accepts an image in a given format and returns a byte array created from the image
         /// </summary>
@@ -115,7 +228,7 @@ namespace POSINV
             {
                 return null;
             }
-            /// Convert byte[] to Image
+            // Convert byte[] to Image
             MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
             ms.Write(imageBytes, 0, imageBytes.Length);
             Image image = new Bitmap(ms);
