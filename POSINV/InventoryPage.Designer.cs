@@ -677,8 +677,8 @@
             this.dataGridViewProduct.RowTemplate.Height = 32;
             this.dataGridViewProduct.Size = new System.Drawing.Size(720, 286);
             this.dataGridViewProduct.TabIndex = 5;
+            this.dataGridViewProduct.CurrentCellChanged += new System.EventHandler(this.dataGridViewProduct_CurrentCellChanged);
             this.dataGridViewProduct.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewProduct_DataBindingComplete);
-            this.dataGridViewProduct.Click += new System.EventHandler(this.dataGridViewProduct_Click);
             // 
             // materialDivider6
             // 

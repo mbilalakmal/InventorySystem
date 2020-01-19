@@ -454,6 +454,7 @@ namespace POSINV
                     LoadBrandList();                //Refresh brands
                     LoadCategoryList();             //Refresh categories
                 }
+                setProductPreview();
             }
         }
 
@@ -516,12 +517,6 @@ namespace POSINV
             }
             
         }
-        
-        private void dataGridViewProduct_Click(object sender, EventArgs e)
-        {
-            //Set image of current row in preview picturebox
-            setProductPreview();
-        }
 
         private void setProductPreview()
         {
@@ -549,6 +544,11 @@ namespace POSINV
                     product => product.ProductName.ToUpper().Contains(textSearchProduct.Text.ToUpper())
                 ).ToList()
             );
+        }
+
+        private void dataGridViewProduct_CurrentCellChanged(object sender, EventArgs e)
+        {
+            setProductPreview();    //change preview Image to current Product's
         }
     }
 }
