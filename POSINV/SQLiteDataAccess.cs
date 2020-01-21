@@ -7,8 +7,6 @@ using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace POSINV
 {
@@ -369,6 +367,24 @@ namespace POSINV
                         throw;
                     } 
                 }
+            }
+
+        }
+
+        /// <summary>
+        /// View Sale details: returns cart items
+        /// </summary>
+        /// <param name="saleId"></param>
+        public static List<CartItemModel> ViewSale(int saleId)
+        {
+
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                string sql = @"SELECT * FROM SALEDETAIL WHERE SALEID = @search";
+
+                var output = cnn.Query<CartItemModel>(sql, new { search = saleId });
+
+                return output.ToList();
             }
 
         }
