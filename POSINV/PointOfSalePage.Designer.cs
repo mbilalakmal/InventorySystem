@@ -50,7 +50,7 @@
             this.materialDivider1 = new MaterialSkin.Controls.MaterialDivider();
             this.tabSAddSale = new MaterialSkin.Controls.MaterialTabSelector();
             this.tabPageManageSale = new System.Windows.Forms.TabPage();
-            this.btnUpdateSale = new MaterialSkin.Controls.MaterialFlatButton();
+            this.btnViewSale = new MaterialSkin.Controls.MaterialFlatButton();
             this.btnDeleteSale = new MaterialSkin.Controls.MaterialFlatButton();
             this.textSearchSale = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.btnSearchSale = new MaterialSkin.Controls.MaterialRaisedButton();
@@ -419,7 +419,7 @@
             // tabPageManageSale
             // 
             this.tabPageManageSale.BackColor = System.Drawing.Color.White;
-            this.tabPageManageSale.Controls.Add(this.btnUpdateSale);
+            this.tabPageManageSale.Controls.Add(this.btnViewSale);
             this.tabPageManageSale.Controls.Add(this.btnDeleteSale);
             this.tabPageManageSale.Controls.Add(this.textSearchSale);
             this.tabPageManageSale.Controls.Add(this.btnSearchSale);
@@ -435,22 +435,23 @@
             this.tabPageManageSale.TabIndex = 2;
             this.tabPageManageSale.Text = "Manage Sales";
             // 
-            // btnUpdateSale
+            // btnViewSale
             // 
-            this.btnUpdateSale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpdateSale.AutoSize = true;
-            this.btnUpdateSale.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnUpdateSale.Depth = 0;
-            this.btnUpdateSale.Icon = null;
-            this.btnUpdateSale.Location = new System.Drawing.Point(328, 69);
-            this.btnUpdateSale.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnUpdateSale.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnUpdateSale.Name = "btnUpdateSale";
-            this.btnUpdateSale.Primary = false;
-            this.btnUpdateSale.Size = new System.Drawing.Size(73, 36);
-            this.btnUpdateSale.TabIndex = 15;
-            this.btnUpdateSale.Text = "Update";
-            this.btnUpdateSale.UseVisualStyleBackColor = true;
+            this.btnViewSale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnViewSale.AutoSize = true;
+            this.btnViewSale.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnViewSale.Depth = 0;
+            this.btnViewSale.Icon = null;
+            this.btnViewSale.Location = new System.Drawing.Point(328, 69);
+            this.btnViewSale.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnViewSale.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnViewSale.Name = "btnViewSale";
+            this.btnViewSale.Primary = false;
+            this.btnViewSale.Size = new System.Drawing.Size(54, 36);
+            this.btnViewSale.TabIndex = 15;
+            this.btnViewSale.Text = "View";
+            this.btnViewSale.UseVisualStyleBackColor = true;
+            this.btnViewSale.Click += new System.EventHandler(this.btnViewSale_Click);
             // 
             // btnDeleteSale
             // 
@@ -612,7 +613,7 @@
         private MaterialSkin.Controls.MaterialDivider materialDivider1;
         private MaterialSkin.Controls.MaterialTabSelector tabSAddSale;
         private System.Windows.Forms.TabPage tabPageManageSale;
-        private MaterialSkin.Controls.MaterialFlatButton btnUpdateSale;
+        private MaterialSkin.Controls.MaterialFlatButton btnViewSale;
         private MaterialSkin.Controls.MaterialFlatButton btnDeleteSale;
         private MaterialSkin.Controls.MaterialSingleLineTextField textSearchSale;
         private MaterialSkin.Controls.MaterialRaisedButton btnSearchSale;

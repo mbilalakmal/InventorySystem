@@ -491,5 +491,16 @@ namespace POSINV
             //Reset Search Text
             textSearchSale.ResetText();
         }
+
+        private void btnViewSale_Click(object sender, EventArgs e)
+        {
+            //view product
+            BindingList<CartItemModel> cart = new BindingList<CartItemModel>(
+                SQLiteDataAccess.ViewSale(1)    
+            );
+            MessageBox.Show(cart.Count.ToString());
+            CartItemModel cartItem = cart.FirstOrDefault();
+            MessageBox.Show(cartItem.ProductId.ToString(), cartItem.UnitPrice.ToString());
+        }
     }
 }
