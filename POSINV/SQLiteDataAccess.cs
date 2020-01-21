@@ -274,8 +274,8 @@ namespace POSINV
 
             string idSql = @"SELECT SEQ FROM SQLITE_SEQUENCE WHERE NAME = @name";
 
-            string itemSql = @"INSERT INTO SALEDETAIL(SALEID, PRODUCTID, UNITPRICE, QUANTITY)" +
-                " VALUES (@sale, @product, @unit, @quantity)";
+            string itemSql = @"INSERT INTO SALEDETAIL(SALEID, PRODUCTID, PRODUCTNAME, UNITPRICE, QUANTITY)" +
+                " VALUES (@sale, @productId, @productName, @unit, @quantity)";
 
             string productSql = @"UPDATE PRODUCT SET QUANTITY = QUANTITY - @quantity WHERE PRODUCTID = @product";
 
@@ -295,7 +295,8 @@ namespace POSINV
                         {
                             cnn.Execute(itemSql, new {
                                 sale = saleId,
-                                product = item.ProductId,
+                                productId = item.ProductId,
+                                productName = item.ProductName,
                                 unit = item.UnitPrice,
                                 quantity = item.Quantity
                             }, transaction: trans);
