@@ -494,13 +494,27 @@ namespace POSINV
 
         private void btnViewSale_Click(object sender, EventArgs e)
         {
-            //view product
-            BindingList<CartItemModel> cart = new BindingList<CartItemModel>(
-                SQLiteDataAccess.ViewSale(1)    
-            );
-            MessageBox.Show(cart.Count.ToString());
-            CartItemModel cartItem = cart.FirstOrDefault();
-            MessageBox.Show(cartItem.ProductId.ToString(), cartItem.UnitPrice.ToString());
+            //check if a valid sale is selected, open new ViewSalePage form
+            //and populate DGV with cart Items
+
+            if ( CanDeleteSale() == true)
+            {
+                ViewSale();
+            }
         }
+
+        private void ViewSale()
+        {
+            //Get relevant sale object
+            SaleModel sale = (SaleModel)dataGridViewSale.CurrentRow.DataBoundItem;
+
+            using (var form = new ViewSalePage(sale))
+            {
+                var result = form.ShowDialog();
+            }
+
+        }
+
+
     }
 }
