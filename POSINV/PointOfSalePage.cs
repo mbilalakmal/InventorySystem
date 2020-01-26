@@ -263,10 +263,15 @@ namespace POSINV
             if ( CanCheckOut() == true)
             {
 
-                CheckOut();     //Store Sale to DB
+                bool success = CheckOut();     //Store Sale to DB
+
+                if ( success == false)
+                {
+                    return;
+                }
 
                 //PrintReceipt
-                if (ConfirmPrintReceipt())
+                if (true || ConfirmPrintReceipt())
                 {
                     PrintReceipt();
                 }
@@ -291,6 +296,8 @@ namespace POSINV
             using (var printDialog = new PrintDialog())
             {
                 PrintDocument printDocument = new PrintDocument();
+                int itemLength = Cart.Count * 20;
+                printDocument.DefaultPageSettings.PaperSize = new PaperSize("Custom 311 x 3XX", 311, 300 + itemLength);
                 printDialog.Document = printDocument;   //add the document to the dialog box
                 printDocument.PrintPage += new PrintPageEventHandler(CreateReceipt);
 
@@ -318,7 +325,7 @@ namespace POSINV
 
             Graphics graphics = e.Graphics;
 
-            Font font = new Font("Courier New", 12);
+            Font font = new Font("Courier New", 7);
 
             float fontHeight = font.GetHeight();
 
@@ -326,15 +333,31 @@ namespace POSINV
             int startY = 10;
             int offset = 40;
 
+            string title = "KAKA HOME & HARDWARE";
+
             graphics.DrawString(
-                "YAD RAKH KAKA, BATTERY SIRF OSAKA",
-                new Font("Courier New", 18),
+                title,
+                new Font("Courier New", 12, FontStyle.Bold),
                 new SolidBrush(Color.Black),
                 startX,
                 startY    
             );
 
-            string columns = "Product".PadRight(15) + "Price".PadRight(10) + "Quantity".PadRight(10) + "Amount";
+            string saleId = "Sale: " + sale.SaleId.ToString();
+
+            graphics.DrawString(
+                saleId, font, new SolidBrush(Color.Black), startX, startY + offset  
+            );
+            offset += 2 * (int)fontHeight;  //Consistent spacing
+
+            string saleDate = "Issued At: " + sale.SaleDate;
+
+            graphics.DrawString(
+                saleDate, font, new SolidBrush(Color.Black), startX, startY + offset
+            );
+            offset += 4 * (int)fontHeight;  //Consistent spacing
+
+            string columns = "Product".PadRight(20) + "Price".PadRight(10) + "Qty".PadRight(5) + "Amount".PadRight(10);
 
             graphics.DrawString(
                 columns, font, new SolidBrush(Color.Black), startX, startY + offset
@@ -343,14 +366,66 @@ namespace POSINV
             offset += (int)fontHeight;  //Consistent spacing
 
             graphics.DrawString(
-                "----------------------------------",
+                "---------------------------------------------",
                 font, new SolidBrush(Color.Black), startX, startY + offset
             );
 
-            offset += (int)fontHeight;  //Consistent spacing
+            offset += 2 * (int)fontHeight;  //Consistent spacing
 
             //Cart items here -- FOREACH
 
+            decimal subtotal = 0;
+
+            foreach(var item in Cart)
+            {
+                string lineItem = item.ProductName.PadRight(20) +
+                    item.UnitPrice.ToString().PadRight(10) +
+                    item.Quantity.ToString().PadRight(5) +
+                    item.Amount.ToString().PadRight(10);
+                graphics.DrawString(
+                    lineItem, font, new SolidBrush(Color.Black), startX, startY + offset
+                );
+                offset += 2 * (int)fontHeight;
+
+                subtotal += item.Amount;
+            }
+
+            //seperator again
+            graphics.DrawString(
+                "---------------------------------------------",
+                font, new SolidBrush(Color.Black), startX, startY + offset
+            );
+
+            offset += 4 * (int)fontHeight;  //Consistent spacing
+
+            //misc, subtotal, and total
+            string subtotalLine = "Subtotal".PadRight(30) + subtotal.ToString("C", CultureInfo.CreateSpecificCulture("ur-PK"));
+            string miscLine = "Miscellaneous Charges".PadRight(30) + sale.MiscPrice.ToString("C", CultureInfo.CreateSpecificCulture("ur-PK"));
+            string totalLine = "Total".PadRight(30) + sale.SaleTotal.ToString("C", CultureInfo.CreateSpecificCulture("ur-PK"));
+
+            graphics.DrawString(
+                subtotalLine, font, new SolidBrush(Color.Black), startX, startY + offset    
+            );
+            offset += 2 * (int)fontHeight;
+
+            graphics.DrawString(
+                miscLine, font, new SolidBrush(Color.Black), startX, startY + offset
+            );
+            offset += 2 * (int)fontHeight;
+            
+            graphics.DrawString(
+                totalLine, new Font("Courier New", 7, FontStyle.Bold),
+                new SolidBrush(Color.Black), startX, startY + offset
+            );
+            offset += 4 * (int)fontHeight;
+
+            //thank you and contact
+            string thankYouLine = "Thank you for your business. Please come again.";
+
+            graphics.DrawString(
+                thankYouLine, new Font("Courier New", 7, FontStyle.Italic),
+                new SolidBrush(Color.Black), startX, startY + offset
+            );
 
         }
 
@@ -380,8 +455,10 @@ namespace POSINV
             return Cart.Count != 0;
         }
 
-        private void CheckOut()
+        private bool CheckOut()
         {
+            bool success = false;
+
             //Get Misc Charges
             decimal misc = decimal.Parse(textMisc.Text);
 
@@ -398,11 +475,15 @@ namespace POSINV
             {
                 sale.SaleId = SQLiteDataAccess.SaveSale(sale, Cart);
                 Sales.Add(sale);
+                success = true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "FAILED TO SAVE!");
             }
+
+            return success;
+
         }
 
         private void dataGridViewProduct_CurrentCellChanged(object sender, EventArgs e)
