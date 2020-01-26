@@ -2,6 +2,7 @@
 using MaterialSkin.Controls;
 using POSINV.Models;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace POSINV
@@ -10,12 +11,16 @@ namespace POSINV
     {
         SaleModel Sale;
 
+        BindingList<CartItemModel> Cart;
+
         /// <summary>
         /// Receive sale, load cart items from DB and display in DGV
         /// </summary>
         public ViewSalePage(SaleModel sale)
         {
             InitializeComponent();
+
+            dataGridViewCart.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
 
             //materialSkin
             var materialSkinManager = MaterialSkinManager.Instance;
@@ -27,24 +32,68 @@ namespace POSINV
 
             Sale = sale;
 
+            LoadCartList();
+
             DisplaySale();
 
         }
 
+        private void LoadCartList()
+        {
+            Cart = new BindingList<CartItemModel>(SQLiteDataAccess.ViewSale(Sale.SaleId));
+            WireUpCartDataGridView();
+        }
+
+        private void WireUpCartDataGridView()
+        {
+            dataGridViewCart.DataSource = null;
+            dataGridViewCart.DataSource = Cart;
+        }
+
         private void DisplaySale()
         {
-            //Show sale id, date, misc, total. Show cart DGV productName, UnitPrice, Quantity, Amount
-            //MessageBox.Show(Sale.SaleTotal.ToString());
+            BindLabels();
+        }
 
-            //Get cart items
-            BindingList<CartItemModel> cart = new BindingList<CartItemModel>(
-                SQLiteDataAccess.ViewSale(1)
-            );
+        private void BindLabels()
+        {
+            Binding bindingSaleId = new Binding("Text", Sale, "SaleId");
+            labelSaleId.DataBindings.Add(bindingSaleId);
 
+            Binding bindingSaleDate = new Binding("Text", Sale, "SaleDate");
+            labelSaleDate.DataBindings.Add(bindingSaleDate);
+
+            Binding bindingMisc = new Binding("Text", Sale, "MiscPrice");
+            bindingMisc.Format += new ConvertEventHandler(CurrencyString);
+            labelMisc.DataBindings.Add(bindingMisc);
+            
+            decimal subtotal = 0;
+            foreach(var item in Cart)
+            { subtotal += item.Amount; }
+            labelSubtotal.Text = subtotal.ToString("C", CultureInfo.CreateSpecificCulture("ur-PK"));
+
+            Binding bindingTotal = new Binding("Text", Sale, "SaleTotal");
+            bindingTotal.Format += new ConvertEventHandler(CurrencyString);
+            labelTotal.DataBindings.Add(bindingTotal);
 
         }
 
+        private void CurrencyString(object sender, ConvertEventArgs eventArgs)
+        {
+            eventArgs.Value = ( (decimal) eventArgs.Value).
+                ToString("C", CultureInfo.CreateSpecificCulture("ur-PK"));
+        }
 
+        private void dataGridViewCart_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            //remove columns
+            dataGridViewCart.Columns["ProductId"].Visible = false;
+        }
 
+        private void ViewSalePage_Load(object sender, System.EventArgs e)
+        {
+            //allow resizing columns to auto
+            dataGridViewCart.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+        }
     }
 }
