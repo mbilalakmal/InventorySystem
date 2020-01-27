@@ -28,6 +28,20 @@ namespace POSINV
             materialSkinManager.ColorScheme = new ColorScheme(
                 Primary.Teal500, Primary.Teal700, Primary.Teal100, Accent.Teal400, TextShade.WHITE
                 );
+
+
+        }
+
+        private void btnGenerate_Click(object sender, EventArgs e)
+        {
+            //generate the report
+
+            //get total sales (COUNT FROM SALE)
+            //get total items sold (UNIQUE PRODUCTID FROM SALEDETAIL)
+
+            //total Earnings (SUM FROM SALE)
+            //total Misc Charges (SUM Misc FROM SALE)
+
         }
     }
 }
