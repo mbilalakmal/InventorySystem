@@ -57,7 +57,7 @@
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>6DE24DF5A6947FA011D71B91407CCDE8BA349C07</ManifestCertificateThumbprint>
