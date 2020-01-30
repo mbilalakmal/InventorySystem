@@ -545,7 +545,10 @@ namespace POSINV
             //Fluid Search
             dataGridViewProduct.DataSource = new BindingList<ProductModel>(
                 Products.Where(
-                    product => product.ProductName.ToUpper().Contains( textSearchProduct.Text.ToUpper() )
+                    product =>
+                    product.ProductName.ToUpper().Contains(textSearchProduct.Text.ToUpper()) ||
+                    product.BrandName.ToUpper().Contains(textSearchProduct.Text.ToUpper()) ||
+                    product.CategoryName.ToUpper().Contains(textSearchProduct.Text.ToUpper())
                 ).ToList()
             );
 
