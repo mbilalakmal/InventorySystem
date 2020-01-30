@@ -34,16 +34,6 @@ namespace POSINV
             materialSkinManager.ColorScheme = new ColorScheme(
                 Primary.Teal500, Primary.Teal700, Primary.Teal100, Accent.Teal400, TextShade.WHITE
             );
-            
-        }
-
-        /// <summary>
-        /// OnLoad method runs after UI is created
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
 
             //Load brands
             LoadBrandList();
@@ -55,7 +45,7 @@ namespace POSINV
             LoadProductList();
 
         }
-
+        
         private void LoadProductList()
         {
             Products = new BindingList<ProductModel>(SQLiteDataAccess.LoadProducts());
@@ -80,8 +70,6 @@ namespace POSINV
 
         private void LoadBrandList()
         {
-            //brands = SQLiteDataAccess.LoadBrands();
-
             Brands = SQLiteDataAccess.LoadBrands();
 
             //Display brands in combo box
