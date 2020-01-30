@@ -83,7 +83,7 @@
             this.mtcSale.Name = "mtcSale";
             this.mtcSale.Padding = new System.Drawing.Point(0, 0);
             this.mtcSale.SelectedIndex = 0;
-            this.mtcSale.Size = new System.Drawing.Size(942, 467);
+            this.mtcSale.Size = new System.Drawing.Size(1182, 602);
             this.mtcSale.TabIndex = 1;
             // 
             // tabPageAddSale
@@ -110,7 +110,7 @@
             this.tabPageAddSale.Location = new System.Drawing.Point(4, 22);
             this.tabPageAddSale.Name = "tabPageAddSale";
             this.tabPageAddSale.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAddSale.Size = new System.Drawing.Size(934, 441);
+            this.tabPageAddSale.Size = new System.Drawing.Size(1174, 576);
             this.tabPageAddSale.TabIndex = 0;
             this.tabPageAddSale.Text = "Add Sale";
             // 
@@ -119,7 +119,7 @@
             this.textMisc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.textMisc.Depth = 0;
             this.textMisc.Hint = "0";
-            this.textMisc.Location = new System.Drawing.Point(439, 389);
+            this.textMisc.Location = new System.Drawing.Point(679, 524);
             this.textMisc.MaxLength = 10;
             this.textMisc.MouseState = MaterialSkin.MouseState.HOVER;
             this.textMisc.Name = "textMisc";
@@ -140,7 +140,7 @@
             this.labelMisc.Depth = 0;
             this.labelMisc.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelMisc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelMisc.Location = new System.Drawing.Point(435, 364);
+            this.labelMisc.Location = new System.Drawing.Point(675, 499);
             this.labelMisc.Margin = new System.Windows.Forms.Padding(3);
             this.labelMisc.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelMisc.Name = "labelMisc";
@@ -160,14 +160,14 @@
             this.dataGridViewCart.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dataGridViewCart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCart.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridViewCart.Location = new System.Drawing.Point(618, 125);
-            this.dataGridViewCart.MaximumSize = new System.Drawing.Size(300, 600);
+            this.dataGridViewCart.Location = new System.Drawing.Point(812, 125);
+            this.dataGridViewCart.MaximumSize = new System.Drawing.Size(400, 600);
             this.dataGridViewCart.MultiSelect = false;
             this.dataGridViewCart.Name = "dataGridViewCart";
             this.dataGridViewCart.ReadOnly = true;
             this.dataGridViewCart.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dataGridViewCart.RowTemplate.Height = 32;
-            this.dataGridViewCart.Size = new System.Drawing.Size(300, 233);
+            this.dataGridViewCart.Size = new System.Drawing.Size(346, 368);
             this.dataGridViewCart.TabIndex = 41;
             this.dataGridViewCart.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewCart_DataBindingComplete);
             // 
@@ -178,7 +178,7 @@
             this.btnRemoveFromCart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRemoveFromCart.Depth = 0;
             this.btnRemoveFromCart.Icon = null;
-            this.btnRemoveFromCart.Location = new System.Drawing.Point(760, 70);
+            this.btnRemoveFromCart.Location = new System.Drawing.Point(1000, 70);
             this.btnRemoveFromCart.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnRemoveFromCart.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnRemoveFromCart.Name = "btnRemoveFromCart";
@@ -196,7 +196,7 @@
             this.btnCheckOut.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnCheckOut.Depth = 0;
             this.btnCheckOut.Icon = null;
-            this.btnCheckOut.Location = new System.Drawing.Point(820, 364);
+            this.btnCheckOut.Location = new System.Drawing.Point(1060, 499);
             this.btnCheckOut.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCheckOut.Name = "btnCheckOut";
             this.btnCheckOut.Primary = true;
@@ -213,7 +213,7 @@
             this.labelSubTotalAmount.Depth = 0;
             this.labelSubTotalAmount.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelSubTotalAmount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelSubTotalAmount.Location = new System.Drawing.Point(689, 381);
+            this.labelSubTotalAmount.Location = new System.Drawing.Point(929, 516);
             this.labelSubTotalAmount.Margin = new System.Windows.Forms.Padding(3);
             this.labelSubTotalAmount.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelSubTotalAmount.Name = "labelSubTotalAmount";
@@ -229,7 +229,7 @@
             this.labelSubtotal.Depth = 0;
             this.labelSubtotal.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelSubtotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelSubtotal.Location = new System.Drawing.Point(614, 381);
+            this.labelSubtotal.Location = new System.Drawing.Point(854, 516);
             this.labelSubtotal.Margin = new System.Windows.Forms.Padding(3);
             this.labelSubtotal.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelSubtotal.Name = "labelSubtotal";
@@ -245,7 +245,7 @@
             this.btnAddToCart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnAddToCart.Depth = 0;
             this.btnAddToCart.Icon = null;
-            this.btnAddToCart.Location = new System.Drawing.Point(434, 293);
+            this.btnAddToCart.Location = new System.Drawing.Point(594, 338);
             this.btnAddToCart.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnAddToCart.Name = "btnAddToCart";
             this.btnAddToCart.Primary = true;
@@ -260,7 +260,7 @@
             this.textQuantity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textQuantity.Depth = 0;
             this.textQuantity.Hint = "1";
-            this.textQuantity.Location = new System.Drawing.Point(439, 264);
+            this.textQuantity.Location = new System.Drawing.Point(594, 309);
             this.textQuantity.MaxLength = 10;
             this.textQuantity.MouseState = MaterialSkin.MouseState.HOVER;
             this.textQuantity.Name = "textQuantity";
@@ -281,7 +281,7 @@
             this.labelQuantity.Depth = 0;
             this.labelQuantity.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelQuantity.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelQuantity.Location = new System.Drawing.Point(435, 239);
+            this.labelQuantity.Location = new System.Drawing.Point(590, 284);
             this.labelQuantity.Margin = new System.Windows.Forms.Padding(3);
             this.labelQuantity.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelQuantity.Name = "labelQuantity";
@@ -293,12 +293,11 @@
             // pictureProductPreview
             // 
             this.pictureProductPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureProductPreview.Location = new System.Drawing.Point(434, 66);
+            this.pictureProductPreview.Location = new System.Drawing.Point(594, 66);
             this.pictureProductPreview.Margin = new System.Windows.Forms.Padding(15);
-            this.pictureProductPreview.MaximumSize = new System.Drawing.Size(156, 156);
             this.pictureProductPreview.MinimumSize = new System.Drawing.Size(96, 96);
             this.pictureProductPreview.Name = "pictureProductPreview";
-            this.pictureProductPreview.Size = new System.Drawing.Size(155, 155);
+            this.pictureProductPreview.Size = new System.Drawing.Size(200, 200);
             this.pictureProductPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureProductPreview.TabIndex = 0;
             this.pictureProductPreview.TabStop = false;
@@ -309,7 +308,7 @@
             this.textSearchProduct.Depth = 0;
             this.textSearchProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textSearchProduct.Hint = "Product Name";
-            this.textSearchProduct.Location = new System.Drawing.Point(152, 86);
+            this.textSearchProduct.Location = new System.Drawing.Point(322, 86);
             this.textSearchProduct.MaxLength = 32767;
             this.textSearchProduct.MouseState = MaterialSkin.MouseState.HOVER;
             this.textSearchProduct.Name = "textSearchProduct";
@@ -341,7 +340,7 @@
             this.dataGridViewProduct.ReadOnly = true;
             this.dataGridViewProduct.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dataGridViewProduct.RowTemplate.Height = 32;
-            this.dataGridViewProduct.Size = new System.Drawing.Size(400, 300);
+            this.dataGridViewProduct.Size = new System.Drawing.Size(560, 435);
             this.dataGridViewProduct.TabIndex = 26;
             this.dataGridViewProduct.CurrentCellChanged += new System.EventHandler(this.dataGridViewProduct_CurrentCellChanged);
             this.dataGridViewProduct.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewProduct_DataBindingComplete);
@@ -353,7 +352,7 @@
             this.btnSearchProduct.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnSearchProduct.Depth = 0;
             this.btnSearchProduct.Icon = null;
-            this.btnSearchProduct.Location = new System.Drawing.Point(343, 73);
+            this.btnSearchProduct.Location = new System.Drawing.Point(513, 73);
             this.btnSearchProduct.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSearchProduct.Name = "btnSearchProduct";
             this.btnSearchProduct.Primary = true;
@@ -368,11 +367,11 @@
             this.materialDivider3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.materialDivider3.Depth = 0;
             this.materialDivider3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.materialDivider3.Location = new System.Drawing.Point(921, 51);
+            this.materialDivider3.Location = new System.Drawing.Point(1161, 51);
             this.materialDivider3.Margin = new System.Windows.Forms.Padding(0);
             this.materialDivider3.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialDivider3.Name = "materialDivider3";
-            this.materialDivider3.Size = new System.Drawing.Size(10, 377);
+            this.materialDivider3.Size = new System.Drawing.Size(10, 512);
             this.materialDivider3.TabIndex = 25;
             this.materialDivider3.Text = "materialDivider3";
             // 
@@ -385,7 +384,7 @@
             this.materialDivider2.Margin = new System.Windows.Forms.Padding(0);
             this.materialDivider2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialDivider2.Name = "materialDivider2";
-            this.materialDivider2.Size = new System.Drawing.Size(10, 377);
+            this.materialDivider2.Size = new System.Drawing.Size(10, 512);
             this.materialDivider2.TabIndex = 24;
             this.materialDivider2.Text = "materialDivider2";
             // 
@@ -394,11 +393,11 @@
             this.materialDivider1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.materialDivider1.Depth = 0;
             this.materialDivider1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.materialDivider1.Location = new System.Drawing.Point(3, 428);
+            this.materialDivider1.Location = new System.Drawing.Point(3, 563);
             this.materialDivider1.Margin = new System.Windows.Forms.Padding(0);
             this.materialDivider1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialDivider1.Name = "materialDivider1";
-            this.materialDivider1.Size = new System.Drawing.Size(928, 10);
+            this.materialDivider1.Size = new System.Drawing.Size(1168, 10);
             this.materialDivider1.TabIndex = 23;
             this.materialDivider1.Text = "materialDivider1";
             // 
@@ -412,7 +411,7 @@
             this.tabSAddSale.Margin = new System.Windows.Forms.Padding(0);
             this.tabSAddSale.MouseState = MaterialSkin.MouseState.HOVER;
             this.tabSAddSale.Name = "tabSAddSale";
-            this.tabSAddSale.Size = new System.Drawing.Size(928, 48);
+            this.tabSAddSale.Size = new System.Drawing.Size(1168, 48);
             this.tabSAddSale.TabIndex = 1;
             this.tabSAddSale.Text = "materialTabSelector2";
             // 
@@ -431,7 +430,7 @@
             this.tabPageManageSale.Location = new System.Drawing.Point(4, 22);
             this.tabPageManageSale.Name = "tabPageManageSale";
             this.tabPageManageSale.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageManageSale.Size = new System.Drawing.Size(934, 441);
+            this.tabPageManageSale.Size = new System.Drawing.Size(1174, 576);
             this.tabPageManageSale.TabIndex = 2;
             this.tabPageManageSale.Text = "Manage Sales";
             // 
@@ -442,7 +441,7 @@
             this.btnViewSale.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnViewSale.Depth = 0;
             this.btnViewSale.Icon = null;
-            this.btnViewSale.Location = new System.Drawing.Point(328, 69);
+            this.btnViewSale.Location = new System.Drawing.Point(568, 69);
             this.btnViewSale.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnViewSale.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnViewSale.Name = "btnViewSale";
@@ -460,7 +459,7 @@
             this.btnDeleteSale.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnDeleteSale.Depth = 0;
             this.btnDeleteSale.Icon = null;
-            this.btnDeleteSale.Location = new System.Drawing.Point(409, 69);
+            this.btnDeleteSale.Location = new System.Drawing.Point(649, 69);
             this.btnDeleteSale.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnDeleteSale.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnDeleteSale.Name = "btnDeleteSale";
@@ -477,7 +476,7 @@
             this.textSearchSale.Depth = 0;
             this.textSearchSale.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textSearchSale.Hint = "Sale ID";
-            this.textSearchSale.Location = new System.Drawing.Point(530, 82);
+            this.textSearchSale.Location = new System.Drawing.Point(770, 82);
             this.textSearchSale.MaxLength = 32767;
             this.textSearchSale.MouseState = MaterialSkin.MouseState.HOVER;
             this.textSearchSale.Name = "textSearchSale";
@@ -498,7 +497,7 @@
             this.btnSearchSale.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnSearchSale.Depth = 0;
             this.btnSearchSale.Icon = null;
-            this.btnSearchSale.Location = new System.Drawing.Point(721, 69);
+            this.btnSearchSale.Location = new System.Drawing.Point(961, 69);
             this.btnSearchSale.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSearchSale.Name = "btnSearchSale";
             this.btnSearchSale.Primary = true;
@@ -526,7 +525,7 @@
             this.dataGridViewSale.ReadOnly = true;
             this.dataGridViewSale.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dataGridViewSale.RowTemplate.Height = 32;
-            this.dataGridViewSale.Size = new System.Drawing.Size(720, 286);
+            this.dataGridViewSale.Size = new System.Drawing.Size(960, 421);
             this.dataGridViewSale.TabIndex = 8;
             // 
             // materialDivider7
@@ -537,7 +536,7 @@
             this.materialDivider7.Location = new System.Drawing.Point(3, 51);
             this.materialDivider7.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialDivider7.Name = "materialDivider7";
-            this.materialDivider7.Size = new System.Drawing.Size(10, 377);
+            this.materialDivider7.Size = new System.Drawing.Size(10, 512);
             this.materialDivider7.TabIndex = 7;
             this.materialDivider7.Text = "materialDivider7";
             // 
@@ -546,10 +545,10 @@
             this.materialDivider8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.materialDivider8.Depth = 0;
             this.materialDivider8.Dock = System.Windows.Forms.DockStyle.Right;
-            this.materialDivider8.Location = new System.Drawing.Point(921, 51);
+            this.materialDivider8.Location = new System.Drawing.Point(1161, 51);
             this.materialDivider8.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialDivider8.Name = "materialDivider8";
-            this.materialDivider8.Size = new System.Drawing.Size(10, 377);
+            this.materialDivider8.Size = new System.Drawing.Size(10, 512);
             this.materialDivider8.TabIndex = 6;
             this.materialDivider8.Text = "materialDivider8";
             // 
@@ -558,10 +557,10 @@
             this.materialDivider9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.materialDivider9.Depth = 0;
             this.materialDivider9.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.materialDivider9.Location = new System.Drawing.Point(3, 428);
+            this.materialDivider9.Location = new System.Drawing.Point(3, 563);
             this.materialDivider9.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialDivider9.Name = "materialDivider9";
-            this.materialDivider9.Size = new System.Drawing.Size(928, 10);
+            this.materialDivider9.Size = new System.Drawing.Size(1168, 10);
             this.materialDivider9.TabIndex = 5;
             this.materialDivider9.Text = "materialDivider9";
             // 
@@ -575,7 +574,7 @@
             this.tabSManageSale.Margin = new System.Windows.Forms.Padding(0);
             this.tabSManageSale.MouseState = MaterialSkin.MouseState.HOVER;
             this.tabSManageSale.Name = "tabSManageSale";
-            this.tabSManageSale.Size = new System.Drawing.Size(928, 48);
+            this.tabSManageSale.Size = new System.Drawing.Size(1168, 48);
             this.tabSManageSale.TabIndex = 2;
             this.tabSManageSale.Text = "materialTabSelector2";
             // 
@@ -583,7 +582,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(960, 540);
+            this.ClientSize = new System.Drawing.Size(1200, 675);
             this.Controls.Add(this.mtcSale);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(960, 540);

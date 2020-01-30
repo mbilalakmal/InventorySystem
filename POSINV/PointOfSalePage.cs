@@ -442,7 +442,7 @@ namespace POSINV
             
             if ( decimal.TryParse(textMisc.Text, out decimal misc))
             {
-                if ( misc < 0 || misc > 10000)
+                if ( misc > 10000)
                 {
                     return false;
                 }
