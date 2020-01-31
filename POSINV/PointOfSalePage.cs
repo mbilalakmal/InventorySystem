@@ -332,9 +332,9 @@ namespace POSINV
 
             int startX = 10;
             int startY = 10;
-            int offset = 40;
+            int offset = 80;
 
-            string title = "KAKA Home & Hardware";
+            string title = "KAKA  Home & Hardware";
 
             graphics.DrawString(
                 title,
@@ -342,6 +342,12 @@ namespace POSINV
                 new SolidBrush(Color.Black),
                 startX,
                 startY    
+            );
+
+            string contact = "          Phone: (021) 34301917 ";
+
+            graphics.DrawString(
+                contact, font, new SolidBrush(Color.Black), startX, startY + 30
             );
 
             string saleId = "Sale: " + sale.SaleId.ToString();
@@ -362,7 +368,7 @@ namespace POSINV
 
             graphics.DrawString(productColumn, font, new SolidBrush(Color.Black), startX, startY + offset);
             graphics.DrawString(priceColumn, font, new SolidBrush(Color.Black), startX + 100, startY + offset);
-            graphics.DrawString(qtyColumn, font, new SolidBrush(Color.Black), startX + 140, startY + offset);
+            graphics.DrawString(qtyColumn, font, new SolidBrush(Color.Black), startX + 150, startY + offset);
             graphics.DrawString(amountColumn, font, new SolidBrush(Color.Black), startX + 180, startY + offset);
             
             offset += (int)fontHeight;  //Consistent spacing
@@ -397,7 +403,7 @@ namespace POSINV
 
                     graphics.DrawString(product, font, new SolidBrush(Color.Black), startX, startY + offset);
                     graphics.DrawString(price, font, new SolidBrush(Color.Black), startX + 100, startY + offset);
-                    graphics.DrawString(qty, font, new SolidBrush(Color.Black), startX + 140, startY + offset);
+                    graphics.DrawString(qty, font, new SolidBrush(Color.Black), startX + 150, startY + offset);
                     graphics.DrawString(amount, font, new SolidBrush(Color.Black), startX + 180, startY + offset);
 
                     offset += 3 * (int)fontHeight;
@@ -407,7 +413,7 @@ namespace POSINV
                 {
                     graphics.DrawString(product, font, new SolidBrush(Color.Black), startX, startY + offset);
                     graphics.DrawString(price, font, new SolidBrush(Color.Black), startX + 100, startY + offset);
-                    graphics.DrawString(qty, font, new SolidBrush(Color.Black), startX + 140, startY + offset);
+                    graphics.DrawString(qty, font, new SolidBrush(Color.Black), startX + 150, startY + offset);
                     graphics.DrawString(amount, font, new SolidBrush(Color.Black), startX + 180, startY + offset);
 
                     offset += 2 * (int)fontHeight;
@@ -447,7 +453,7 @@ namespace POSINV
             offset += 4 * (int)fontHeight;
 
             //thank you and contact
-            string thankYouLine = "Thank you for visiting us. Please come again.";
+            string thankYouLine = "** No Return Or Exchange Without Sales Receipt **";
 
             graphics.DrawString(
                 thankYouLine, new Font("Source Code Pro", 7, FontStyle.Italic),
