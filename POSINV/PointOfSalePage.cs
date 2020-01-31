@@ -547,6 +547,9 @@ namespace POSINV
 
                     //Must reload the product DGV to get new quantities
                     LoadProductList();
+
+                    //Also reload empty cart
+                    CleanUpSale();
                 }
                 catch (Exception ex)
                 {
