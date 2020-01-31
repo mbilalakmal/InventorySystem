@@ -109,7 +109,7 @@
             this.dataGridViewCart.Name = "dataGridViewCart";
             this.dataGridViewCart.ReadOnly = true;
             this.dataGridViewCart.RowTemplate.Height = 32;
-            this.dataGridViewCart.Size = new System.Drawing.Size(336, 260);
+            this.dataGridViewCart.Size = new System.Drawing.Size(426, 260);
             this.dataGridViewCart.TabIndex = 4;
             this.dataGridViewCart.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewCart_DataBindingComplete);
             // 
@@ -120,7 +120,7 @@
             this.labelMisc.Depth = 0;
             this.labelMisc.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelMisc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelMisc.Location = new System.Drawing.Point(240, 466);
+            this.labelMisc.Location = new System.Drawing.Point(330, 466);
             this.labelMisc.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelMisc.Name = "labelMisc";
             this.labelMisc.Size = new System.Drawing.Size(108, 19);
@@ -134,7 +134,7 @@
             this.labelSubtotal.Depth = 0;
             this.labelSubtotal.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelSubtotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelSubtotal.Location = new System.Drawing.Point(240, 437);
+            this.labelSubtotal.Location = new System.Drawing.Point(330, 437);
             this.labelSubtotal.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelSubtotal.Name = "labelSubtotal";
             this.labelSubtotal.Size = new System.Drawing.Size(108, 19);
@@ -176,7 +176,7 @@
             this.labelTotal.Depth = 0;
             this.labelTotal.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelTotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelTotal.Location = new System.Drawing.Point(240, 495);
+            this.labelTotal.Location = new System.Drawing.Point(330, 495);
             this.labelTotal.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelTotal.Name = "labelTotal";
             this.labelTotal.Size = new System.Drawing.Size(108, 19);
@@ -206,7 +206,7 @@
             this.materialDivider1.Location = new System.Drawing.Point(12, 419);
             this.materialDivider1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialDivider1.Name = "materialDivider1";
-            this.materialDivider1.Size = new System.Drawing.Size(336, 5);
+            this.materialDivider1.Size = new System.Drawing.Size(426, 5);
             this.materialDivider1.TabIndex = 13;
             this.materialDivider1.Text = "materialDivider1";
             // 
@@ -214,7 +214,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(360, 560);
+            this.ClientSize = new System.Drawing.Size(450, 560);
             this.Controls.Add(this.materialDivider1);
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.label_total);
@@ -229,7 +229,7 @@
             this.Controls.Add(this.labelSale);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(540, 960);
-            this.MinimumSize = new System.Drawing.Size(360, 560);
+            this.MinimumSize = new System.Drawing.Size(450, 560);
             this.Name = "ViewSalePage";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
