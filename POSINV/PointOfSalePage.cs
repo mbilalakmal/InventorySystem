@@ -271,36 +271,36 @@ namespace POSINV
                 }
 
                 //PrintReceipt
-                if (true || ConfirmPrintReceipt())
-                {
-                    PrintReceipt();
-                }
+                PrintReceipt();
 
                 CleanUpSale();  //Reset cart, subtotal, & misc
             }
         }
-
-        private bool ConfirmPrintReceipt()
-        {
-            //Print receipt of currently processed sale - includes cart items + misc charges
-
-            string confirmText = string.Format("Do You Want To Print Sale: 1");
-            string confirmCaption = "Print Receipt";
-
-            DialogResult confirmPrint = MessageBox.Show(confirmText, confirmCaption, MessageBoxButtons.YesNo);
-            return (confirmPrint == DialogResult.Yes);
-        }
-
+        
         private void PrintReceipt()
         {
+
+            PrintDocument printDocument = new PrintDocument();
+            printDocument.PrintPage += new PrintPageEventHandler(CreateReceipt);
+
+            try
+            {
+                printDocument.Print();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "FAILED TO PRINT");
+            }
+
+            /*
             using (var printDialog = new PrintDialog())
             {
                 PrintDocument printDocument = new PrintDocument();
-                int itemLength = Cart.Count * 20;
-                printDocument.DefaultPageSettings.PaperSize = new PaperSize("Custom 311 x 3XX", 311, 300 + itemLength);
                 printDialog.Document = printDocument;   //add the document to the dialog box
                 printDocument.PrintPage += new PrintPageEventHandler(CreateReceipt);
 
+                printDocument.Print();  //start printing process to default printer
+                
                 //Ask user for print destination
                 var dialogResult = printDialog.ShowDialog();
 
@@ -310,6 +310,7 @@ namespace POSINV
                 }
 
             }
+            */
 
         }
 
@@ -325,7 +326,7 @@ namespace POSINV
 
             Graphics graphics = e.Graphics;
 
-            Font font = new Font("Courier New", 7);
+            Font font = new Font("Source Code Pro", 8);
 
             float fontHeight = font.GetHeight();
 
@@ -333,11 +334,11 @@ namespace POSINV
             int startY = 10;
             int offset = 40;
 
-            string title = "KAKA HOME & HARDWARE";
+            string title = "KAKA Home & Hardware";
 
             graphics.DrawString(
                 title,
-                new Font("Courier New", 12, FontStyle.Bold),
+                new Font("Source Code Pro", 12, FontStyle.Bold),
                 new SolidBrush(Color.Black),
                 startX,
                 startY    
@@ -350,23 +351,24 @@ namespace POSINV
             );
             offset += 2 * (int)fontHeight;  //Consistent spacing
 
-            string saleDate = "Issued At: " + sale.SaleDate;
+            string saleDate = sale.SaleDate.ToString(CultureInfo.CreateSpecificCulture("ur-PK"));
 
             graphics.DrawString(
                 saleDate, font, new SolidBrush(Color.Black), startX, startY + offset
             );
             offset += 4 * (int)fontHeight;  //Consistent spacing
+            
+            string productColumn = "PRODUCT", priceColumn = "PRICE", qtyColumn = "QTY", amountColumn = "AMOUNT";
 
-            string columns = "Product".PadRight(20) + "Price".PadRight(10) + "Qty".PadRight(5) + "Amount".PadRight(10);
-
-            graphics.DrawString(
-                columns, font, new SolidBrush(Color.Black), startX, startY + offset
-            );
-
+            graphics.DrawString(productColumn, font, new SolidBrush(Color.Black), startX, startY + offset);
+            graphics.DrawString(priceColumn, font, new SolidBrush(Color.Black), startX + 100, startY + offset);
+            graphics.DrawString(qtyColumn, font, new SolidBrush(Color.Black), startX + 140, startY + offset);
+            graphics.DrawString(amountColumn, font, new SolidBrush(Color.Black), startX + 180, startY + offset);
+            
             offset += (int)fontHeight;  //Consistent spacing
 
             graphics.DrawString(
-                "---------------------------------------------",
+                "------------------------------------------------------------",
                 font, new SolidBrush(Color.Black), startX, startY + offset
             );
 
@@ -378,52 +380,77 @@ namespace POSINV
 
             foreach(var item in Cart)
             {
-                string lineItem = item.ProductName.PadRight(20) +
-                    item.UnitPrice.ToString().PadRight(10) +
-                    item.Quantity.ToString().PadRight(5) +
-                    item.Amount.ToString().PadRight(10);
-                graphics.DrawString(
-                    lineItem, font, new SolidBrush(Color.Black), startX, startY + offset
-                );
-                offset += 2 * (int)fontHeight;
 
+                string product = item.ProductName,
+                    price = item.UnitPrice.ToString(),
+                    qty = item.Quantity.ToString(),
+                    amount = item.Amount.ToString();
+
+                //check if name is longer than 10 characters
+                if ( product.Length > 14)
+                {
+                    //split string in two
+                    string[] sep = { " ", "-" };
+                    int count = 2;
+                    string[] parts = product.Split(sep, count, StringSplitOptions.RemoveEmptyEntries);
+                    product = string.Join(Environment.NewLine, parts);
+
+                    graphics.DrawString(product, font, new SolidBrush(Color.Black), startX, startY + offset);
+                    graphics.DrawString(price, font, new SolidBrush(Color.Black), startX + 100, startY + offset);
+                    graphics.DrawString(qty, font, new SolidBrush(Color.Black), startX + 140, startY + offset);
+                    graphics.DrawString(amount, font, new SolidBrush(Color.Black), startX + 180, startY + offset);
+
+                    offset += 3 * (int)fontHeight;
+
+                }
+                else
+                {
+                    graphics.DrawString(product, font, new SolidBrush(Color.Black), startX, startY + offset);
+                    graphics.DrawString(price, font, new SolidBrush(Color.Black), startX + 100, startY + offset);
+                    graphics.DrawString(qty, font, new SolidBrush(Color.Black), startX + 140, startY + offset);
+                    graphics.DrawString(amount, font, new SolidBrush(Color.Black), startX + 180, startY + offset);
+
+                    offset += 2 * (int)fontHeight;
+                }
+                
                 subtotal += item.Amount;
             }
 
             //seperator again
             graphics.DrawString(
-                "---------------------------------------------",
+                "------------------------------------------------------------",
                 font, new SolidBrush(Color.Black), startX, startY + offset
             );
 
             offset += 4 * (int)fontHeight;  //Consistent spacing
-
-            //misc, subtotal, and total
-            string subtotalLine = "Subtotal".PadRight(30) + subtotal.ToString("C", CultureInfo.CreateSpecificCulture("ur-PK"));
-            string miscLine = "Miscellaneous Charges".PadRight(30) + sale.MiscPrice.ToString("C", CultureInfo.CreateSpecificCulture("ur-PK"));
-            string totalLine = "Total".PadRight(30) + sale.SaleTotal.ToString("C", CultureInfo.CreateSpecificCulture("ur-PK"));
-
-            graphics.DrawString(
-                subtotalLine, font, new SolidBrush(Color.Black), startX, startY + offset    
-            );
-            offset += 2 * (int)fontHeight;
-
-            graphics.DrawString(
-                miscLine, font, new SolidBrush(Color.Black), startX, startY + offset
-            );
-            offset += 2 * (int)fontHeight;
             
-            graphics.DrawString(
-                totalLine, new Font("Courier New", 7, FontStyle.Bold),
-                new SolidBrush(Color.Black), startX, startY + offset
-            );
+            string subtotalRow = "Subtotal",
+                miscRow = "Misc. Charges",
+                totalRow = "Total",
+                subValue = subtotal.ToString("C", CultureInfo.CreateSpecificCulture("ur-PK")),
+                miscValue = sale.MiscPrice.ToString("C", CultureInfo.CreateSpecificCulture("ur-PK")),
+                totalValue = sale.SaleTotal.ToString("C", CultureInfo.CreateSpecificCulture("ur-PK"));
+
+            graphics.DrawString(subtotalRow, font, new SolidBrush(Color.Black), startX, startY + offset);
+            graphics.DrawString(subValue, font, new SolidBrush(Color.Black), startX + 140, startY + offset);
+            
+            offset += 2 * (int)fontHeight;
+
+            graphics.DrawString(miscRow, font, new SolidBrush(Color.Black), startX, startY + offset);
+            graphics.DrawString(miscValue, font, new SolidBrush(Color.Black), startX + 140, startY + offset);
+
+            offset += 2 * (int)fontHeight;
+
+            graphics.DrawString(totalRow, font, new SolidBrush(Color.Black), startX, startY + offset);
+            graphics.DrawString(totalValue, font, new SolidBrush(Color.Black), startX + 140, startY + offset);
+
             offset += 4 * (int)fontHeight;
 
             //thank you and contact
-            string thankYouLine = "Thank you for your business. Please come again.";
+            string thankYouLine = "Thank you for visiting us. Please come again.";
 
             graphics.DrawString(
-                thankYouLine, new Font("Courier New", 7, FontStyle.Italic),
+                thankYouLine, new Font("Source Code Pro", 7, FontStyle.Italic),
                 new SolidBrush(Color.Black), startX, startY + offset
             );
 
