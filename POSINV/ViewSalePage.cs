@@ -88,6 +88,7 @@ namespace POSINV
         {
             //remove columns
             dataGridViewCart.Columns["ProductId"].Visible = false;
+            dataGridViewCart.Columns["UnitCost"].Visible = false;
         }
 
         private void ViewSalePage_Load(object sender, System.EventArgs e)

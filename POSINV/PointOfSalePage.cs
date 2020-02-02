@@ -139,6 +139,7 @@ namespace POSINV
         private void dataGridViewCart_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             dataGridViewCart.Columns["ProductId"].Visible = false;
+            dataGridViewCart.Columns["UnitCost"].Visible = false;
         }
 
         //Display selected product's picture if any
@@ -205,6 +206,7 @@ namespace POSINV
                 {
                     ProductId = product.ProductId,
                     ProductName = product.ProductName,
+                    UnitCost = product.CostPrice,
                     UnitPrice = product.ListPrice,
                     Quantity = int.TryParse(textQuantity.Text, out int number) ? number : 1
                 };
