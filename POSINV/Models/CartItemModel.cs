@@ -23,6 +23,11 @@ namespace POSINV.Models
         public string ProductName { get; set; }
         
         /// <summary>
+        /// Cost price of a single product
+        /// </summary>
+        public decimal UnitCost { get; set; }
+
+        /// <summary>
         /// List price of a single product
         /// </summary>
         public decimal UnitPrice { get; set; }
