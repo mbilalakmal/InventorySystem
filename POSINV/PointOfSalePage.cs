@@ -393,12 +393,13 @@ namespace POSINV
                     price = item.UnitPrice.ToString(),
                     qty = item.Quantity.ToString(),
                     amount = item.Amount.ToString();
+                
 
                 //check if name is longer than 10 characters
                 if ( product.Length > 14)
                 {
                     //split string in two
-                    string[] sep = { " ", "-" };
+                    string[] sep = { " ", "," };
                     int count = 2;
                     string[] parts = product.Split(sep, count, StringSplitOptions.RemoveEmptyEntries);
                     product = string.Join(Environment.NewLine, parts);
@@ -421,6 +422,28 @@ namespace POSINV
                     offset += 2 * (int)fontHeight;
                 }
                 
+
+                /*
+
+                //print the product name
+                graphics.DrawString(product, font, new SolidBrush(Color.Black), startX, startY + offset);
+
+                //check if name is longer than PRODUCT column
+                if ( product.Length > 14)
+                {
+                    //push other columns to next line
+                    offset += (int)fontHeight;
+
+                }
+
+                graphics.DrawString(price, font, new SolidBrush(Color.Black), startX + 100, startY + offset);
+                graphics.DrawString(qty, font, new SolidBrush(Color.Black), startX + 150, startY + offset);
+                graphics.DrawString(amount, font, new SolidBrush(Color.Black), startX + 180, startY + offset);
+
+                offset += 2 * (int)fontHeight;
+
+                */
+
                 subtotal += item.Amount;
             }
 
