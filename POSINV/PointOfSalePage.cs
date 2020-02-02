@@ -431,7 +431,7 @@ namespace POSINV
             offset += 4 * (int)fontHeight;  //Consistent spacing
             
             string subtotalRow = "Subtotal",
-                miscRow = "Misc. Charges",
+                miscRow = sale.MiscPrice > 0 ? "Misc. Charges": "Discount",
                 totalRow = "Total",
                 subValue = subtotal.ToString("C", CultureInfo.CreateSpecificCulture("ur-PK")),
                 miscValue = sale.MiscPrice.ToString("C", CultureInfo.CreateSpecificCulture("ur-PK")),
