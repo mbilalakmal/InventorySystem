@@ -76,13 +76,14 @@ namespace POSINV
                 string idSql = @"SELECT SEQ FROM SQLITE_SEQUENCE WHERE NAME = @name";
 
                 string sql = @"INSERT INTO PRODUCT(" +
-                    "PRODUCTNAME, COSTPRICE, LISTPRICE, QUANTITY, DESCRIPTION, " +
+                    "SKU, PRODUCTNAME, COSTPRICE, LISTPRICE, QUANTITY, DESCRIPTION, " +
                     "UPDATEDON, BRANDID, CATEGORYID, PICTURE)" +
-                    " VALUES (@name, @cost, @list, @quantity, @description, " +
+                    " VALUES (@sku, @name, @cost, @list, @quantity, @description, " +
                     "datetime(CURRENT_TIMESTAMP, 'localtime'), @brand, @category, @picture)";
 
                 cnn.Execute(sql, new
                 {
+                    sku = product.SKU,
                     name = product.ProductName,
                     cost = product.CostPrice,
                     list = product.ListPrice,
@@ -195,7 +196,7 @@ namespace POSINV
         {
             using (IDbConnection cnn = new SQLiteConnection( LoadConnectionString()))
             {
-                string sql = @"UPDATE PRODUCT SET PRODUCTNAME = @name," + 
+                string sql = @"UPDATE PRODUCT SET SKU = @sku, PRODUCTNAME = @name," + 
                     " COSTPRICE = @cost, LISTPRICE = @list, QUANTITY = @quantity," +
                     " DESCRIPTION = @description, UPDATEDON = datetime(CURRENT_TIMESTAMP, 'localtime')," +
                     " BRANDID = @brand, CATEGORYID = @category," +
@@ -203,6 +204,7 @@ namespace POSINV
 
                 cnn.Execute(sql, new
                 {
+                    sku = product.SKU,
                     name = product.ProductName,
                     cost = product.CostPrice,
                     list = product.ListPrice,
