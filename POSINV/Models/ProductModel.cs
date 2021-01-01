@@ -37,13 +37,14 @@ namespace POSINV
             {
                 return sku;
             }
-            set { if(value != sku)
+            set 
+            {
+                if(value != sku)
                 {
                     sku = value;
                     NotifyPropertyChanged();
                 }
-                        
-                        }
+            }
         }
 
         /// <summary>
