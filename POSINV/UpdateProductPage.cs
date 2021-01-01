@@ -79,6 +79,7 @@ namespace POSINV
         private void FillInputFields()
         {
             // Fill input fields with old product
+            textSKU.Text = Product.SKU;
             textName.Text = Product.ProductName;
             textCost.Text = Product.CostPrice.ToString();
             textList.Text = Product.ListPrice.ToString();
@@ -171,6 +172,12 @@ namespace POSINV
         {
             // Validates all product fields and return true
 
+            //SKU must not be empty
+            if (string.IsNullOrWhiteSpace(textSKU.Text))
+            {
+                return false;
+            }
+
             //ProductName must not be empty
             if (string.IsNullOrWhiteSpace(textName.Text))
             {
@@ -242,6 +249,7 @@ namespace POSINV
             ProductModel product = new ProductModel
             {
                 ProductId = Product.ProductId,
+                SKU = textSKU.Text.Trim(),
                 ProductName = textName.Text.Trim(),
                 CostPrice = decimal.Parse(textCost.Text),
                 ListPrice = decimal.Parse(textList.Text),
@@ -278,6 +286,7 @@ namespace POSINV
         private void CopyBackProperties(ProductModel product)
         {
             //Copies properties from updated to original
+            Product.SKU = product.SKU;
             Product.ProductName = product.ProductName;
             Product.CostPrice = product.CostPrice;
             Product.ListPrice = product.ListPrice;
