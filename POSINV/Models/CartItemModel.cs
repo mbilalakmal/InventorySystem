@@ -17,10 +17,7 @@ namespace POSINV.Models
         /// </summary>
         public int ProductId { get; set; }
 
-        /// <summary>
-        /// Unique name of the product
-        /// </summary>
-        public string ProductName { get; set; }
+        public string Description { get; set; }
         
         /// <summary>
         /// Cost price of a single product

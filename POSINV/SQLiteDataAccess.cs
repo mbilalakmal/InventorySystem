@@ -76,15 +76,13 @@ namespace POSINV
                 string idSql = @"SELECT SEQ FROM SQLITE_SEQUENCE WHERE NAME = @name";
 
                 string sql = @"INSERT INTO PRODUCT(" +
-                    "SKU, PRODUCTNAME, COSTPRICE, LISTPRICE, QUANTITY, DESCRIPTION, " +
+                    "COSTPRICE, LISTPRICE, QUANTITY, DESCRIPTION, " +
                     "UPDATEDON, BRANDID, CATEGORYID, PICTURE)" +
-                    " VALUES (@sku, @name, @cost, @list, @quantity, @description, " +
+                    " VALUES (@cost, @list, @quantity, @description, " +
                     "datetime(CURRENT_TIMESTAMP, 'localtime'), @brand, @category, @picture)";
 
                 cnn.Execute(sql, new
                 {
-                    sku = product.SKU,
-                    name = product.ProductName,
                     cost = product.CostPrice,
                     list = product.ListPrice,
                     quantity = product.Quantity,
@@ -196,7 +194,7 @@ namespace POSINV
         {
             using (IDbConnection cnn = new SQLiteConnection( LoadConnectionString()))
             {
-                string sql = @"UPDATE PRODUCT SET SKU = @sku, PRODUCTNAME = @name," + 
+                string sql = @"UPDATE PRODUCT SET" + 
                     " COSTPRICE = @cost, LISTPRICE = @list, QUANTITY = @quantity," +
                     " DESCRIPTION = @description, UPDATEDON = datetime(CURRENT_TIMESTAMP, 'localtime')," +
                     " BRANDID = @brand, CATEGORYID = @category," +
@@ -204,8 +202,6 @@ namespace POSINV
 
                 cnn.Execute(sql, new
                 {
-                    sku = product.SKU,
-                    name = product.ProductName,
                     cost = product.CostPrice,
                     list = product.ListPrice,
                     quantity = product.Quantity,
@@ -276,8 +272,8 @@ namespace POSINV
 
             string idSql = @"SELECT SEQ FROM SQLITE_SEQUENCE WHERE NAME = @name";
 
-            string itemSql = @"INSERT INTO SALEDETAIL(SALEID, PRODUCTID, PRODUCTNAME, UNITCOST, UNITPRICE, QUANTITY)" +
-                " VALUES (@sale, @productId, @productName, @unitCost, @unitPrice, @quantity)";
+            string itemSql = @"INSERT INTO SALEDETAIL(SALEID, PRODUCTID, DESCRIPTION, UNITCOST, UNITPRICE, QUANTITY)" +
+                " VALUES (@sale, @productId, @description, @unitCost, @unitPrice, @quantity)";
 
             string productSql = @"UPDATE PRODUCT SET QUANTITY = QUANTITY - @quantity WHERE PRODUCTID = @product";
 
@@ -298,7 +294,7 @@ namespace POSINV
                             cnn.Execute(itemSql, new {
                                 sale = saleId,
                                 productId = item.ProductId,
-                                productName = item.ProductName,
+                                description = item.Description,
                                 unitCost = item.UnitCost,
                                 unitPrice = item.UnitPrice,
                                 quantity = item.Quantity

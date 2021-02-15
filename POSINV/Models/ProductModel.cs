@@ -12,8 +12,6 @@ namespace POSINV
     public class ProductModel: INotifyPropertyChanged
     {
         //backing fields
-        private string sku;
-        private string productName;
         private decimal costPrice;
         private decimal listPrice;
         private int quantity;
@@ -27,44 +25,6 @@ namespace POSINV
         /// Unique integer ID
         /// </summary>
         public int ProductId { get; set; }
-
-        /// <summary>
-        /// Stock keeping unit for a product - Similar to barcode
-        /// </summary>
-        public string SKU
-        {
-            get
-            {
-                return sku;
-            }
-            set 
-            {
-                if(value != sku)
-                {
-                    sku = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Unique name for the product
-        /// </summary>
-        public string ProductName
-        {
-            get
-            {
-                return productName;
-            }
-            set
-            {
-                if (value != productName)
-                {
-                    productName = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
 
         /// <summary>
         /// Cost price of the product - Hidden from customer

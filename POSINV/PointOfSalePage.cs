@@ -205,7 +205,7 @@ namespace POSINV
                 cartItem = new CartItemModel
                 {
                     ProductId = product.ProductId,
-                    ProductName = product.ProductName,
+                    Description = product.Description,
                     UnitCost = product.CostPrice,
                     UnitPrice = product.ListPrice,
                     Quantity = int.TryParse(textQuantity.Text, out int number) ? number : 1
@@ -389,7 +389,7 @@ namespace POSINV
             foreach(var item in Cart)
             {
 
-                string product = item.ProductName,
+                string product = item.Description,
                     price = item.UnitPrice.ToString(),
                     qty = item.Quantity.ToString(),
                     amount = item.Amount.ToString();
@@ -607,7 +607,6 @@ namespace POSINV
             dataGridViewProduct.DataSource = new BindingList<ProductModel>(
                 Products.Where(
                     product =>
-                    product.ProductName.ToUpper().Contains(textSearchProduct.Text.ToUpper()) ||
                     product.BrandName.ToUpper().Contains(textSearchProduct.Text.ToUpper()) ||
                     product.CategoryName.ToUpper().Contains(textSearchProduct.Text.ToUpper())
                 ).ToList()
