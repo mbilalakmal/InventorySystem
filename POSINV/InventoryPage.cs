@@ -144,18 +144,6 @@ namespace POSINV
         {
             //Validates all product fields and return true
 
-            //SKU must not be empty
-            if(string.IsNullOrWhiteSpace(textSKU.Text))
-            {
-                return false;
-            }
-
-            //ProductName must not be empty
-            if ( string.IsNullOrWhiteSpace(textName.Text))
-            {
-                return false;
-            }
-
             //CostPrice must be a positive real number
             if (decimal.TryParse(textCost.Text, out decimal cost))
             {
@@ -220,8 +208,6 @@ namespace POSINV
 
             ProductModel product = new ProductModel
             {
-                ProductName = textName.Text.Trim(),
-                SKU = textSKU.Text.Trim(),
                 CostPrice = decimal.Parse(textCost.Text),
                 ListPrice = decimal.Parse(textList.Text),
                 Quantity = int.Parse(textQuantity.Text),
@@ -285,8 +271,6 @@ namespace POSINV
         {
             //Reset all input fields
 
-            textSKU.ResetText();
-            textName.ResetText();
             textCost.ResetText();
             textList.ResetText();
             textQuantity.ResetText();
@@ -340,7 +324,7 @@ namespace POSINV
         private void DeleteProduct(ProductModel product)
         {
             //Deletes given product from DB & list
-            if ( ConfirmDeleteItem(product.ProductName) == true )
+            if ( ConfirmDeleteItem(product.Description) == true )
             {
                 try
                 {
@@ -544,7 +528,6 @@ namespace POSINV
                 Products.
                 Where(
                     product =>
-                    product.ProductName.ToUpper().Contains(textSearchProduct.Text.ToUpper()) ||
                     product.BrandName.ToUpper().Contains(textSearchProduct.Text.ToUpper()) ||
                     product.CategoryName.ToUpper().Contains(textSearchProduct.Text.ToUpper())
                 ).ToList()
