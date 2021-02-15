@@ -637,6 +637,7 @@
             // 
             this.dataGridViewProduct.AllowUserToAddRows = false;
             this.dataGridViewProduct.AllowUserToDeleteRows = false;
+            this.dataGridViewProduct.AllowUserToOrderColumns = true;
             this.dataGridViewProduct.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));

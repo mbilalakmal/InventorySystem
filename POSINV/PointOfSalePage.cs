@@ -607,6 +607,7 @@ namespace POSINV
             dataGridViewProduct.DataSource = new BindingList<ProductModel>(
                 Products.Where(
                     product =>
+                    product.Description.ToUpper().Contains(textSearchProduct.Text.ToUpper()) ||
                     product.BrandName.ToUpper().Contains(textSearchProduct.Text.ToUpper()) ||
                     product.CategoryName.ToUpper().Contains(textSearchProduct.Text.ToUpper())
                 ).ToList()
