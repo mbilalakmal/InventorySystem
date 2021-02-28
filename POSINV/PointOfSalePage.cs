@@ -2,6 +2,7 @@
 using MaterialSkin.Controls;
 using POSINV.Models;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -15,10 +16,17 @@ namespace POSINV
 {
     public partial class PointOfSalePage : MaterialForm, INotifyPropertyChanged
     {
+        public BrandModel SelectedBrand { get; set; }
+        public CategoryModel SelectedCategory { get; set; }
+
         BindingList<SaleModel> Sales;
 
         BindingList<ProductModel> Products;
-        
+
+        List<BrandModel> Brands;
+
+        List<CategoryModel> Categories;
+
         BindingList<CartItemModel> Cart = new BindingList<CartItemModel>();
         
         private decimal subtotal;   //bind to labelSubtotalAmount
@@ -65,6 +73,13 @@ namespace POSINV
                 Primary.Teal500, Primary.Teal700, Primary.Teal100, Accent.Teal400, TextShade.WHITE
                 );
 
+
+            //Load brands
+            LoadBrandList();
+
+            //Load categories
+            LoadCategoryList();
+
             //Load products
             LoadProductList();
 
@@ -77,6 +92,44 @@ namespace POSINV
             //Load Previous Sales
             LoadSaleList();
             
+        }
+
+
+        private void LoadBrandList()
+        {
+            Brands = SQLiteDataAccess.LoadBrands();
+
+            //Display brands in combo box
+            WireUpBrandComboBox();
+
+        }
+
+        private void LoadCategoryList()
+        {
+            Categories = SQLiteDataAccess.LoadCategories();
+
+            //Display categories in combo box
+            WireUpCategoryComboBox();
+        }
+
+        private void WireUpBrandComboBox()
+        {
+            brandFilterComboBox.DataSource = null;
+            brandFilterComboBox.ValueMember = "brandId";
+            brandFilterComboBox.DisplayMember = "brandName";
+            brandFilterComboBox.DataSource = Brands;
+            // Don't select the first item by default
+            brandFilterComboBox.SelectedIndex = -1;
+        }
+
+        private void WireUpCategoryComboBox()
+        {
+            categoryFilterComboBox.DataSource = null;
+            categoryFilterComboBox.ValueMember = "categoryId";
+            categoryFilterComboBox.DisplayMember = "categoryName";
+            categoryFilterComboBox.DataSource = Categories;
+            // Don't select the first item by default
+            categoryFilterComboBox.SelectedIndex = -1;
         }
 
         //Bind Subtotal property to label
@@ -607,9 +660,14 @@ namespace POSINV
             dataGridViewProduct.DataSource = new BindingList<ProductModel>(
                 Products.Where(
                     product =>
+                    (
                     product.Description.ToUpper().Contains(textSearchProduct.Text.ToUpper()) ||
                     product.BrandName.ToUpper().Contains(textSearchProduct.Text.ToUpper()) ||
                     product.CategoryName.ToUpper().Contains(textSearchProduct.Text.ToUpper())
+                    )
+                    &&
+                    (SelectedBrand == null || product.BrandName == SelectedBrand.BrandName) &&
+                    (SelectedCategory == null || product.CategoryName == SelectedCategory.CategoryName)
                 ).ToList()
             );
 
@@ -629,6 +687,13 @@ namespace POSINV
         {
             //Reset Search Text
             textSearchProduct.ResetText();
+
+            //Reset SelectedBrand and SelectedCategory
+            brandFilterComboBox.SelectedIndex = -1;
+            categoryFilterComboBox.SelectedIndex = -1;
+            SelectedBrand = null;
+            SelectedCategory = null;
+            dataGridViewProduct.DataSource = Products;
         }
 
         private void btnSearchSale_Click(object sender, EventArgs e)
@@ -660,6 +725,70 @@ namespace POSINV
 
         }
 
+        private void brandFilterComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
 
+            BrandModel selectedBrand = (BrandModel)brandFilterComboBox.SelectedItem;
+
+            if (selectedBrand == default(BrandModel))
+            {
+                SelectedBrand = null;
+                dataGridViewProduct.DataSource = new BindingList<ProductModel>(
+                    Products.Where(
+                        product =>
+                        SelectedCategory == null || product.CategoryName == SelectedCategory.CategoryName
+                        ).ToList()
+                    );
+            }
+            else
+            {
+                SelectedBrand = selectedBrand;
+                dataGridViewProduct.DataSource = new BindingList<ProductModel>(
+                    Products.Where(
+                        product =>
+                        SelectedCategory == null ?
+                        product.BrandName == selectedBrand.BrandName
+                        :
+                        product.BrandName == selectedBrand.BrandName &&
+                        product.CategoryName == SelectedCategory.CategoryName
+                        ).ToList()
+                    );
+            }
+        }
+
+        private void categoryFilterComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            CategoryModel selectedCategory = (CategoryModel)categoryFilterComboBox.SelectedItem;
+
+            if (selectedCategory == default(CategoryModel))
+            {
+                SelectedCategory = null;
+                dataGridViewProduct.DataSource = new BindingList<ProductModel>(
+                    Products.Where(
+                        product =>
+                        SelectedBrand == null || product.BrandName == SelectedBrand.BrandName
+                        ).ToList()
+                    );
+            }
+            else
+            {
+                SelectedCategory = selectedCategory;
+                dataGridViewProduct.DataSource = new BindingList<ProductModel>(
+                    Products.Where(
+                        product =>
+                        SelectedBrand == null ?
+                        product.CategoryName == selectedCategory.CategoryName
+                        :
+                        product.CategoryName == selectedCategory.CategoryName &&
+                        product.BrandName == SelectedBrand.BrandName
+                        ).ToList()
+                    );
+            }
+        }
+
+        private void textSearchProduct_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

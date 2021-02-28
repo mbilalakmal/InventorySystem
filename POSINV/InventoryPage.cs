@@ -310,6 +310,13 @@ namespace POSINV
         {
             //Reset search text
             textSearchProduct.ResetText();
+
+            //Reset SelectedBrand and SelectedCategory
+            brandFilterComboBox.SelectedIndex = -1;
+            categoryFilterComboBox.SelectedIndex = -1;
+            SelectedBrand = null;
+            SelectedCategory = null;
+            dataGridViewProduct.DataSource = Products;
         }
 
         private void btnSearchBrand_Click(object sender, EventArgs e)
@@ -547,10 +554,14 @@ namespace POSINV
             dataGridViewProduct.DataSource = new BindingList<ProductModel>(
                 Products.
                 Where(
-                    product =>
+                    product =>(
                     product.Description.ToUpper().Contains(textSearchProduct.Text.ToUpper()) ||
                     product.BrandName.ToUpper().Contains(textSearchProduct.Text.ToUpper()) ||
                     product.CategoryName.ToUpper().Contains(textSearchProduct.Text.ToUpper())
+                    )
+                    &&
+                    (SelectedBrand == null || product.BrandName == SelectedBrand.BrandName) &&
+                    (SelectedCategory == null || product.CategoryName == SelectedCategory.CategoryName)
                 ).ToList()
             );
         }
@@ -603,15 +614,6 @@ namespace POSINV
                         ).ToList()
                     );
             }
-        }
-
-        private void btnFilterClear_Click(object sender, EventArgs e)
-        {
-            brandFilterComboBox.SelectedIndex = -1;
-            categoryFilterComboBox.SelectedIndex = -1;
-            SelectedBrand = null;
-            SelectedCategory = null;
-            dataGridViewProduct.DataSource = Products;
         }
 
         private void categoryFilterComboBox_SelectionChangeCommitted(object sender, EventArgs e)

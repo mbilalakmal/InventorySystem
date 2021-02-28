@@ -90,7 +90,6 @@
             this.materialDivider12 = new MaterialSkin.Controls.MaterialDivider();
             this.tabSManageCategory = new MaterialSkin.Controls.MaterialTabSelector();
             this.openFilePicture = new System.Windows.Forms.OpenFileDialog();
-            this.btnFilterClear = new MaterialSkin.Controls.MaterialFlatButton();
             this.mtcInventory.SuspendLayout();
             this.tabPageAddProduct.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureProduct)).BeginInit();
@@ -512,7 +511,6 @@
             // tabPageManageProduct
             // 
             this.tabPageManageProduct.BackColor = System.Drawing.Color.White;
-            this.tabPageManageProduct.Controls.Add(this.btnFilterClear);
             this.tabPageManageProduct.Controls.Add(this.materialLabel2);
             this.tabPageManageProduct.Controls.Add(this.categoryFilterComboBox);
             this.tabPageManageProduct.Controls.Add(this.materialLabel1);
@@ -1131,23 +1129,6 @@
     "; *.png;\"";
             this.openFilePicture.Title = "Select A Picture For The Product";
             // 
-            // btnFilterClear
-            // 
-            this.btnFilterClear.AutoSize = true;
-            this.btnFilterClear.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnFilterClear.Depth = 0;
-            this.btnFilterClear.Icon = null;
-            this.btnFilterClear.Location = new System.Drawing.Point(29, 212);
-            this.btnFilterClear.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.btnFilterClear.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnFilterClear.Name = "btnFilterClear";
-            this.btnFilterClear.Primary = false;
-            this.btnFilterClear.Size = new System.Drawing.Size(74, 36);
-            this.btnFilterClear.TabIndex = 28;
-            this.btnFilterClear.Text = "CLEAR";
-            this.btnFilterClear.UseVisualStyleBackColor = true;
-            this.btnFilterClear.Click += new System.EventHandler(this.btnFilterClear_Click);
-            // 
             // InventoryPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1243,6 +1224,5 @@
         private System.Windows.Forms.ComboBox brandFilterComboBox;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
         private System.Windows.Forms.ComboBox categoryFilterComboBox;
-        private MaterialSkin.Controls.MaterialFlatButton btnFilterClear;
     }
 }

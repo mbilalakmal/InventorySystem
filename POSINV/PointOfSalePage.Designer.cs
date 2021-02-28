@@ -32,8 +32,12 @@
             this.mtcSale = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPageAddSale = new System.Windows.Forms.TabPage();
             this.textMisc = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.categoryFilterComboBox = new System.Windows.Forms.ComboBox();
+            this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             this.labelMisc = new MaterialSkin.Controls.MaterialLabel();
             this.dataGridViewCart = new System.Windows.Forms.DataGridView();
+            this.brandFilterComboBox = new System.Windows.Forms.ComboBox();
+            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             this.btnRemoveFromCart = new MaterialSkin.Controls.MaterialFlatButton();
             this.btnCheckOut = new MaterialSkin.Controls.MaterialRaisedButton();
             this.labelSubTotalAmount = new MaterialSkin.Controls.MaterialLabel();
@@ -90,8 +94,12 @@
             // 
             this.tabPageAddSale.BackColor = System.Drawing.Color.White;
             this.tabPageAddSale.Controls.Add(this.textMisc);
+            this.tabPageAddSale.Controls.Add(this.categoryFilterComboBox);
+            this.tabPageAddSale.Controls.Add(this.materialLabel2);
             this.tabPageAddSale.Controls.Add(this.labelMisc);
             this.tabPageAddSale.Controls.Add(this.dataGridViewCart);
+            this.tabPageAddSale.Controls.Add(this.brandFilterComboBox);
+            this.tabPageAddSale.Controls.Add(this.materialLabel1);
             this.tabPageAddSale.Controls.Add(this.btnRemoveFromCart);
             this.tabPageAddSale.Controls.Add(this.btnCheckOut);
             this.tabPageAddSale.Controls.Add(this.labelSubTotalAmount);
@@ -108,9 +116,9 @@
             this.tabPageAddSale.Controls.Add(this.materialDivider1);
             this.tabPageAddSale.Controls.Add(this.tabSAddSale);
             this.tabPageAddSale.Location = new System.Drawing.Point(4, 25);
-            this.tabPageAddSale.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageAddSale.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageAddSale.Name = "tabPageAddSale";
-            this.tabPageAddSale.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageAddSale.Padding = new System.Windows.Forms.Padding(4);
             this.tabPageAddSale.Size = new System.Drawing.Size(1568, 712);
             this.tabPageAddSale.TabIndex = 0;
             this.tabPageAddSale.Text = "Add Sale";
@@ -121,7 +129,7 @@
             this.textMisc.Depth = 0;
             this.textMisc.Hint = "0";
             this.textMisc.Location = new System.Drawing.Point(905, 645);
-            this.textMisc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textMisc.Margin = new System.Windows.Forms.Padding(4);
             this.textMisc.MaxLength = 10;
             this.textMisc.MouseState = MaterialSkin.MouseState.HOVER;
             this.textMisc.Name = "textMisc";
@@ -135,6 +143,37 @@
             this.textMisc.Text = "0";
             this.textMisc.UseSystemPasswordChar = false;
             // 
+            // categoryFilterComboBox
+            // 
+            this.categoryFilterComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.categoryFilterComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.categoryFilterComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.categoryFilterComboBox.FormattingEnabled = true;
+            this.categoryFilterComboBox.Location = new System.Drawing.Point(209, 110);
+            this.categoryFilterComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.categoryFilterComboBox.Name = "categoryFilterComboBox";
+            this.categoryFilterComboBox.Size = new System.Drawing.Size(204, 24);
+            this.categoryFilterComboBox.TabIndex = 31;
+            this.categoryFilterComboBox.SelectionChangeCommitted += new System.EventHandler(this.categoryFilterComboBox_SelectionChangeCommitted);
+            // 
+            // materialLabel2
+            // 
+            this.materialLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.materialLabel2.AutoSize = true;
+            this.materialLabel2.Depth = 0;
+            this.materialLabel2.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel2.Location = new System.Drawing.Point(205, 78);
+            this.materialLabel2.Margin = new System.Windows.Forms.Padding(4);
+            this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel2.Name = "materialLabel2";
+            this.materialLabel2.Size = new System.Drawing.Size(85, 24);
+            this.materialLabel2.TabIndex = 32;
+            this.materialLabel2.Text = "Category";
+            this.materialLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // labelMisc
             // 
             this.labelMisc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -143,7 +182,7 @@
             this.labelMisc.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelMisc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.labelMisc.Location = new System.Drawing.Point(900, 614);
-            this.labelMisc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.labelMisc.Margin = new System.Windows.Forms.Padding(4);
             this.labelMisc.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelMisc.Name = "labelMisc";
             this.labelMisc.Size = new System.Drawing.Size(139, 24);
@@ -163,7 +202,7 @@
             this.dataGridViewCart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCart.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewCart.Location = new System.Drawing.Point(1083, 154);
-            this.dataGridViewCart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridViewCart.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewCart.MaximumSize = new System.Drawing.Size(533, 738);
             this.dataGridViewCart.MultiSelect = false;
             this.dataGridViewCart.Name = "dataGridViewCart";
@@ -174,6 +213,37 @@
             this.dataGridViewCart.TabIndex = 41;
             this.dataGridViewCart.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewCart_DataBindingComplete);
             // 
+            // brandFilterComboBox
+            // 
+            this.brandFilterComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.brandFilterComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.brandFilterComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.brandFilterComboBox.FormattingEnabled = true;
+            this.brandFilterComboBox.Location = new System.Drawing.Point(25, 110);
+            this.brandFilterComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.brandFilterComboBox.Name = "brandFilterComboBox";
+            this.brandFilterComboBox.Size = new System.Drawing.Size(172, 24);
+            this.brandFilterComboBox.TabIndex = 29;
+            this.brandFilterComboBox.SelectionChangeCommitted += new System.EventHandler(this.brandFilterComboBox_SelectionChangeCommitted);
+            // 
+            // materialLabel1
+            // 
+            this.materialLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.materialLabel1.AutoSize = true;
+            this.materialLabel1.Depth = 0;
+            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel1.Location = new System.Drawing.Point(21, 78);
+            this.materialLabel1.Margin = new System.Windows.Forms.Padding(4);
+            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel1.Name = "materialLabel1";
+            this.materialLabel1.Size = new System.Drawing.Size(59, 24);
+            this.materialLabel1.TabIndex = 30;
+            this.materialLabel1.Text = "Brand";
+            this.materialLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // btnRemoveFromCart
             // 
             this.btnRemoveFromCart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -181,7 +251,7 @@
             this.btnRemoveFromCart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRemoveFromCart.Depth = 0;
             this.btnRemoveFromCart.Icon = null;
-            this.btnRemoveFromCart.Location = new System.Drawing.Point(1396, 86);
+            this.btnRemoveFromCart.Location = new System.Drawing.Point(1355, 90);
             this.btnRemoveFromCart.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.btnRemoveFromCart.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnRemoveFromCart.Name = "btnRemoveFromCart";
@@ -199,8 +269,8 @@
             this.btnCheckOut.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnCheckOut.Depth = 0;
             this.btnCheckOut.Icon = null;
-            this.btnCheckOut.Location = new System.Drawing.Point(1451, 622);
-            this.btnCheckOut.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCheckOut.Location = new System.Drawing.Point(1429, 623);
+            this.btnCheckOut.Margin = new System.Windows.Forms.Padding(4);
             this.btnCheckOut.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCheckOut.Name = "btnCheckOut";
             this.btnCheckOut.Primary = true;
@@ -218,7 +288,7 @@
             this.labelSubTotalAmount.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelSubTotalAmount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.labelSubTotalAmount.Location = new System.Drawing.Point(1239, 635);
-            this.labelSubTotalAmount.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.labelSubTotalAmount.Margin = new System.Windows.Forms.Padding(4);
             this.labelSubTotalAmount.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelSubTotalAmount.Name = "labelSubTotalAmount";
             this.labelSubTotalAmount.Size = new System.Drawing.Size(48, 24);
@@ -234,7 +304,7 @@
             this.labelSubtotal.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelSubtotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.labelSubtotal.Location = new System.Drawing.Point(1139, 635);
-            this.labelSubtotal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.labelSubtotal.Margin = new System.Windows.Forms.Padding(4);
             this.labelSubtotal.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelSubtotal.Name = "labelSubtotal";
             this.labelSubtotal.Size = new System.Drawing.Size(85, 24);
@@ -250,7 +320,7 @@
             this.btnAddToCart.Depth = 0;
             this.btnAddToCart.Icon = null;
             this.btnAddToCart.Location = new System.Drawing.Point(835, 416);
-            this.btnAddToCart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAddToCart.Margin = new System.Windows.Forms.Padding(4);
             this.btnAddToCart.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnAddToCart.Name = "btnAddToCart";
             this.btnAddToCart.Primary = true;
@@ -266,7 +336,7 @@
             this.textQuantity.Depth = 0;
             this.textQuantity.Hint = "1";
             this.textQuantity.Location = new System.Drawing.Point(792, 380);
-            this.textQuantity.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textQuantity.Margin = new System.Windows.Forms.Padding(4);
             this.textQuantity.MaxLength = 10;
             this.textQuantity.MouseState = MaterialSkin.MouseState.HOVER;
             this.textQuantity.Name = "textQuantity";
@@ -288,7 +358,7 @@
             this.labelQuantity.Font = new System.Drawing.Font("Roboto", 11F);
             this.labelQuantity.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.labelQuantity.Location = new System.Drawing.Point(787, 350);
-            this.labelQuantity.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.labelQuantity.Margin = new System.Windows.Forms.Padding(4);
             this.labelQuantity.MouseState = MaterialSkin.MouseState.HOVER;
             this.labelQuantity.Name = "labelQuantity";
             this.labelQuantity.Size = new System.Drawing.Size(92, 24);
@@ -314,8 +384,8 @@
             this.textSearchProduct.Depth = 0;
             this.textSearchProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textSearchProduct.Hint = "Product Name";
-            this.textSearchProduct.Location = new System.Drawing.Point(429, 106);
-            this.textSearchProduct.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textSearchProduct.Location = new System.Drawing.Point(485, 106);
+            this.textSearchProduct.Margin = new System.Windows.Forms.Padding(4);
             this.textSearchProduct.MaxLength = 32767;
             this.textSearchProduct.MouseState = MaterialSkin.MouseState.HOVER;
             this.textSearchProduct.Name = "textSearchProduct";
@@ -323,10 +393,11 @@
             this.textSearchProduct.SelectedText = "";
             this.textSearchProduct.SelectionLength = 0;
             this.textSearchProduct.SelectionStart = 0;
-            this.textSearchProduct.Size = new System.Drawing.Size(247, 28);
+            this.textSearchProduct.Size = new System.Drawing.Size(192, 28);
             this.textSearchProduct.TabIndex = 27;
             this.textSearchProduct.TabStop = false;
             this.textSearchProduct.UseSystemPasswordChar = false;
+            this.textSearchProduct.Click += new System.EventHandler(this.textSearchProduct_Click);
             this.textSearchProduct.TextChanged += new System.EventHandler(this.textSearchProduct_TextChanged);
             // 
             // dataGridViewProduct
@@ -343,7 +414,7 @@
             this.dataGridViewProduct.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewProduct.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewProduct.Location = new System.Drawing.Point(21, 154);
-            this.dataGridViewProduct.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridViewProduct.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewProduct.MultiSelect = false;
             this.dataGridViewProduct.Name = "dataGridViewProduct";
             this.dataGridViewProduct.ReadOnly = true;
@@ -362,7 +433,7 @@
             this.btnSearchProduct.Depth = 0;
             this.btnSearchProduct.Icon = null;
             this.btnSearchProduct.Location = new System.Drawing.Point(709, 90);
-            this.btnSearchProduct.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSearchProduct.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearchProduct.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSearchProduct.Name = "btnSearchProduct";
             this.btnSearchProduct.Primary = true;
@@ -438,9 +509,9 @@
             this.tabPageManageSale.Controls.Add(this.materialDivider9);
             this.tabPageManageSale.Controls.Add(this.tabSManageSale);
             this.tabPageManageSale.Location = new System.Drawing.Point(4, 25);
-            this.tabPageManageSale.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageManageSale.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageManageSale.Name = "tabPageManageSale";
-            this.tabPageManageSale.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageManageSale.Padding = new System.Windows.Forms.Padding(4);
             this.tabPageManageSale.Size = new System.Drawing.Size(1568, 712);
             this.tabPageManageSale.TabIndex = 2;
             this.tabPageManageSale.Text = "Manage Sales";
@@ -488,7 +559,7 @@
             this.textSearchSale.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textSearchSale.Hint = "Sale ID";
             this.textSearchSale.Location = new System.Drawing.Point(1027, 101);
-            this.textSearchSale.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textSearchSale.Margin = new System.Windows.Forms.Padding(4);
             this.textSearchSale.MaxLength = 32767;
             this.textSearchSale.MouseState = MaterialSkin.MouseState.HOVER;
             this.textSearchSale.Name = "textSearchSale";
@@ -510,7 +581,7 @@
             this.btnSearchSale.Depth = 0;
             this.btnSearchSale.Icon = null;
             this.btnSearchSale.Location = new System.Drawing.Point(1306, 85);
-            this.btnSearchSale.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSearchSale.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearchSale.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSearchSale.Name = "btnSearchSale";
             this.btnSearchSale.Primary = true;
@@ -533,7 +604,7 @@
             this.dataGridViewSale.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewSale.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewSale.Location = new System.Drawing.Point(260, 167);
-            this.dataGridViewSale.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridViewSale.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewSale.MultiSelect = false;
             this.dataGridViewSale.Name = "dataGridViewSale";
             this.dataGridViewSale.ReadOnly = true;
@@ -548,7 +619,7 @@
             this.materialDivider7.Depth = 0;
             this.materialDivider7.Dock = System.Windows.Forms.DockStyle.Left;
             this.materialDivider7.Location = new System.Drawing.Point(4, 63);
-            this.materialDivider7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.materialDivider7.Margin = new System.Windows.Forms.Padding(4);
             this.materialDivider7.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialDivider7.Name = "materialDivider7";
             this.materialDivider7.Size = new System.Drawing.Size(13, 633);
@@ -561,7 +632,7 @@
             this.materialDivider8.Depth = 0;
             this.materialDivider8.Dock = System.Windows.Forms.DockStyle.Right;
             this.materialDivider8.Location = new System.Drawing.Point(1551, 63);
-            this.materialDivider8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.materialDivider8.Margin = new System.Windows.Forms.Padding(4);
             this.materialDivider8.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialDivider8.Name = "materialDivider8";
             this.materialDivider8.Size = new System.Drawing.Size(13, 633);
@@ -574,7 +645,7 @@
             this.materialDivider9.Depth = 0;
             this.materialDivider9.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.materialDivider9.Location = new System.Drawing.Point(4, 696);
-            this.materialDivider9.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.materialDivider9.Margin = new System.Windows.Forms.Padding(4);
             this.materialDivider9.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialDivider9.Name = "materialDivider9";
             this.materialDivider9.Size = new System.Drawing.Size(1560, 12);
@@ -602,7 +673,7 @@
             this.ClientSize = new System.Drawing.Size(1600, 831);
             this.Controls.Add(this.mtcSale);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(1280, 665);
             this.Name = "PointOfSalePage";
             this.ShowInTaskbar = false;
@@ -653,5 +724,9 @@
         private System.Windows.Forms.DataGridView dataGridViewCart;
         private MaterialSkin.Controls.MaterialSingleLineTextField textMisc;
         private MaterialSkin.Controls.MaterialLabel labelMisc;
+        private System.Windows.Forms.ComboBox categoryFilterComboBox;
+        private MaterialSkin.Controls.MaterialLabel materialLabel2;
+        private System.Windows.Forms.ComboBox brandFilterComboBox;
+        private MaterialSkin.Controls.MaterialLabel materialLabel1;
     }
 }
