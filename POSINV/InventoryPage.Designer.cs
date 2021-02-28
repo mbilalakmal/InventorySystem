@@ -54,6 +54,10 @@
             this.labelCost = new MaterialSkin.Controls.MaterialLabel();
             this.tabSAddProduct = new MaterialSkin.Controls.MaterialTabSelector();
             this.tabPageManageProduct = new System.Windows.Forms.TabPage();
+            this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
+            this.categoryFilterComboBox = new System.Windows.Forms.ComboBox();
+            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
+            this.brandFilterComboBox = new System.Windows.Forms.ComboBox();
             this.labelPreview = new MaterialSkin.Controls.MaterialLabel();
             this.pictureProductPreview = new System.Windows.Forms.PictureBox();
             this.btnUpdateProduct = new MaterialSkin.Controls.MaterialFlatButton();
@@ -86,6 +90,7 @@
             this.materialDivider12 = new MaterialSkin.Controls.MaterialDivider();
             this.tabSManageCategory = new MaterialSkin.Controls.MaterialTabSelector();
             this.openFilePicture = new System.Windows.Forms.OpenFileDialog();
+            this.btnFilterClear = new MaterialSkin.Controls.MaterialFlatButton();
             this.mtcInventory.SuspendLayout();
             this.tabPageAddProduct.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureProduct)).BeginInit();
@@ -507,6 +512,11 @@
             // tabPageManageProduct
             // 
             this.tabPageManageProduct.BackColor = System.Drawing.Color.White;
+            this.tabPageManageProduct.Controls.Add(this.btnFilterClear);
+            this.tabPageManageProduct.Controls.Add(this.materialLabel2);
+            this.tabPageManageProduct.Controls.Add(this.categoryFilterComboBox);
+            this.tabPageManageProduct.Controls.Add(this.materialLabel1);
+            this.tabPageManageProduct.Controls.Add(this.brandFilterComboBox);
             this.tabPageManageProduct.Controls.Add(this.labelPreview);
             this.tabPageManageProduct.Controls.Add(this.pictureProductPreview);
             this.tabPageManageProduct.Controls.Add(this.btnUpdateProduct);
@@ -525,6 +535,68 @@
             this.tabPageManageProduct.Size = new System.Drawing.Size(1248, 546);
             this.tabPageManageProduct.TabIndex = 1;
             this.tabPageManageProduct.Text = "Manage Products";
+            // 
+            // materialLabel2
+            // 
+            this.materialLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.materialLabel2.AutoSize = true;
+            this.materialLabel2.Depth = 0;
+            this.materialLabel2.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel2.Location = new System.Drawing.Point(26, 147);
+            this.materialLabel2.Margin = new System.Windows.Forms.Padding(4);
+            this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel2.Name = "materialLabel2";
+            this.materialLabel2.Size = new System.Drawing.Size(158, 24);
+            this.materialLabel2.TabIndex = 27;
+            this.materialLabel2.Text = "Filter by Category";
+            this.materialLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // categoryFilterComboBox
+            // 
+            this.categoryFilterComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.categoryFilterComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.categoryFilterComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.categoryFilterComboBox.FormattingEnabled = true;
+            this.categoryFilterComboBox.Location = new System.Drawing.Point(31, 178);
+            this.categoryFilterComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.categoryFilterComboBox.Name = "categoryFilterComboBox";
+            this.categoryFilterComboBox.Size = new System.Drawing.Size(204, 24);
+            this.categoryFilterComboBox.TabIndex = 26;
+            this.categoryFilterComboBox.SelectionChangeCommitted += new System.EventHandler(this.categoryFilterComboBox_SelectionChangeCommitted);
+            // 
+            // materialLabel1
+            // 
+            this.materialLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.materialLabel1.AutoSize = true;
+            this.materialLabel1.Depth = 0;
+            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel1.Location = new System.Drawing.Point(25, 85);
+            this.materialLabel1.Margin = new System.Windows.Forms.Padding(4);
+            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel1.Name = "materialLabel1";
+            this.materialLabel1.Size = new System.Drawing.Size(132, 24);
+            this.materialLabel1.TabIndex = 25;
+            this.materialLabel1.Text = "Filter by Brand";
+            this.materialLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // brandFilterComboBox
+            // 
+            this.brandFilterComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.brandFilterComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.brandFilterComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.brandFilterComboBox.FormattingEnabled = true;
+            this.brandFilterComboBox.Location = new System.Drawing.Point(30, 115);
+            this.brandFilterComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.brandFilterComboBox.Name = "brandFilterComboBox";
+            this.brandFilterComboBox.Size = new System.Drawing.Size(172, 24);
+            this.brandFilterComboBox.TabIndex = 24;
+            this.brandFilterComboBox.SelectionChangeCommitted += new System.EventHandler(this.brandFilterComboBox_SelectionChangeCommitted);
             // 
             // labelPreview
             // 
@@ -1059,6 +1131,23 @@
     "; *.png;\"";
             this.openFilePicture.Title = "Select A Picture For The Product";
             // 
+            // btnFilterClear
+            // 
+            this.btnFilterClear.AutoSize = true;
+            this.btnFilterClear.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnFilterClear.Depth = 0;
+            this.btnFilterClear.Icon = null;
+            this.btnFilterClear.Location = new System.Drawing.Point(29, 212);
+            this.btnFilterClear.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnFilterClear.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnFilterClear.Name = "btnFilterClear";
+            this.btnFilterClear.Primary = false;
+            this.btnFilterClear.Size = new System.Drawing.Size(74, 36);
+            this.btnFilterClear.TabIndex = 28;
+            this.btnFilterClear.Text = "CLEAR";
+            this.btnFilterClear.UseVisualStyleBackColor = true;
+            this.btnFilterClear.Click += new System.EventHandler(this.btnFilterClear_Click);
+            // 
             // InventoryPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1150,5 +1239,10 @@
         private MaterialSkin.Controls.MaterialFlatButton btnUpdateBrand;
         private System.Windows.Forms.PictureBox pictureProductPreview;
         private MaterialSkin.Controls.MaterialLabel labelPreview;
+        private MaterialSkin.Controls.MaterialLabel materialLabel1;
+        private System.Windows.Forms.ComboBox brandFilterComboBox;
+        private MaterialSkin.Controls.MaterialLabel materialLabel2;
+        private System.Windows.Forms.ComboBox categoryFilterComboBox;
+        private MaterialSkin.Controls.MaterialFlatButton btnFilterClear;
     }
 }

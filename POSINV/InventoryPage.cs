@@ -20,6 +20,9 @@ namespace POSINV
 
         List<CategoryModel> Categories;
 
+        public BrandModel SelectedBrand { get; set; }
+        public CategoryModel SelectedCategory { get; set; }
+
         /// <summary>
         /// This Form is for managing products, brands, and categories. All CRUD operations are available
         /// </summary>
@@ -85,6 +88,14 @@ namespace POSINV
             comboBrand.ValueMember = "brandId";
             comboBrand.DisplayMember = "brandName";
             comboBrand.DataSource = Brands;
+
+            // Also wire up the new filter combobox
+            brandFilterComboBox.DataSource = null;
+            brandFilterComboBox.ValueMember = "brandId";
+            brandFilterComboBox.DisplayMember = "brandName";
+            brandFilterComboBox.DataSource = Brands;
+            // Don't select the first item by default
+            brandFilterComboBox.SelectedIndex = -1;
         }
 
         private void WireUpBrandDataGridView()
@@ -110,6 +121,15 @@ namespace POSINV
             comboCategory.ValueMember = "categoryId";
             comboCategory.DisplayMember = "categoryName";
             comboCategory.DataSource = Categories;
+
+
+            // Also wire up the new filter combobox
+            categoryFilterComboBox.DataSource = null;
+            categoryFilterComboBox.ValueMember = "categoryId";
+            categoryFilterComboBox.DisplayMember = "categoryName";
+            categoryFilterComboBox.DataSource = Categories;
+            // Don't select the first item by default
+            categoryFilterComboBox.SelectedIndex = -1;
         }
 
         private void WireUpCategoryDataGridView()
@@ -555,6 +575,74 @@ namespace POSINV
             );
         }
 
+        private void brandFilterComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            BrandModel selectedBrand = (BrandModel)brandFilterComboBox.SelectedItem;
 
+            if(selectedBrand == default(BrandModel))
+            {
+                SelectedBrand = null;
+                dataGridViewProduct.DataSource = new BindingList<ProductModel>(
+                    Products.Where(
+                        product =>
+                        SelectedCategory == null || product.CategoryName == SelectedCategory.CategoryName
+                        ).ToList()
+                    );
+            }
+            else
+            {
+                SelectedBrand = selectedBrand;
+                dataGridViewProduct.DataSource = new BindingList<ProductModel>(
+                    Products.Where(
+                        product=>
+                        SelectedCategory==null?
+                        product.BrandName == selectedBrand.BrandName
+                        :
+                        product.BrandName == selectedBrand.BrandName &&
+                        product.CategoryName == SelectedCategory.CategoryName
+                        ).ToList()
+                    );
+            }
+        }
+
+        private void btnFilterClear_Click(object sender, EventArgs e)
+        {
+            brandFilterComboBox.SelectedIndex = -1;
+            categoryFilterComboBox.SelectedIndex = -1;
+            SelectedBrand = null;
+            SelectedCategory = null;
+            dataGridViewProduct.DataSource = Products;
+        }
+
+        private void categoryFilterComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+
+            CategoryModel selectedCategory = (CategoryModel)categoryFilterComboBox.SelectedItem;
+
+            if (selectedCategory == default(CategoryModel))
+            {
+                SelectedCategory = null;
+                dataGridViewProduct.DataSource = new BindingList<ProductModel>(
+                    Products.Where(
+                        product =>
+                        SelectedBrand == null || product.BrandName == SelectedBrand.BrandName
+                        ).ToList()
+                    );
+            }
+            else
+            {
+                SelectedCategory = selectedCategory;
+                dataGridViewProduct.DataSource = new BindingList<ProductModel>(
+                    Products.Where(
+                        product =>
+                        SelectedBrand == null ?
+                        product.CategoryName == selectedCategory.CategoryName
+                        :
+                        product.CategoryName == selectedCategory.CategoryName &&
+                        product.BrandName == SelectedBrand.BrandName
+                        ).ToList()
+                    );
+            }
+        }
     }
 }
